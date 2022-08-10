@@ -1,0 +1,49 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class MstCrew extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('mst_crew', function(Blueprint $table){
+            $table->string('id_crew')->primary();
+            $table->string('full_name');
+            $table->string('email');
+            $table->string('job_title');
+            $table->string('country');
+            $table->string('phone');
+            $table->string('whatsapp_phone');
+            $table->string('gender');
+            $table->string('status_merital');
+            $table->string('pob');
+            $table->date('dob');
+            $table->string('address');
+            $table->dateTimeTz('join_date');
+            $table->string('note');
+            $table->string('status');
+            $table->dateTimeTz('join_port');
+            $table->text('photo');
+            $table->timestampsTz();
+            $table->string('created_user');
+            $table->string('updated_user');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('mst_crew');
+    }
+}

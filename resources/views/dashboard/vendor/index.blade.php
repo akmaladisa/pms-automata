@@ -1,0 +1,95 @@
+@extends('layout.main')
+
+@section('container')
+
+    @include('sweetalert::alert')
+
+    <h2>Vendor List</h2>
+
+    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#addVendorModal">Add New</button>
+
+    <div class="table-responsive mt-3" id="shipContent">
+        <table class="table table-bordered table-hover table-striped mb-4">
+            <thead>
+                <tr>
+                    <th>Vendor ID</th>
+                    <th>Vendor NAME</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($vendors as $vendor)
+                    <tr>
+                        <td>{{ $vendor->vendor_id }}</td>
+                        <td>{{ $vendor->vendor_name }}</td>
+                        <td>{{ $vendor->status }}</td>
+                        <td>
+                            <a href="{{ route('vendors.show', $vendor->vendor_id) }}" class="btn btn-info btn-sm">
+                                <x-bi-eye-fill></x-bi-eye-fill>
+                            </a>
+        
+                            <a href="{{ route('vendors.edit', $vendor->vendor_id) }}" class="btn btn-warning btn-sm">
+                                <x-bi-pencil-square></x-bi-pencil-square>
+                            </a>
+        
+                            <a href="/change-status-vendor/{{ $vendor->vendor_id }}" class="btn btn-danger btn-sm">
+                                <x-bi-trash-fill></x-bi-trash-fill>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="addVendorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Vendor</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('vendors.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Vendor ID</label>
+                            <div class="col-sm-10">
+                                <input name="vendor_id" type="text" readonly value="{{ $vendorId }}" class="form-control" id="colFormLabel" placeholder="col-form-label">
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Vendor Name</label>
+                            <div class="col-sm-10">
+                                <input name="vendor_name" type="text" required class="form-control" id="colFormLabel" placeholder="Vendor Name" value="{{ old('vendor_name') }}">
+                            </div>
+                        </div>
+                
+                        <div class="input-group mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Status</label>
+                            <select class="form-control col-sm-3" name="status" required>
+                                <option value="ACT">ACT</option>
+                                <option value="DE">DE</option>
+                            </select>
+                        </div>
+                
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Created User</label>
+                            <div class="col-sm-10">
+                                <input name="created_user" type="text" readonly value="{{ auth()->user()->id_login }}" required class="form-control" id="colFormLabel" placeholder="col-form-label">
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-close" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
