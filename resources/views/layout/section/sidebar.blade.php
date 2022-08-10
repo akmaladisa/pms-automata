@@ -30,8 +30,8 @@
                     <li class="{{ Request::is('country*') ? 'active' : '' }}">
                         <a href="/country"> Country </a>
                     </li>
-                    <li class="{{ Request::is('main-group*') ? 'active' : '' }}">
-                        <a href="/main-group"> Main Group </a>
+                    <li class="{{ Request::is('identity-type*') ? 'active' : '' }}">
+                        <a href="/identity-type"> Identity Type </a>
                     </li>
                 </ul>
             </li>

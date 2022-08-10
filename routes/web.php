@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\CountryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartementController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\VendorController;
 
@@ -55,6 +53,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('country', CountryController::class);
     Route::get('/change-status-country/{id}', [CountryController::class, 'destroy'])->name('country.changestatus');
     // routing contry end
+
+    // routing identity-type
+    Route::resource('identity-type', JenisIdentitasController::class);
+    // routing identity-type end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
