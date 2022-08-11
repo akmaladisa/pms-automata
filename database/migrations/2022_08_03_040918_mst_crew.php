@@ -17,6 +17,8 @@ class MstCrew extends Migration
             $table->string('id_crew')->primary();
             $table->string('full_name');
             $table->string('email');
+            $table->string('identity_type');
+            $table->string('identity_number');
             $table->string('job_title');
             $table->string('country');
             $table->string('phone');
@@ -26,14 +28,14 @@ class MstCrew extends Migration
             $table->string('pob');
             $table->date('dob');
             $table->string('address');
-            $table->dateTimeTz('join_date');
+            $table->dateTime('join_date');
             $table->string('note');
             $table->string('status');
-            $table->dateTimeTz('join_port');
+            $table->dateTime('join_port');
             $table->text('photo');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

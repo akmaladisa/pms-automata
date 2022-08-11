@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CrewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
@@ -57,6 +58,11 @@ Route::middleware('auth')->group(function(){
     // routing identity-type
     Route::resource('identity-type', JenisIdentitasController::class);
     // routing identity-type end
+
+    //routing crew
+    Route::resource('crew', CrewController::class);
+    Route::get('/chage-status-crew/{id}', [CrewController::class, 'destroy']);
+    //routing crew end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
