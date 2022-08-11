@@ -68,7 +68,9 @@ class JenisIdentitasController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dashboard.identity_type.edit', [
+            'identity' => JenisIdentitas::find($id)
+        ]);
     }
 
     /**
@@ -80,7 +82,15 @@ class JenisIdentitasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $identity = $request->validate([
+            'name' => 'required'
+        ]);
+
+        JenisIdentitas::find($id)->update($identity);
+
+        alert()->success('Success', 'Identity Updated');
+
+        return redirect('/identity-type');
     }
 
     /**
