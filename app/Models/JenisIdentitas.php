@@ -11,4 +11,9 @@ class JenisIdentitas extends Model
     protected $table = 'jenis_identitas';
     protected $guarded  =['id'];
 
+
+    public function crew()
+    {
+        return $this->hasOne(Crew::class, 'identity_type');
+    }
 }

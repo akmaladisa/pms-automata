@@ -29,7 +29,7 @@
                 <select class="custom-select mb-4" name="identity_type" required>
                     <option  selected disabled>Identity Type</option>
                     @foreach ($identytiesType as $i)
-                        <option value="{{ $i->name }}">{{ $i->name }}</option>
+                        <option value="{{ $i->id }}">{{ $i->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -46,7 +46,7 @@
                 <select class="custom-select mb-4" name="country" required>
                     <option  selected disabled>Country</option>
                     @foreach ($countries as $country)
-                        <option value="{{ $country->country_nm }}">{{ $country->country_nm }}</option>
+                        <option value="{{ $country->id_country }}">{{ $country->country_nm }}</option>
                     @endforeach
                 </select>
             </div>

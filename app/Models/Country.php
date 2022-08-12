@@ -18,4 +18,9 @@ class Country extends Model
         return 'id_country';
     }
 
+    public function crew()
+    {
+        return $this->hasOne(Crew::class, 'country');
+    }
+
 }

@@ -59,7 +59,7 @@
                                     ID : {{ $crew->id_crew }}
                                 </li>
                                 <li class="list-group-item active">
-                                    Identity Type : {{ $crew->identity_type }}
+                                    Identity Type : {{ $crew->identity->name }}
                                 </li>
                                 <li class="list-group-item active">
                                     Identity Number : {{ $crew->identity_number }}
@@ -103,7 +103,7 @@
                                     Job Title : {{ $crew->job_title }}
                                 </li>
                                 <li class="list-group-item active">
-                                    Country : {{ $crew->country }}
+                                    Country : {{ $crew->crewCountry->country_nm }}
                                 </li>
                                 <li class="list-group-item active">
                                     Join Date : {{ $crew->join_date }}

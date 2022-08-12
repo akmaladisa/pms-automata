@@ -17,7 +17,7 @@ class MstCrew extends Migration
             $table->string('id_crew')->primary();
             $table->string('full_name');
             $table->string('email');
-            $table->string('identity_type');
+            $table->foreignId('identity_type');
             $table->string('identity_number');
             $table->string('job_title');
             $table->string('country');

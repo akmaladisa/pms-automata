@@ -30,7 +30,7 @@
                 <select class="custom-select mb-4" name="identity_type" required>
                     <option  selected disabled>Identity Type</option>
                     @foreach ($identytiesType as $i)
-                        <option  @if( $crew->identity_type == $i->name ) selected @endif value="{{ $i->name }}">{{ $i->name }}</option>
+                        <option  @if( $crew->identity->name == $i->name ) selected @endif value="{{ $i->id }}">{{ $i->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -47,7 +47,7 @@
                 <select class="custom-select mb-4" name="country" required>
                     <option  selected disabled>Country</option>
                     @foreach ($countries as $country)
-                        <option @if( $crew->country == $country->country_nm ) selected @endif value="{{ $country->country_nm }}">{{ $country->country_nm }}</option>
+                        <option @if( $crew->crewCountry->country_nm == $country->country_nm ) selected @endif value="{{ $country->id_country }}">{{ $country->country_nm }}</option>
                     @endforeach
                 </select>
             </div>

@@ -18,4 +18,14 @@ class Crew extends Model
     {
         return 'id_crew';
     }
+
+    public function identity()
+    {
+        return $this->belongsTo(JenisIdentitas::class, 'identity_type');
+    }
+
+    public function crewCountry()
+    {
+        return $this->belongsTo(Country::class, 'country');
+    }
 }
