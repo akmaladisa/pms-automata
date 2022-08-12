@@ -17,4 +17,5 @@ class Country extends Model
     {
         return 'id_country';
     }
+
 }

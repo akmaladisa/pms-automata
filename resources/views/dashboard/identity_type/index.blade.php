@@ -14,7 +14,7 @@
                 <table class="table table-bordered table-hover table-striped mb-4">
                     <thead>
                         <tr>
-                            <th>Identity ID</th>
+                            <th>No.</th>
                             <th>Identity</th>
                             <th>Action</th>
                         </tr>

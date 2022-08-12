@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function(){
 
     //routing crew
     Route::resource('crew', CrewController::class);
-    Route::get('/chage-status-crew/{id}', [CrewController::class, 'destroy']);
+    Route::get('/change-status-crew/{id}', [CrewController::class, 'destroy']);
     //routing crew end
 
     Route::get('/logout', [LoginController::class, 'logout']);

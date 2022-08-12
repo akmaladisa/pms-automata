@@ -10,4 +10,5 @@ class JenisIdentitas extends Model
     use HasFactory;
     protected $table = 'jenis_identitas';
     protected $guarded  =['id'];
+
 }
