@@ -36,6 +36,9 @@
                     <li class="{{ Request::is('crew*') ? 'active' : '' }}">
                         <a href="/crew"> Crew </a>
                     </li>
+                    <li class="{{ Request::is('ship-access*') ? 'active' : '' }}">
+                        <a href="/ship-access"> Ship Access </a>
+                    </li>
                 </ul>
             </li>
 
