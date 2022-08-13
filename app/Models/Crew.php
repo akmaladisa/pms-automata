@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\JenisIdentitas;
+use Database\Factories\CrewFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,5 +28,10 @@ class Crew extends Model
     public function crewCountry()
     {
         return $this->belongsTo(Country::class, 'country');
+    }
+
+    protected static function newFactory()
+    {
+        return CrewFactory::new();
     }
 }

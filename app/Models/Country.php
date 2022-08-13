@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\CountryFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Country extends Model
 {
@@ -23,4 +24,8 @@ class Country extends Model
         return $this->hasOne(Crew::class, 'country');
     }
 
+    protected static function newFactory()
+    {
+        return CountryFactory::new();
+    }
 }

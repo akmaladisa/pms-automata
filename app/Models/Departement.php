@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\DepartementFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Departement extends Model
 {
@@ -16,5 +17,10 @@ class Departement extends Model
     public function getRouteKeyName()
     {
         return 'departement_id';
+    }
+
+    protected static function newFactory()
+    {
+        return DepartementFactory::new();
     }
 }

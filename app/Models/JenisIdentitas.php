@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\JenisIdentitasFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,5 +16,10 @@ class JenisIdentitas extends Model
     public function crew()
     {
         return $this->hasOne(Crew::class, 'identity_type');
+    }
+
+    protected static function newFactory()
+    {
+        return JenisIdentitasFactory::new();
     }
 }

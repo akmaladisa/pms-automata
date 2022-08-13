@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\ShipFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ship extends Model
 {
@@ -15,5 +16,10 @@ class Ship extends Model
     public function getRouteKeyName()
     {
         return 'id_ship';
+    }
+
+    protected static function newFactory()
+    {
+        return ShipFactory::new();
     }
 }
