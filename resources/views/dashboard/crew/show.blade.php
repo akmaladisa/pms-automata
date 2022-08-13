@@ -39,7 +39,13 @@
                 <div class="tab-pane fade show active" id="justify-home" role="tabpanel" aria-labelledby="justify-home-tab">
                     <div class="row">
                         <div class="col-lg-3 col-sm-12">
-                            <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @if ( $crew->photo )
+                                <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @else
+                                <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @endif
                         </div>
                         <div class="col-lg-9 col-sm-12">
                             <ul class="list-group ">
@@ -73,7 +79,13 @@
                 <div class="tab-pane fade" id="justify-profile" role="tabpanel" aria-labelledby="justify-profile-tab">
                     <div class="row">
                         <div class="col-lg-3 col-sm-12">
-                            <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @if ( $crew->photo )
+                                <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @else
+                                <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @endif
                         </div>
                         <div class="col-lg-9 col-sm-12">
                             <ul class="list-group ">
@@ -95,7 +107,13 @@
                 <div class="tab-pane fade" id="justify-contact" role="tabpanel" aria-labelledby="justify-contact-tab">
                     <div class="row">
                         <div class="col-lg-3 col-sm-12">
-                            <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @if ( $crew->photo )
+                                <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                            @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @else
+                                <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                            @endif
                         </div>
                         <div class="col-lg-9 col-sm-12">
                             <ul class="list-group ">

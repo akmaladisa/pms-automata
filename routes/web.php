@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\JenisIdentitasController;
+use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\VendorController;
 
@@ -63,6 +64,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('crew', CrewController::class);
     Route::get('/change-status-crew/{id}', [CrewController::class, 'destroy']);
     //routing crew end
+
+    // ship access routing
+    Route::resource('ship-access', ShipAccessController::class);
+    // ship access routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

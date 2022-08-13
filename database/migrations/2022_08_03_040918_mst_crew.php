@@ -32,7 +32,7 @@ class MstCrew extends Migration
             $table->string('note');
             $table->string('status');
             $table->dateTime('join_port');
-            $table->text('photo');
+            $table->text('photo')->nullable();
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();
