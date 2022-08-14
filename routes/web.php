@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\JenisIdentitasController;
+use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\VendorController;
@@ -68,6 +69,10 @@ Route::middleware('auth')->group(function(){
     // ship access routing
     Route::resource('ship-access', ShipAccessController::class);
     // ship access routing end
+
+    // Main Group Routing
+    Route::resource('main-group', MainGroupController::class);
+    // Main Group Routing
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
