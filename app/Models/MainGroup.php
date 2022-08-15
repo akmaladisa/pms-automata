@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Group;
+use Database\Factories\MainGroupFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MainGroup extends Model
 {
@@ -17,5 +19,15 @@ class MainGroup extends Model
     public function getRouteKeyName()
     {
         return 'kode_barang';
+    }
+
+    public function group()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    protected static function newFactory()
+    {
+        return MainGroupFactory::new();
     }
 }

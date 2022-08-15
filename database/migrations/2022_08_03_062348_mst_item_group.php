@@ -14,13 +14,12 @@ class MstItemGroup extends Migration
     public function up()
     {
         Schema::create("mst_item_group", function(Blueprint $table){
-            $table->id();
-            $table->string('code_group');
-            $table->string('code_main_group');
+            $table->integer('code_group')->primary();
+            $table->integer('code_main_group');
             $table->string('group_name');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

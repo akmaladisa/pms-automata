@@ -5,6 +5,7 @@ use App\Http\Controllers\CrewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\ShipAccessController;
@@ -73,6 +74,10 @@ Route::middleware('auth')->group(function(){
     // Main Group Routing
     Route::resource('main-group', MainGroupController::class);
     // Main Group Routing
+
+    // Group Routing
+    Route::resource('group', GroupController::class);
+    // Group Routing END
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

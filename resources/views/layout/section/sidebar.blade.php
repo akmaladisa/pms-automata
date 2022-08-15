@@ -42,6 +42,9 @@
                     <li class="{{ Request::is('main-group*') ? 'active' : '' }}">
                         <a href="/main-group"> Main Group </a>
                     </li>
+                    <li class="{{ Request::is('group*') ? 'active' : '' }}">
+                        <a href="/group"> Group </a>
+                    </li>
                 </ul>
             </li>
 
