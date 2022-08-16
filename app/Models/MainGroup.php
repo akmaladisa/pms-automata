@@ -11,7 +11,7 @@ class MainGroup extends Model
 {
     use HasFactory;
     protected $table = 'mst_item_main_group';
-    protected $guarded = [''];
+    protected $guarded = [];
     protected $primaryKey = 'kode_barang';
     public $incrementing = false; 
 
@@ -23,7 +23,7 @@ class MainGroup extends Model
 
     public function group()
     {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class, 'code_main_group');
     }
 
     protected static function newFactory()

@@ -15,7 +15,7 @@ class JenisIdentitas extends Model
 
     public function crew()
     {
-        return $this->hasOne(Crew::class, 'identity_type');
+        return $this->hasMany(Crew::class, 'identity_type');
     }
 
     protected static function newFactory()

@@ -10,7 +10,7 @@ class Group extends Model
 {
     use HasFactory;
     protected $table = 'mst_item_group';
-    protected $guarded = [''];
+    protected $guarded = [];
     protected $primaryKey = 'code_group';
     public $incrementing = false; 
 
@@ -19,7 +19,7 @@ class Group extends Model
         return 'code_group';
     }
 
-    public function maingroup()
+    public function mainGroup()
     {
         return $this->belongsTo(MainGroup::class, 'code_main_group');
     }

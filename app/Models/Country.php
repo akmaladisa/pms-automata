@@ -21,7 +21,7 @@ class Country extends Model
 
     public function crew()
     {
-        return $this->hasOne(Crew::class, 'country');
+        return $this->hasMany(Crew::class, 'country');
     }
 
     protected static function newFactory()

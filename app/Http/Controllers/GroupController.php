@@ -64,8 +64,7 @@ class GroupController extends Controller
     public function show($id)
     {
         return view('dashboard.group.show', [
-            'group' => Group::find($id),
-            'mainGroup' => MainGroup::all()
+            'group' => Group::find($id)
         ]);
     }
 
@@ -77,7 +76,10 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dashboard.group.edit', [
+            'group' => Group::find($id),
+            'mainGroups' => MainGroup::all()
+        ]);
     }
 
     /**
@@ -89,7 +91,18 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $group = $request->validate([
+            'code_group' => "required|numeric|max:99|min:10",
+            'code_main_group' => "required|numeric|max:9|min:1",
+            'group_name' => 'required',
+            'updated_user' => 'required'
+        ]);
+
+        Group::find($id)->update($group);
+
+        alert()->success("Success", "Group Edited Successfully");
+
+        return redirect()->route('group.index');
     }
 
     /**
