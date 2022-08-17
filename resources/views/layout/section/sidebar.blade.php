@@ -48,6 +48,9 @@
                     <li class="{{ Request::is('sub-group*') ? 'active' : '' }}">
                         <a href="/sub-group">Sub Group </a>
                     </li>
+                    <li class="{{ Request::is('unit*') ? 'active' : '' }}">
+                        <a href="/unit">Unit </a>
+                    </li>
                 </ul>
             </li>
 

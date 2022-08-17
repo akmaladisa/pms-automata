@@ -14,15 +14,14 @@ class MstItemUnit extends Migration
     public function up()
     {
         Schema::create('mst_item_unit', function(Blueprint $table){
-            $table->id();
-            $table->string('code_unit');
-            $table->string('code_main_group');
-            $table->string('code_group');
-            $table->string('code_sub_group');
+            $table->string('code_unit')->primary();
+            $table->string('code_main_group')->unique();
+            $table->string('code_group')->unique();
+            $table->string('code_sub_group')->unique();
             $table->string('unit_name');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

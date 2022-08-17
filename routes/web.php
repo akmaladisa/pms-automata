@@ -11,6 +11,7 @@ use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\SubGroupController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
 
 /*
@@ -83,6 +84,10 @@ Route::middleware('auth')->group(function(){
     // sub group routing
     Route::resource('sub-group', SubGroupController::class);
     // sub group routing end
+
+    // unit routing
+    Route::resource('unit', UnitController::class);
+    // unit routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\SubGroupFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SubGroup extends Model
 {
@@ -27,5 +28,10 @@ class SubGroup extends Model
     public function mainGroup()
     {
         return $this->belongsTo(MainGroup::class, 'code_main_group');
+    }
+
+    protected static function newFactory()
+    {
+        return SubGroupFactory::new();
     }
 }

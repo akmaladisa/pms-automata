@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\MainGroup;
 use App\Models\Departement;
 use App\Models\JenisIdentitas;
+use App\Models\SubGroup;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         Crew::factory(10)->create();
         MainGroup::factory(8)->create();
         Group::factory(2)->create();
+        SubGroup::factory(2)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
