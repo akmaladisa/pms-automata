@@ -27,15 +27,15 @@
                                 <td>{{ $m->code_main_group }}</td>
                                 <td>{{ $m->main_group_name }}</td>
                                 <td>
-                                    <a href="{{ route('main-group.show', $m->kode_barang) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('main-group.show', $m->code_main_group) }}" class="btn btn-info btn-sm">
                                         <x-bi-eye-fill></x-bi-eye-fill>
                                     </a>
 
-                                    <a href="{{ route('main-group.edit', $m->kode_barang) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('main-group.edit', $m->code_main_group) }}" class="btn btn-warning btn-sm">
                                         <x-bi-pencil-square></x-bi-pencil-square>
                                     </a>
                 
-                                    <form action="{{ route('main-group.destroy', $m->kode_barang) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('main-group.destroy', $m->code_main_group) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger btn-sm">

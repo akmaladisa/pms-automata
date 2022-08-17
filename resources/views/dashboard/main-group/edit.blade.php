@@ -9,7 +9,7 @@
             <x-bi-arrow-left-circle-fill></x-bi-arrow-left-circle-fill>
         </a>
         
-        <form action="{{ route('main-group.update', $mainGroup->kode_barang) }}" method="POST">
+        <form action="{{ route('main-group.update', $mainGroup->code_main_group) }}" method="POST">
             @csrf
             @method('put')
             <div class="form-group row mb-4">

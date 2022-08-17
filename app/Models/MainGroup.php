@@ -12,13 +12,13 @@ class MainGroup extends Model
     use HasFactory;
     protected $table = 'mst_item_main_group';
     protected $guarded = [];
-    protected $primaryKey = 'kode_barang';
+    protected $primaryKey = 'code_main_group';
     public $incrementing = false; 
 
 
     public function getRouteKeyName()
     {
-        return 'kode_barang';
+        return 'code_main_group';
     }
 
     public function group()

@@ -14,8 +14,8 @@ class MstItemMainGroup extends Migration
     public function up()
     {
         Schema::create('mst_item_main_group', function(Blueprint $table){
-            $table->string('kode_barang')->primary();
-            $table->integer('code_main_group')->unique();
+            $table->string('kode_barang')->unique();
+            $table->integer('code_main_group')->primary();
             $table->string('main_group_name');
             $table->timestampsTz();
             $table->string('created_user');
