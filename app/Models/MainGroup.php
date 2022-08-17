@@ -26,6 +26,11 @@ class MainGroup extends Model
         return $this->hasMany(Group::class, 'code_main_group');
     }
 
+    public function subGroup()
+    {
+        return $this->hasMany(SubGroup::class, 'code_main_group');
+    }
+
     protected static function newFactory()
     {
         return MainGroupFactory::new();

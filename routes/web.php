@@ -10,6 +10,7 @@ use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
+use App\Http\Controllers\SubGroupController;
 use App\Http\Controllers\VendorController;
 
 /*
@@ -78,6 +79,10 @@ Route::middleware('auth')->group(function(){
     // Group Routing
     Route::resource('group', GroupController::class);
     // Group Routing END
+
+    // sub group routing
+    Route::resource('sub-group', SubGroupController::class);
+    // sub group routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
