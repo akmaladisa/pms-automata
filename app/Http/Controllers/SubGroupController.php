@@ -64,7 +64,9 @@ class SubGroupController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('dashboard.sub-group.show', [
+            'subGroup' => SubGroup::find($id)
+        ]);
     }
 
     /**
@@ -75,7 +77,11 @@ class SubGroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("dashboard.sub-group.edit", [
+            'mainGroups' => MainGroup::all(),
+            'groups' => Group::all(),
+            'subGroup' => SubGroup::find($id)
+        ]);
     }
 
     /**
@@ -87,7 +93,20 @@ class SubGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $subGroup = $request->validate([
+            'code_sub_group' => "required|numeric|min:100|max:999",
+            'code_main_group' => 'required|numeric|min:1|max:9',
+            'code_group' => "required|numeric|min:10|max:99",
+            'sub_group_name' => "required",
+            'updated_user' => "required"
+        ]);
+
+        if( SubGroup::find($id)->update($subGroup) ) {
+            alert()->success("Success", "Sub Group Updated Successfully");
+
+            return redirect()->route('sub-group.index');
+        }
+        
     }
 
     /**
@@ -98,6 +117,10 @@ class SubGroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        SubGroup::find($id)->delete();
+
+        alert()->success("Success", "Sub Group Deleted Successfully");
+
+        return redirect()->route('sub-group.index');
     }
 }
