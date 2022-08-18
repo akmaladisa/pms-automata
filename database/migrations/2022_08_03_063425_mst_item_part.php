@@ -14,7 +14,7 @@ class MstItemPart extends Migration
     public function up()
     {
         Schema::create('mst_item_part', function(Blueprint $table){
-            $table->string('code_part');
+            $table->string('code_part')->primary();
             $table->string('code_main_group');
             $table->string('code_group');
             $table->string('code_sub_group');
@@ -24,7 +24,7 @@ class MstItemPart extends Migration
             $table->boolean('is_deleted');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

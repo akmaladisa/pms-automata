@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Component;
 use App\Models\Crew;
+use App\Models\Part;
 use App\Models\Ship;
 use App\Models\Unit;
 use App\Models\Group;
 use App\Models\Vendor;
 use App\Models\Country;
 use App\Models\SubGroup;
+use App\Models\Component;
 use App\Models\MainGroup;
 use App\Models\Departement;
 use App\Models\JenisIdentitas;
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
         SubGroup::factory(2)->create();
         Unit::factory(2)->create();
         Component::factory(2)->create();
+        Part::factory(2)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
