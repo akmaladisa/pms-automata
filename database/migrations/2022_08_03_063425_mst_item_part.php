@@ -14,7 +14,6 @@ class MstItemPart extends Migration
     public function up()
     {
         Schema::create('mst_item_part', function(Blueprint $table){
-            $table->id();
             $table->string('code_part');
             $table->string('code_main_group');
             $table->string('code_group');

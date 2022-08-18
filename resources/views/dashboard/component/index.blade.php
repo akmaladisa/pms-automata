@@ -4,7 +4,7 @@
 
     @include('sweetalert::alert')
 
-    <h2>Compoenent List</h2>
+    <h2>Component List</h2>
 
     <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#addComponentModal">Add New</button>
 
@@ -41,13 +41,9 @@
                                         <x-bi-pencil-square></x-bi-pencil-square>
                                     </a>
                 
-                                    <form action="{{ route('component.destroy', $c->code_component) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <x-bi-trash-fill></x-bi-trash-fill>
-                                        </button>
-                                    </form>
+                                    <a href="{{ route('component.isDeleted', $c->code_component) }}" class="btn btn-danger btn-sm">
+                                        <x-bi-trash-fill></x-bi-trash-fill>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

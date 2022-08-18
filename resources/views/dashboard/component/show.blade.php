@@ -23,13 +23,10 @@
             <x-bi-pencil-square></x-bi-pencil-square>
         </a>
 
-        <form action="{{ route('component.destroy', $component->code_component) }}" method="POST" class="d-inline">
-            @csrf
-            @method('delete')
-            <button type="submit" class="btn btn-danger btn-sm">
-                <x-bi-trash-fill></x-bi-trash-fill>
-            </button>
-        </form>
+
+        <a href="{{ route('component.isDeleted', $component->code_component) }}" class="btn btn-danger btn-sm">
+            <x-bi-trash-fill></x-bi-trash-fill>
+        </a>
     </div>
 
 @endsection

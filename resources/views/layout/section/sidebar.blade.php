@@ -54,6 +54,9 @@
                     <li class="{{ Request::is('component*') ? 'active' : '' }}">
                         <a href="/component">Component </a>
                     </li>
+                    <li class="{{ Request::is('part*') ? 'active' : '' }}">
+                        <a href="/part">Part </a>
+                    </li>
                 </ul>
             </li>
 

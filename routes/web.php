@@ -9,6 +9,7 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
+use App\Http\Controllers\PartController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\SubGroupController;
@@ -92,7 +93,13 @@ Route::middleware('auth')->group(function(){
 
     // component routing
     Route::resource('component', ComponentController::class);
+    Route::get('component-is-deleted-to-true/{id}', [ComponentController::class, 'destroy'])->name('component.isDeleted');
     // component routing end
+
+    // part routing
+    Route::resource('part', PartController::class);
+    Route::get('part-is-deleted-to-true/{id}', [PartController::class, 'destroy'])->name('part.isDeleted');
+    // part routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Group;
 use App\Models\MainGroup;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Component extends Model
@@ -38,6 +39,11 @@ class Component extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'code_unit');
+    }
+
+    protected static function newFactory()
+    {
+        return ComponentFactory::new();
     }
 
 }

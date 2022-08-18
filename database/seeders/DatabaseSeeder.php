@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Component;
 use App\Models\Crew;
 use App\Models\Ship;
 use App\Models\Unit;
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         Group::factory(2)->create();
         SubGroup::factory(2)->create();
         Unit::factory(2)->create();
+        Component::factory(2)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

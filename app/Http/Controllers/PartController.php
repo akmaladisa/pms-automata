@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Component;
-use App\Models\Group;
-use App\Models\MainGroup;
-use App\Models\SubGroup;
+use App\Models\Part;
 use App\Models\Unit;
+use App\Models\Group;
+use App\Models\SubGroup;
+use App\Models\Component;
+use App\Models\MainGroup;
 use Illuminate\Http\Request;
 
-class ComponentController extends Controller
+class PartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +19,13 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        return view("dashboard.component.index", [
+        return view('dashboard.part.index', [
             'mainGroups' => MainGroup::all(),
             'groups' => Group::all(),
             'subGroups' => SubGroup::all(),
             'units' => Unit::all(),
-            'components' => Component::where('is_deleted',false)->get()
+            'components' => Component::where('is_deleted', false)->get(),
+            'parts' => Part::where('is_deleted', false)->get(),
         ]);
     }
 
@@ -45,21 +47,22 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
-        $component = $request->validate([
-            'code_component' => 'required|numeric|max:999999999|min:100000000',
+        $part = $request->validate([
+            'code_part' => 'required|numeric|max:999999999999|min:100000000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
-            'component_name' => 'required',
+            'code_component' => 'required|numeric|max:999999999|min:100000000',
+            'part_name' => 'required',
             'is_deleted' => 'required|boolean',
             'created_user' => 'required'
         ]);
 
-        if( Component::create($component) ) {
-            alert()->success("Success", "Component Created Successfully");
+        if( Part::create($part) ) {
+            alert()->success("Success", "Part Created Successfully");
 
-            return redirect()->route('component.index');
+            return redirect()->route('part.index');
         }
     }
 
@@ -71,8 +74,8 @@ class ComponentController extends Controller
      */
     public function show($id)
     {
-        return view("dashboard.component.show", [
-            'component' => Component::find($id),
+        return view("dashboard.part.show", [
+            'part' => Part::find($id)
         ]);
     }
 
@@ -84,12 +87,13 @@ class ComponentController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.component.edit', [
-            'component' => Component::find($id),
+        return view('dashboard.part.edit', [
+            'part' => Part::find($id),
             'mainGroups' => MainGroup::all(),
             'groups' => Group::all(),
             'subGroups' => SubGroup::all(),
             'units' => Unit::all(),
+            'components' => Component::where('is_deleted', false)->get(),
         ]);
     }
 
@@ -102,21 +106,22 @@ class ComponentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $component = $request->validate([
-            'code_component' => 'required|numeric|max:999999999|min:100000000',
+        $part = $request->validate([
+            'code_part' => 'required|numeric|max:999999999999|min:100000000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
-            'component_name' => 'required',
+            'code_component' => 'required|numeric|max:999999999|min:100000000',
+            'part_name' => 'required',
             'is_deleted' => 'required|boolean',
             'updated_user' => 'required'
         ]);
 
-        if( Component::find($id)->update($component) ) {
-            alert()->success("Success", "Component Updated Successfully");
+        if( Part::find($id)->update($part) ) {
+            alert()->success("Success", "Part Updated Successfully");
 
-            return redirect()->route('component.index');
+            return redirect()->route('part.index');
         }
     }
 
@@ -128,13 +133,12 @@ class ComponentController extends Controller
      */
     public function destroy($id)
     {
-        $component = Component::find($id);
+        $part = Part::find($id);
+        $part->is_deleted = true;
+        $part->save();
 
-        $component->is_deleted = 1;
-        $component->save();
+        alert()->success("Success", "Part Deleted Successfully");
 
-        alert()->success("Success", "Component Deleted Successfully");
-
-        return redirect()->route('component.index');
+        return redirect()->route('part.index');
     }
 }
