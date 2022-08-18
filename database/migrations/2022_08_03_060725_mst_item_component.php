@@ -23,7 +23,7 @@ class MstItemComponent extends Migration
             $table->boolean('is_deleted');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

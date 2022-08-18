@@ -8,7 +8,7 @@
     
     <h5 class="modal-title" id="shipNameShow">Name : {{ $unit->unit_name }}</h5>
 
-    <p>ID : {{ $unit->code_group }}</p>
+    <p>ID : {{ $unit->code_unit }}</p>
     <p>Main Group : {{ $unit->mainGroup->main_group_name ?? $unit->code_main_group }}</p>
     <p>Group : {{ $unit->group->group_name ?? $unit->code_group }}</p>
     <p>Sub Group : {{ $unit->subGroup->sub_group_name ?? $unit->code_sub_group }}</p>

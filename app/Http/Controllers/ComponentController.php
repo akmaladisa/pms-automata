@@ -23,7 +23,7 @@ class ComponentController extends Controller
             'groups' => Group::all(),
             'subGroups' => SubGroup::all(),
             'units' => Unit::all(),
-            'components' => Component::all()
+            'components' => Component::where('is_deleted',false)->get()
         ]);
     }
 
@@ -52,6 +52,7 @@ class ComponentController extends Controller
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
             'component_name' => 'required',
+            'is_deleted' => 'required|boolean',
             'created_user' => 'required'
         ]);
 
@@ -108,6 +109,7 @@ class ComponentController extends Controller
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
             'component_name' => 'required',
+            'is_deleted' => 'required|boolean',
             'updated_user' => 'required'
         ]);
 
