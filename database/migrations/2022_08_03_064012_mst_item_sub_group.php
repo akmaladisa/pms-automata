@@ -15,8 +15,8 @@ class MstItemSubGroup extends Migration
     {
         Schema::create('mst_item_sub_group', function(Blueprint $table){
             $table->string('code_sub_group')->primary();
-            $table->string('code_main_group')->unique();
-            $table->string('code_group')->unique();
+            $table->string('code_main_group');
+            $table->string('code_group');
             $table->string('sub_group_name');
             $table->timestampsTz();
             $table->string('created_user');

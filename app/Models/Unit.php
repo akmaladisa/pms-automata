@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\UnitFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
 {
@@ -31,6 +32,11 @@ class Unit extends Model
     public function mainGroup()
     {
         return $this->belongsTo(MainGroup::class, 'code_main_group');
+    }
+
+    protected static function newFactory()
+    {
+        return UnitFactory::new();
     }
 
 }

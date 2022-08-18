@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CrewController;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,10 @@ Route::middleware('auth')->group(function(){
     // unit routing
     Route::resource('unit', UnitController::class);
     // unit routing end
+
+    // component routing
+    Route::resource('component', ComponentController::class);
+    // component routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

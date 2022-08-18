@@ -15,9 +15,9 @@ class MstItemUnit extends Migration
     {
         Schema::create('mst_item_unit', function(Blueprint $table){
             $table->string('code_unit')->primary();
-            $table->string('code_main_group')->unique();
-            $table->string('code_group')->unique();
-            $table->string('code_sub_group')->unique();
+            $table->string('code_main_group');
+            $table->string('code_group');
+            $table->string('code_sub_group');
             $table->string('unit_name');
             $table->timestampsTz();
             $table->string('created_user');
