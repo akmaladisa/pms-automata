@@ -11,11 +11,6 @@ class CrewMedicalRecord extends Model
     protected $table = 'mst_crew_medical_record';
     protected $guarded = ['id'];
 
-    public function getRouteKeyName()
-    {
-        return 'id_crew';
-    }
-
     public function crew()
     {
         return $this->belongsTo(Crew::class, 'id_crew');

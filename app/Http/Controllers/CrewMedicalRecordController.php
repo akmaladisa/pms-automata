@@ -16,7 +16,8 @@ class CrewMedicalRecordController extends Controller
     public function index()
     {
         return view('dashboard.crew-medical-record.index', [
-            'crews' => Crew::where('status', 'ACT')->get()
+            'crews' => Crew::where('status', 'ACT')->get(),
+            'records' => CrewMedicalRecord::where('status', 'ACT')->get()
         ]);
     }
 
@@ -45,11 +46,12 @@ class CrewMedicalRecordController extends Controller
             'mcu_issued' => 'required',
             'mcu_expired' => 'required',
             'history_of_pain' => 'required',
+            'status' => 'required|max:3',
             'created_user' => 'required'
         ]);
 
         if( CrewMedicalRecord::create( $crew ) ) {
-            alert()->alert("Success", "Medical Record Created");
+            alert()->success("Success", "Medical Record Created");
 
             return redirect()->route('crew-medical-record.index');
         }
@@ -98,6 +100,7 @@ class CrewMedicalRecordController extends Controller
             'mcu_issued' => 'required',
             'mcu_expired' => 'required',
             'history_of_pain' => 'required',
+            'status' => 'required|max:3',
             'updated_user' => 'required'
         ]);
 
