@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\CrewMedicalRecordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
@@ -100,6 +101,11 @@ Route::middleware('auth')->group(function(){
     Route::resource('part', PartController::class);
     Route::get('part-is-deleted-to-true/{id}', [PartController::class, 'destroy'])->name('part.isDeleted');
     // part routing end
+
+    // crew medical record routing
+    Route::resource('crew-medical-record', CrewMedicalRecordController::class);
+    Route::get('change-status-crew-medical-record/{id}', [CrewMedicalRecordController::class, 'destroy'])->name('crew-medical-record.isDeleted');
+    // crew medical record routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

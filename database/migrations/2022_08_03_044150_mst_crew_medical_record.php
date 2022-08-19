@@ -19,12 +19,12 @@ class MstCrewMedicalRecord extends Migration
             $table->integer('height');
             $table->integer('weight');
             $table->string('mcu_issued');
-            $table->dateTimeTz('mcu_expired');
+            $table->dateTime('mcu_expired');
             $table->string('history_of_pain');
             $table->string('status');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 
