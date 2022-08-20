@@ -19,9 +19,9 @@ class MstCrewEducation extends Migration
             $table->string('instance_nm');
             $table->string('scan_certificate')->nullable();
             $table->string('more_information');
-            $table->string('status');
             $table->string('year_in');
             $table->string('year_out');
+            $table->string('status');
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();
