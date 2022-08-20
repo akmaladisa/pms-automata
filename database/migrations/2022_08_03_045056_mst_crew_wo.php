@@ -25,7 +25,7 @@ class MstCrewWo extends Migration
             $table->string('status');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 

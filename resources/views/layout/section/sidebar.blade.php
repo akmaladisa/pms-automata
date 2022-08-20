@@ -33,11 +33,14 @@
                     <li class="{{ Request::is('identity-type*') ? 'active' : '' }}">
                         <a href="/identity-type"> Identity Type </a>
                     </li>
-                    <li class="{{ Request::is('crew*') ? 'active' : '' }}">
+                    <li class="{{ Request::is('crew/*') || Request::is('crew') ? 'active' : '' }}">
                         <a href="/crew"> Crew </a>
                     </li>
                     <li class="{{ Request::is('crew-medical-record*') ? 'active' : '' }}">
                         <a href="/crew-medical-record"> Crew Medical Record </a>
+                    </li>
+                    <li class="{{ Request::is('crew-wo*') ? 'active' : '' }}">
+                        <a href="/crew-wo"> Crew WO </a>
                     </li>
                     <li class="{{ Request::is('ship-access*') ? 'active' : '' }}">
                         <a href="/ship-access"> Ship Access </a>
