@@ -42,6 +42,9 @@
                     <li class="{{ Request::is('crew-wo*') ? 'active' : '' }}">
                         <a href="/crew-wo"> Crew WO </a>
                     </li>
+                    <li class="{{ Request::is('crew-education*') ? 'active' : '' }}">
+                        <a href="/crew-education"> Crew Education </a>
+                    </li>
                     <li class="{{ Request::is('ship-access*') ? 'active' : '' }}">
                         <a href="/ship-access"> Ship Access </a>
                     </li>

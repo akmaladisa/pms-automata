@@ -4,6 +4,7 @@ use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\CrewEducationController;
 use App\Http\Controllers\CrewMedicalRecordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -112,6 +113,11 @@ Route::middleware('auth')->group(function(){
     Route::resource('crew-wo', Crew_WO_Controller::class);
     Route::get('change-status-crew-wo/{id}', [Crew_WO_Controller::class, 'destroy'])->name('crew-wo.isDeleted');
     // crew WO routing end
+
+    // crew education routing
+    Route::resource('crew-education', CrewEducationController::class);
+    Route::get('change-status-crew-education/{id}', [CrewEducationController::class, 'destroy'])->name('crew-education.isDeleted');
+    // crew education routing end
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });

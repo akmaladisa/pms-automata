@@ -24,7 +24,7 @@ class MstCrewEducation extends Migration
             $table->string('year_out');
             $table->timestampsTz();
             $table->string('created_user');
-            $table->string('updated_user');
+            $table->string('updated_user')->nullable();
         });
     }
 
