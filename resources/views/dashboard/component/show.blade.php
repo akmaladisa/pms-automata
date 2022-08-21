@@ -9,10 +9,10 @@
     <h5 class="modal-title" id="shipNameShow">Name : {{ $component->component_name }} @if($component->is_deleted) (deleted) @endif </h5>
 
     <p>ID : {{ $component->code_component }}</p>
-    <p>Main Group : {{ $component->mainGroup->main_group_name ?? $component->code_main_group }}</p>
-    <p>Group : {{ $component->group->group_name ?? $component->code_group }}</p>
-    <p>Sub Group : {{ $component->subGroup->sub_group_name ?? $component->code_sub_group }}</p>
-    <p>Unit : {{ $component->unit->unit_name ?? $component->code_unit }}</p>
+    <p>Main Group : {{ $component->mainGroup->main_group_name ?? $component->code_main_group }} <span>({{ $component->code_main_group }})</span></p>
+    <p>Group : {{ $component->group->group_name ?? $component->code_group }} <span>({{ $component->code_group }})</span></p>
+    <p>Sub Group : {{ $component->subGroup->sub_group_name ?? $component->code_sub_group }} <span>({{ $component->code_sub_group }})</span></p>
+    <p>Unit : {{ $component->unit->unit_name ?? $component->code_unit }} <span>({{ $component->code_unit }})</span></p>
     <p>Created At : {{ $component->created_at }}</p>
     <p>Updated At : {{ $component->updated_at }}</p>
     <p>Created By : {{ $component->created_user }}</p>

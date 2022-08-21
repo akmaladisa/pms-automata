@@ -9,11 +9,11 @@
     <h5 class="modal-title" id="shipNameShow">Name : {{ $part->part_name }} @if($part->is_deleted) (deleted) @endif </h5>
 
     <p>ID : {{ $part->code_part }}</p>
-    <p>Main Group : {{ $part->mainGroup->main_group_name ?? $part->code_main_group }}</p>
-    <p>Group : {{ $part->group->group_name ?? $part->code_group }}</p>
-    <p>Sub Group : {{ $part->subGroup->sub_group_name ?? $part->code_sub_group }}</p>
-    <p>Unit : {{ $part->unit->unit_name ?? $part->code_unit }}</p>
-    <p>Component : {{ $part->component->component_name ?? $part->code_component }}</p>
+    <p>Main Group : {{ $part->mainGroup->main_group_name ?? $part->code_main_group }} <span>({{ $part->code_main_group }})</span></p>
+    <p>Group : {{ $part->group->group_name ?? $part->code_group }} <span>({{ $part->code_group }})</span></p>
+    <p>Sub Group : {{ $part->subGroup->sub_group_name ?? $part->code_sub_group }} <span>({{ $part->code_sub_group }})</span></p>
+    <p>Unit : {{ $part->unit->unit_name ?? $part->code_unit }} <span>({{ $part->code_unit }})</span></p>
+    <p>Component : {{ $part->component->component_name ?? $part->code_component }} <span>({{ $part->code_component }})</span></p>
     <p>Created At : {{ $part->created_at }}</p>
     <p>Updated At : {{ $part->updated_at }}</p>
     <p>Created By : {{ $part->created_user }}</p>

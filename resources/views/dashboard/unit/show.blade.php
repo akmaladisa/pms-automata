@@ -9,9 +9,9 @@
     <h5 class="modal-title" id="shipNameShow">Name : {{ $unit->unit_name }}</h5>
 
     <p>ID : {{ $unit->code_unit }}</p>
-    <p>Main Group : {{ $unit->mainGroup->main_group_name ?? $unit->code_main_group }}</p>
-    <p>Group : {{ $unit->group->group_name ?? $unit->code_group }}</p>
-    <p>Sub Group : {{ $unit->subGroup->sub_group_name ?? $unit->code_sub_group }}</p>
+    <p>Main Group : {{ $unit->mainGroup->main_group_name ?? $unit->code_main_group }} <span>({{ $unit->code_main_group }})</span></p>
+    <p>Group : {{ $unit->group->group_name ?? $unit->code_group }} <span>({{ $unit->code_group }})</span></p>
+    <p>Sub Group : {{ $unit->subGroup->sub_group_name ?? $unit->code_sub_group }} <span>({{ $unit->code_sub_group }})</span></p>
     <p>Created At : {{ $unit->created_at }}</p>
     <p>Updated At : {{ $unit->updated_at }}</p>
     <p>Created By : {{ $unit->created_user }}</p>
