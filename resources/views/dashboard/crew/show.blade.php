@@ -6,7 +6,7 @@
 
 @section('container')
     <div class="row">
-        <div class="col-10">
+        <div class="col-10 pb-5">
             <div>
                 <a href="{{ route('crew.index') }}" class="btn btn-secondary mb-3 btn-sm">
                     <x-bi-arrow-left-circle-fill></x-bi-arrow-left-circle-fill>

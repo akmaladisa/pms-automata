@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function(){
 
     //routing crew
     Route::resource('crew', CrewController::class);
+    Route::get('read-crew', [CrewController::class, 'read']);
     Route::get('/change-status-crew/{id}', [CrewController::class, 'destroy']);
     //routing crew end
 

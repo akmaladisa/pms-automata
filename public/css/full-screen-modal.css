@@ -1,0 +1,59 @@
+﻿/* input[readonly] {
+    background-color: #f3dcac !important;
+    color: #000;
+} */
+
+.modal.modal-fullscreen .modal-dialog {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+}
+
+.modal.modal-fullscreen .modal-content {
+    height: auto;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+}
+
+.modal.modal-fullscreen .modal-body {
+    overflow-y: auto;
+}
+
+ul.table-controls {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.table-controls li {
+    list-style: none;
+    display: inline;
+}
+
+.swal2-icon.swal2-warning, .swal2-icon.swal2-succes, .swal2-icon.swal2-error {
+    font-size: 10px !important;
+    line-height: 50px !important;
+}
+
+.card-header {
+    color: #000 !important;
+}
+
+/* .table > thead > tr > th {
+    color: #000 !important;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+} */
+
+/* .form-group label, label {
+    font-size: 14px !important;
+    color: #262728 !important;
+} */
+
+input.form-control {
+    height: calc(1.4em + 1rem + 1px) !important;
+}

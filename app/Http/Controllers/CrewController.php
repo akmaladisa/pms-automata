@@ -19,7 +19,15 @@ class CrewController extends Controller
     public function index()
     {
         return view('dashboard.crew.index', [
-            'crew' => Crew::where('status', 'ACT')->get()
+            'crew' => Crew::where('status', 'ACT')->get(),
+            'crewId' => IdGenerator::generate([
+                'table' => 'mst_crew',
+                'length' => 8,
+                'field' => 'id_crew',
+                'prefix' => 'CR' 
+            ]),
+            'countries' => Country::all(),
+            'identytiesType' => JenisIdentitas::all()
         ]);
     }
 
@@ -50,7 +58,42 @@ class CrewController extends Controller
      */
     public function store(Request $request)
     {
-        $crew = $request->validate([
+        // $crew = $request->validate([
+        //     'id_crew' => "required",
+        //     'full_name' => 'required',
+        //     'email' => 'required|email',
+        //     'identity_type' => 'required',
+        //     'identity_number' => 'required',
+        //     'job_title' => 'required',
+        //     'country' => 'required',
+        //     'phone' => "required",
+        //     'whatsapp_phone' => 'required',
+        //     'gender' => 'required',
+        //     'status_merital' => 'required',
+        //     'pob' => 'required',
+        //     'dob' => 'required',
+        //     'address' => 'required',
+        //     'join_date' => 'required',
+        //     'note' => 'required',
+        //     'status' => 'required|max:3',
+        //     'join_port' => 'required',
+        //     'photo' => 'image|file',
+        //     'created_user' => 'required'
+        // ]);
+
+        // if( $request->file('photo') ) {
+        //     $crew['photo'] = $request->file('photo')->store('crew-img');
+        // }
+
+        // Crew::create($crew);
+
+        // alert()->success("Success", "Crew Added Successfully");
+
+        // return redirect()->route('crew.index');
+
+        // ----STORING DATA WITH AJAX TEST
+
+        $request->validate([
             'id_crew' => "required",
             'full_name' => 'required',
             'email' => 'required|email',
@@ -73,15 +116,53 @@ class CrewController extends Controller
             'created_user' => 'required'
         ]);
 
+        // $crew = new Crew();
+        $crew['id_crew'] = $request->id_crew;
+        $crew['full_name'] = $request->full_name;
+        $crew['email'] = $request->email;
+        $crew['identity_type'] = $request->identity_type;
+        $crew['identity_number'] = $request->identity_number;
+        $crew['job_title'] = $request->job_title;
+        $crew['country'] = $request->country;
+        $crew['phone'] = $request->phone;
+        $crew['whatsapp_phone'] = $request->whatsapp_phone;
+        $crew['gender'] = $request->gender;
+        $crew['status_merital'] = $request->status_merital;
+        $crew['pob'] = $request->pob;
+        $crew['dob'] = $request->dob;
+        $crew['address'] = $request->address;
+        $crew['join_date'] = $request->join_date;
+        $crew['note'] = $request->note;
+        $crew['status'] = $request->status;
+        $crew['join_port'] = $request->join_port;
+
         if( $request->file('photo') ) {
             $crew['photo'] = $request->file('photo')->store('crew-img');
         }
 
-        Crew::create($crew);
+        $crew['created_user'] = $request->created_user;
 
-        alert()->success("Success", "Crew Added Successfully");
+        // $crew->save();
+        Crew::insert($crew);
 
+        // return response()->json(['status' => 200]);
+        alert()->success("Succcess", "Crew Added Successfully");
         return redirect()->route('crew.index');
+
+
+        // return response()->json([
+        //     'status' => true,
+        //     'redirect_url' => url('crew')
+        // ]);
+
+        // ----STORING DATA WITH AJAX TEST
+    }
+
+    public function read()
+    {
+        return view('dashboard.crew.read', [
+            'crews' => Crew::where('status', 'ACT')->get()
+        ]);
     }
 
     /**
