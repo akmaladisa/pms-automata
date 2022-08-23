@@ -13,8 +13,21 @@
     {{-- <a class="btn btn-dark mt-3" href="{{ route('crew.create') }}">Add New</a> --}}
     <button data-toggle="modal" data-target="#fullScreenModal" class="btn btn-dark mt-3">Add New</button>
 
-    <div class="table-responsive mt-3" id="shipContent">
-        
+    <div class="table-responsive mt-3" id="crewContent">
+        <table class="table table-bordered table-hover table-striped mb-4">
+            <thead>
+                <tr>
+                    <th>Crew ID</th>
+                    <th>Name</th>
+                    <th>Job Title</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
     </div>
 
     {{-- modal crew --}}
@@ -32,8 +45,8 @@
                         <h2 style="font-size: 18px"><x-bi-person-fill class="fs-2 mb-1"></x-bi-person-fill> General Information</h2>
                         <div class="row">
                             <div class="col-md-4">
-                                <form id="crewAddForm" enctype="multipart/form-data" method="POST">
-                                {{-- @csrf --}}
+                                <form id="crewAddForm" action="{{ route('crew.index') }}" enctype="multipart/form-data" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label for="formGroupExampleInput">Crew ID</label>
                                     <input type="text" lang="en" class="form-control form-control-sm" id="txtIdCrew" value="{{ $crewId }}" aria-describedby="txtIdCrew" placeholder="Crew ID" name="id_crew" required readonly>
@@ -198,12 +211,32 @@
                     <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
                     <button class="btn btn-primary" id="btnCreate" type="submit" lang="en">Save changes</button>
                     </form>
-                    <meta name="csrf-token" content="{{ csrf_token() }}">
                 </div>
             </div>
         </div>
     </div>
     {{-- modal crew end --}}
+
+    {{-- modal show crew --}}
+    <div class="modal animated modal-fullscreen fade" id="modalShowCrew" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="padding:2rem">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Show Crew</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="contentShowCrew">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal show crew end --}}
 
 
 @endsection
@@ -212,95 +245,15 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function(){
-            read()
+            fetchCrew()
+    
 
-            
-            $('#crewAddForm').submit( function(event) {
-                event.preventDefault();
-                
-                $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                });
+            $('#btn-edit-crew').click(function(e){
+                e.preventDefault();
 
-                let id_crew = $('#txtIdCrew').val();
-                let full_name = $('#txtFullName').val();
-                let email = $('#txtEmail').val();
-                let identity_type = $('#txtIdentityType').val();
-                let identity_number = $('#txtIdentityNumber').val();
-                let job_title = $('#txtJobTitle').val();
-                let country = $('#txtCountry').val();
-                let phone = $('#txtPhone').val();
-                let whatsapp_phone = $('#txtWhatsapp').val();
-                let gender = $('#txtGender').val();
-                let status_merital = $('#txtStatusMerital').val();
-                let pob = $('#txtPob').val();
-                let dob = $('#txtDob').val();
-                let address = $('#txtAddress').val();
-                let join_date = $('#txtJoinDate').val();
-                let note = $('#txtNote').val();
-                let status = $('#txtStatus').val();
-                let join_port = $('#txtJoinPort').val();
-                let photo = $('#filePhoto').val();
-                let created_user = $("#txtCreatedUser").val();
-
-                let formData = new FormData( $('#crewAddForm')[0] );
-
-                $.ajax({
-                    type: "post",
-                    url: "/crew",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    // data: {
-                    //     // _token: '{{ csrf_token() }}',
-                    //     id_crew: id_crew,
-                    //     full_name: full_name,
-                    //     email: email,
-                    //     identity_type: identity_type,
-                    //     identity_number: identity_number,
-                    //     job_title: job_title,
-                    //     country: country,
-                    //     phone: phone,
-                    //     whatsapp_phone: whatsapp_phone,
-                    //     gender: gender,
-                    //     status_merital: status_merital,
-                    //     pob: pob,
-                    //     dob: dob,
-                    //     address: address,
-                    //     join_date: join_date,
-                    //     note: note,
-                    //     status: status,
-                    //     join_port: join_port,
-                    //     photo: photo,
-                    //     created_user: created_user,
-                    // },
-                    success:  function(response) {
-                        if (response.status == 400) {
-                            $("#closeFormModal").click();
-                            Swal.fire(
-                                'Error',
-                                'Failed To Add Crew',
-                                'error',
-                            )
-                            read();
-                        }
-                        else if( response.status == 200 ) {
-                            $("#closeFormModal").click();
-                            Swal.fire(
-                                'Success',
-                                `${response.message}`,
-                                'success'
-                            )
-                            $('#crewAddForm').trigger("reset")
-                            read()
-                        }
-                    },
-                }
-                )
-            } )
-
+                let crew_id = $(this).val();
+                alert(crew_id)
+            })
 
         })
 
@@ -310,12 +263,39 @@
             document.getElementById('imgCrew').style.display = 'block'
         }
 
-        function read() {
-            $.get("{{ url('read-crew') }}", {}, function(data, status) {
-                $("#shipContent").html(data)
+        function fetchCrew() {
+            $.ajax({
+                type: "get",
+                url: "/read-crew",
+                dataType: "json",
+                success: function (response) {
+                    $('tbody').html('');
+                    $.each(response.crews, function (key, crew) { 
+                        $('tbody').append(`
+                        <tr>
+                            <td>${crew.id_crew}</td>
+                            <td>${crew.full_name}</td>
+                            <td>${crew.job_title}</td>
+                            <td>${crew.status}</td>
+                            <td>
+                                <a href="#" class="btn btn-show-crew btn-info btn-sm" title="show">
+                                    <x-bi-eye-fill></x-bi-eye-fill>
+                                </a>
+            
+                                <button type="button" value="${crew.crew_id}" class="btn btn-edit-crew btn-warning btn-sm">
+                                    <x-bi-pencil-square></x-bi-pencil-square>
+                                </button>
+            
+                                <button type="button" value="${crew.crew_id}" class="btn btn-delete-crew btn-danger btn-sm">
+                                    <x-bi-trash-fill></x-bi-trash-fill>
+                                </button>
+                            </td>
+                        </tr>
+                        `)
+                    });
+                }
             });
         }
-
 
     </script>
 @endsection

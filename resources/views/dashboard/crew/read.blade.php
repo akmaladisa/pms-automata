@@ -16,13 +16,13 @@
                 <td>{{ $c->job_title }}</td>
                 <td>{{ $c->status }}</td>
                 <td>
-                    <a href="{{ route('crew.show', $c->id_crew) }}" class="btn btn-info btn-sm">
+                    <a href="{{ route('crew.show', $c->id_crew) }}" class="btn btn-show-crew btn-info btn-sm" title="show">
                         <x-bi-eye-fill></x-bi-eye-fill>
                     </a>
 
-                    <a href="{{ route('crew.edit', $c->id_crew) }}" class="btn btn-warning btn-sm">
+                    <button type="button" value="{{ $c->id_crew }}" class="btn btn-edit-crew btn-warning btn-sm">
                         <x-bi-pencil-square></x-bi-pencil-square>
-                    </a>
+                    </button>
 
                     <a href="/change-status-crew/{{ $c->id_crew }}" class="btn btn-danger btn-sm">
                         <x-bi-trash-fill></x-bi-trash-fill>
