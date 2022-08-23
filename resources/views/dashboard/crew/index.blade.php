@@ -334,9 +334,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="imgCrew" lang="en">Photo</label>
-                                    <img style="display: none" class="img-4" id="imgCrew" width="250" height="200" style="cursor:pointer" />
+                                    <img style="display: none" class="img-4" id="imgCrewEdit" width="250" height="200" style="cursor:pointer" />
                                     <div class="cImage">
-                                        <input type="file" onchange="preview()" id="filePhotoEdit" name="photo">
+                                        <input type="file" onchange="previewEdit()" id="filePhotoEdit" name="photo">
                                         <input id="txtUpdatedUser" type="hidden" name="updated_user" value="{{ auth()->user()->id_login }}">
                                     </div>
                                 </div>
@@ -362,6 +362,11 @@
     <script>
         $(document).ready(function(){
             fetchCrew()
+
+            // reset input image, when edit modal is closed
+            $("#modalEditCrew").on("hidden.bs.modal", function () {
+                $("#filePhotoEdit").val("")
+            });
     
 
             $(document).on('click', '.btn-edit-crew', function (e) {
@@ -395,6 +400,29 @@
                         {
                             $('#txtIdCrewEdit').val(crew_id)
                             $("#txtFullNameEdit").val(response.crew.full_name)
+                            $("#txtEmailEdit").val(response.crew.email)
+                            $("#txtIdentityTypeEdit").val(response.crew.identity_type)
+                            $("#txtIdentityNumberEdit").val(response.crew.identity_number)
+                            $("#txtJobTitleEdit").val(response.crew.job_title)
+                            $("#txtCountryEdit").val(response.crew.country)
+                            $("#txtPhoneEdit").val(response.crew.phone)
+                            $("#txtWhatsappEdit").val(response.crew.whatsapp_phone)
+                            $("#txtGenderEdit").val(response.crew.gender)
+                            $("#txtStatusMeritalEdit").val(response.crew.status_merital)
+                            $("#txtPobEdit").val(response.crew.pob)
+                            $("#txtDobEdit").val(response.crew.dob)
+                            $("#txtAddressEdit").val(response.crew.address)
+                            $("#txtJoinDateEdit").val(response.crew.join_date)
+                            $("#txtNoteEdit").val(response.crew.note)
+                            $('#txtStatusEdit').val(response.crew.status)
+                            $("#txtJoinPortEdit").val(response.crew.join_port)
+
+                            if( response.crew.photo ) {
+                                $("#imgCrewEdit").css('display', 'block');
+                                $("#imgCrewEdit").attr("src", `/storage/${response.crew.photo}`)
+                            } else {
+                                $("#imgCrewEdit").css('display', 'none');
+                            }
                         }
                     }
                 });
@@ -406,6 +434,11 @@
         function preview() {
             document.getElementById('imgCrew').src = URL.createObjectURL(event.target.files[0]);
             document.getElementById('imgCrew').style.display = 'block'
+        }
+
+        function previewEdit() {
+            document.getElementById('imgCrewEdit').src = URL.createObjectURL(event.target.files[0]);
+            document.getElementById('imgCrewEdit').style.display = 'block'
         }
 
         function fetchCrew() {
