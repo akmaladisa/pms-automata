@@ -32,8 +32,8 @@
                         <h2 style="font-size: 18px"><x-bi-person-fill class="fs-2 mb-1"></x-bi-person-fill> General Information</h2>
                         <div class="row">
                             <div class="col-md-4">
-                                <form onsubmit="addCrew(e)" enctype="multipart/form-data" method="POST">
-                                @csrf
+                                <form id="crewAddForm" enctype="multipart/form-data" method="POST">
+                                {{-- @csrf --}}
                                 <div class="form-group">
                                     <label for="formGroupExampleInput">Crew ID</label>
                                     <input type="text" lang="en" class="form-control form-control-sm" id="txtIdCrew" value="{{ $crewId }}" aria-describedby="txtIdCrew" placeholder="Crew ID" name="id_crew" required readonly>
@@ -198,6 +198,7 @@
                     <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
                     <button class="btn btn-primary" id="btnCreate" type="submit" lang="en">Save changes</button>
                     </form>
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                 </div>
             </div>
         </div>
@@ -212,13 +213,97 @@
     <script>
         $(document).ready(function(){
             read()
+
+            
+            $('#crewAddForm').submit( function(event) {
+                event.preventDefault();
+                
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+
+                let id_crew = $('#txtIdCrew').val();
+                let full_name = $('#txtFullName').val();
+                let email = $('#txtEmail').val();
+                let identity_type = $('#txtIdentityType').val();
+                let identity_number = $('#txtIdentityNumber').val();
+                let job_title = $('#txtJobTitle').val();
+                let country = $('#txtCountry').val();
+                let phone = $('#txtPhone').val();
+                let whatsapp_phone = $('#txtWhatsapp').val();
+                let gender = $('#txtGender').val();
+                let status_merital = $('#txtStatusMerital').val();
+                let pob = $('#txtPob').val();
+                let dob = $('#txtDob').val();
+                let address = $('#txtAddress').val();
+                let join_date = $('#txtJoinDate').val();
+                let note = $('#txtNote').val();
+                let status = $('#txtStatus').val();
+                let join_port = $('#txtJoinPort').val();
+                let photo = $('#filePhoto').val();
+                let created_user = $("#txtCreatedUser").val();
+
+                let formData = new FormData( $('#crewAddForm')[0] );
+
+                $.ajax({
+                    type: "post",
+                    url: "/crew",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    // data: {
+                    //     // _token: '{{ csrf_token() }}',
+                    //     id_crew: id_crew,
+                    //     full_name: full_name,
+                    //     email: email,
+                    //     identity_type: identity_type,
+                    //     identity_number: identity_number,
+                    //     job_title: job_title,
+                    //     country: country,
+                    //     phone: phone,
+                    //     whatsapp_phone: whatsapp_phone,
+                    //     gender: gender,
+                    //     status_merital: status_merital,
+                    //     pob: pob,
+                    //     dob: dob,
+                    //     address: address,
+                    //     join_date: join_date,
+                    //     note: note,
+                    //     status: status,
+                    //     join_port: join_port,
+                    //     photo: photo,
+                    //     created_user: created_user,
+                    // },
+                    success:  function(response) {
+                        if (response.status == 400) {
+                            $("#closeFormModal").click();
+                            Swal.fire(
+                                'Error',
+                                'Failed To Add Crew',
+                                'error',
+                            )
+                            read();
+                        }
+                        else if( response.status == 200 ) {
+                            $("#closeFormModal").click();
+                            Swal.fire(
+                                'Success',
+                                `${response.message}`,
+                                'success'
+                            )
+                            $('#crewAddForm').trigger("reset")
+                            read()
+                        }
+                    },
+                }
+                )
+            } )
+
+
         })
 
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
         function preview() {
             document.getElementById('imgCrew').src = URL.createObjectURL(event.target.files[0]);
@@ -231,70 +316,6 @@
             });
         }
 
-        function addCrew(e) {
-            e.preventDefault();
-
-            let id_crew = $('#txtIdCrew').val();
-            let full_name = $('#txtFullName').val();
-            let email = $('#txtEmail').val();
-            let identity_type = $('#txtIdentityType').val();
-            let identity_number = $('#txtIdentityNumber').val();
-            let job_title = $('#txtJobTitle').val();
-            let country = $('#txtCountry').val();
-            let phone = $('#txtPhone').val();
-            let whatsapp_phone = $('#txtWhatsapp').val();
-            let gender = $('#txtGender').val();
-            let status_merital = $('#txtStatusMerital').val();
-            let pob = $('#txtPob').val();
-            let dob = $('#txtDob').val();
-            let address = $('#txtAddress').val();
-            let join_date = $('#txtJoinDate').val();
-            let note = $('#txtNote').val();
-            let status = $('#txtStatus').val();
-            let join_port = $('#txtJoinPort').val();
-            let photo = $('#filePhoto').val();
-            let created_user = $("#txtCreatedUser").val();
-
-            $.ajax({
-                type: "post",
-                url: "/crew",
-                data: {
-                    // _token: '{{ csrf_token() }}',
-                    id_crew: id_crew,
-                    full_name: full_name,
-                    email: email,
-                    identity_type: identity_type,
-                    identity_number: identity_number,
-                    job_title: job_title,
-                    country: country,
-                    phone: phone,
-                    whatsapp_phone: whatsapp_phone,
-                    gender: gender,
-                    status_merital: status_merital,
-                    pob: pob,
-                    dob: dob,
-                    address: address,
-                    join_date: join_date,
-                    note: note,
-                    status: status,
-                    join_port: join_port,
-                    photo: photo,
-                    created_user: created_user,
-                },
-                success:  function(response) {
-                    if (response.status == 200) {
-                        $("#closeFormModal").click();
-                        Swal.fire(
-                            'Added!',
-                            'Crew Added Successfully!',
-                            'success'
-                        );
-                        read();
-                    }
-                },
-            }
-            );
-        }
 
     </script>
 @endsection

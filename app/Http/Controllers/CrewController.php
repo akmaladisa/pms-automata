@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
 use App\Models\Crew;
-use App\Models\JenisIdentitas;
+use App\Models\Country;
 use Illuminate\Http\Request;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\JenisIdentitas;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class CrewController extends Controller
 {
@@ -93,7 +94,7 @@ class CrewController extends Controller
 
         // ----STORING DATA WITH AJAX TEST
 
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'id_crew' => "required",
             'full_name' => 'required',
             'email' => 'required|email',
@@ -116,44 +117,77 @@ class CrewController extends Controller
             'created_user' => 'required'
         ]);
 
-        // $crew = new Crew();
-        $crew['id_crew'] = $request->id_crew;
-        $crew['full_name'] = $request->full_name;
-        $crew['email'] = $request->email;
-        $crew['identity_type'] = $request->identity_type;
-        $crew['identity_number'] = $request->identity_number;
-        $crew['job_title'] = $request->job_title;
-        $crew['country'] = $request->country;
-        $crew['phone'] = $request->phone;
-        $crew['whatsapp_phone'] = $request->whatsapp_phone;
-        $crew['gender'] = $request->gender;
-        $crew['status_merital'] = $request->status_merital;
-        $crew['pob'] = $request->pob;
-        $crew['dob'] = $request->dob;
-        $crew['address'] = $request->address;
-        $crew['join_date'] = $request->join_date;
-        $crew['note'] = $request->note;
-        $crew['status'] = $request->status;
-        $crew['join_port'] = $request->join_port;
+        if( $validator->fails() )
+        {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator
+            ]);
+        }
+        else
+        {
+            $crew = new Crew();
+            $crew->id_crew = $request->id_crew;
+            $crew->full_name = $request->full_name;
+            $crew->email = $request->email;
+            $crew->identity_type = $request->identity_type;
+            $crew->identity_number = $request->identity_number;
+            $crew->job_title = $request->job_title;
+            $crew->country = $request->country;
+            $crew->phone = $request->phone;
+            $crew->whatsapp_phone = $request->whatsapp_phone;
+            $crew->gender = $request->gender;
+            $crew->status_merital = $request->status_merital;
+            $crew->pob = $request->pob;
+            $crew->dob = $request->dob;
+            $crew->address = $request->address;
+            $crew->join_date = $request->join_date;
+            $crew->note = $request->note;
+            $crew->status = $request->status;
+            $crew->join_port = $request->join_port;
 
-        if( $request->file('photo') ) {
-            $crew['photo'] = $request->file('photo')->store('crew-img');
+            if( $request->file('photo') ) {
+                $crew->photo = $request->file('photo')->store('crew-img');
+            }
+
+            $crew->created_user = $request->created_user;
+
+            $crew->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Added Successfully'
+            ]);
         }
 
-        $crew['created_user'] = $request->created_user;
+        // $crew['id_crew'] = $request->id_crew;
+        // $crew['full_name'] = $request->full_name;
+        // $crew['email'] = $request->email;
+        // $crew['identity_type'] = $request->identity_type;
+        // $crew['identity_number'] = $request->identity_number;
+        // $crew['job_title'] = $request->job_title;
+        // $crew['country'] = $request->country;
+        // $crew['phone'] = $request->phone;
+        // $crew['whatsapp_phone'] = $request->whatsapp_phone;
+        // $crew['gender'] = $request->gender;
+        // $crew['status_merital'] = $request->status_merital;
+        // $crew['pob'] = $request->pob;
+        // $crew['dob'] = $request->dob;
+        // $crew['address'] = $request->address;
+        // $crew['join_date'] = $request->join_date;
+        // $crew['note'] = $request->note;
+        // $crew['status'] = $request->status;
+        // $crew['join_port'] = $request->join_port;
 
-        // $crew->save();
-        Crew::insert($crew);
+        // if( $request->file('photo') ) {
+        //     $crew['photo'] = $request->file('photo')->store('crew-img');
+        // }
+
+        // $crew['created_user'] = $request->created_user;
+
+        // Crew::insert($crew);
 
         // return response()->json(['status' => 200]);
-        alert()->success("Succcess", "Crew Added Successfully");
-        return redirect()->route('crew.index');
-
-
-        // return response()->json([
-        //     'status' => true,
-        //     'redirect_url' => url('crew')
-        // ]);
 
         // ----STORING DATA WITH AJAX TEST
     }
