@@ -140,9 +140,21 @@ class CrewController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.crew.show', [
-            'crew' => Crew::find($id)
-        ]);
+        $crew = Crew::find($id);
+        if($crew)
+        {
+            return response()->json([
+                'status' => 200,
+                'crew' => $crew
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Not Found'
+            ]);
+        }
     }
 
     /**
@@ -153,11 +165,21 @@ class CrewController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.crew.edit', [
-            'crew' => Crew::find($id),
-            'countries' => Country::all(),
-            'identytiesType' => JenisIdentitas::all()
-        ]);
+        $crew = Crew::find($id);
+        if($crew)
+        {
+            return response()->json([
+                'status' => 200,
+                'crew' => $crew
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Not Found'
+            ]);
+        }
     }
 
     /**
