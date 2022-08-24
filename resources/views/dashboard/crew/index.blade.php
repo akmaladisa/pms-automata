@@ -375,6 +375,7 @@
             });
     
 
+            // edit crew
             $(document).on('click', '.btn-edit-crew', function (e) {
                 e.preventDefault();
 
@@ -428,6 +429,55 @@
                 });
             });
 
+            // delete crew
+            $(document).on('click', '.btn-delete-crew', function (e) {
+                e.preventDefault()
+
+                let crew_id = $(this).val()
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "The Crew Status Will Change To 'DE'",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "get",
+                        url:`/change-status-crew/${crew_id}`,
+                        success: function (response) {
+                            if( response.status == 404 ) {
+                                Swal.fire(
+                                    'Not Found',
+                                    `${response.message}`,
+                                    'error'
+                                )
+                                fetchCrew()
+                            } else if( response.status == 400 ) {
+                                Swal.fire(
+                                    'Error!',
+                                    'Error To Delete Crew',
+                                    'error'
+                                )
+                                fetchCrew()
+                            } else if( response.status == 200 ) {
+                                Swal.fire(
+                                    'Success!',
+                                    `${response.message}`,
+                                    'success'
+                                )
+                                fetchCrew()
+                            }
+                        }
+                    });
+                }
+                })
+            });
+
+            // update crew
             $(document).on('submit', '#crewUpdateForm', function (e) {
                 e.preventDefault()
 

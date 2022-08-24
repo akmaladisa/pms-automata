@@ -268,42 +268,6 @@ class CrewController extends Controller
                 ]);
             }
         }
-
-        // $crewNew = $request->validate([
-        //     'id_crew' => "required",
-        //     'full_name' => 'required',
-        //     'email' => 'required|email',
-        //     'identity_type' => 'required',
-        //     'identity_number' => 'required',
-        //     'job_title' => 'required',
-        //     'country' => 'required',
-        //     'phone' => "required",
-        //     'whatsapp_phone' => 'required',
-        //     'gender' => 'required',
-        //     'status_merital' => 'required',
-        //     'pob' => 'required',
-        //     'dob' => 'required',
-        //     'address' => 'required',
-        //     'join_date' => 'required',
-        //     'note' => 'required',
-        //     'status' => 'required|max:3',
-        //     'join_port' => 'required',
-        //     'photo' => 'image|file',
-        //     'updated_user' => 'required'
-        // ]);
-
-        // $crew = Crew::find($id);
-
-        // if( $request->file('photo') ) {
-        //     Storage::delete( $crew->photo );
-        //     $crewNew['photo'] = $request->file('photo')->store('crew-img');
-        // }
-
-        // $crew->update($crewNew);
-
-        // alert()->success("Success", "Crew Updated Successfully");
-
-        // return redirect()->route('crew.index');
     }
 
     /**
@@ -314,14 +278,61 @@ class CrewController extends Controller
      */
     public function destroy($id)
     {
+
         $crew = Crew::find($id);
 
-        $crew->status = "DE";
+        if( $crew )
+        {
+            $crew->status = "DE";
+            $crew->save();
 
-        $crew->save();
+            return response()->json([
+                'status' => 200,
+                'message' => "Crew Has Been Deleted",
+                'crew' => $crew
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Not Found'
+            ]);
+        }
+        // $validator = Validator::make( $request->all(), [
+        //     'id_crew' => "required",
+        // ] );
 
-        alert()->success("Success", "Crew Status Changed To 'DE'");
+        // if( $validator->fails() )
+        // {
+        //     return response()->json([
+        //         'status' => 400,
+        //         'errors' => $validator
+        //     ]);
+        // }
+        // else
+        // {
+        //     $crew = Crew::find($id);
 
-        return redirect()->route('crew.index');
+        //     if( $crew )
+        //     {
+        //         $crew->status = "DE";
+        //         $crew->save();
+
+        //         return response()->json([
+        //             'status' => 200,
+        //             'message' => 'Crew Has Been Deleted',
+        //             'crew' => $crew
+        //         ]);
+        //     }
+        //     else
+        //     {
+        //         return response()->json([
+        //             'status' => 404,
+        //             'message' => 'Crew Not Found'
+        //         ]);
+        //     }
+
+        // }
     }
 }
