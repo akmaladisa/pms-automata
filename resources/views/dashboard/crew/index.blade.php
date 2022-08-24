@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('css')
+    <link href="/css/components/custom-list-group.css" rel="stylesheet" type="text/css">
     <link href="/css/full-screen-modal.css" rel="stylesheet" type="text/css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -354,6 +355,154 @@
     </div>
     {{-- modal edit crew end --}}
 
+    {{-- modal show crew --}}
+    <div class="modal animated modal-fullscreen fade" id="modalShowCrew" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="padding:2rem">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Show Crew</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="contentShowCrew">
+                    <fieldset>
+                        <h2 style="font-size: 18px"><x-bi-person-fill class="fs-2 mb-1"></x-bi-person-fill> General Information</h2>
+                        <div class="row">
+                            <div class="col-10 pb-5">                    
+                                <ul class="nav nav-tabs  mb-3 mt-3 nav-fill" id="justifyTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="justify-home-tab" data-toggle="tab" href="#justify-home" role="tab" aria-controls="justify-home" aria-selected="true">Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="justify-profile-tab" data-toggle="tab" href="#justify-profile" role="tab" aria-controls="justify-profile" aria-selected="false">Contact</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="justify-contact-tab" data-toggle="tab" href="#justify-contact" role="tab" aria-controls="justify-contact" aria-selected="false">Employee Info</a>
+                                    </li>
+                                </ul>
+                            
+                                <div class="tab-content" id="justifyTabContent">
+                                    <div class="tab-pane fade show active" id="justify-home" role="tabpanel" aria-labelledby="justify-home-tab">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-12">
+                                                {{-- @if ( $crew->photo )
+                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @else
+                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @endif --}}
+                                                <img width="200px" height="200px" class="rounded-circle crewImgShow" >
+                                            </div>
+                                            <div class="col-lg-9 col-sm-12">
+                                                <ul class="list-group ">
+                                                    <li class="list-group-item active">
+                                                        Name : <span id="crewNameShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Place Of Birth : <span id="crewPobShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Date Of Birth : <span id="crewDobShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Gender : <span id="crewGenderShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        ID : <span id="crewIdShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Identity Type : <span id="crewIdentityTypeShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Identity Number : <span id="crewIdentityNumberShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Merital Status : <span id="crewMeritalStatusShow"></span>
+                                                    </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="justify-profile" role="tabpanel" aria-labelledby="justify-profile-tab">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-12">
+                                                {{-- @if ( $crew->photo )
+                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @else
+                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @endif --}}
+                                                <img width="200px" height="200px" class="rounded-circle crewImgShow" >
+                                            </div>
+                                            <div class="col-lg-9 col-sm-12">
+                                                <ul class="list-group ">
+                                                    <li class="list-group-item active">
+                                                        Email : <span id="crewEmailShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Phone : <span id="crewPhoneShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        WhatsApp Phone : <span id="crewWhatsappShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Address : <span id="crewAddressShow"></span>
+                                                    </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="justify-contact" role="tabpanel" aria-labelledby="justify-contact-tab">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-12">
+                                                {{-- @if ( $crew->photo )
+                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
+                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @else
+                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
+                                                @endif --}}
+                                                <img width="200px" height="200px" class="rounded-circle crewImgShow" >
+                                            </div>
+                                            <div class="col-lg-9 col-sm-12">
+                                                <ul class="list-group ">
+                                                    <li class="list-group-item active">
+                                                        Job Title : <span id="crewJobTitleShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Country : <span id="crewCountryShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Join Date : <span id="crewJoinDateShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Join Port : <span id="crewJoinPortShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Status : <span id="crewStatusShow"></span>
+                                                    </li>
+                                                    <li class="list-group-item active">
+                                                        Note : <span id="crewNoteShow"></span>
+                                                    </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal show crew end --}}
+
 
 @endsection
 
@@ -372,6 +521,62 @@
             // reset input image, when edit modal is closed
             $("#modalEditCrew").on("hidden.bs.modal", function () {
                 $("#filePhotoEdit").val("")
+            });
+
+            // show crew
+            $(document).on('click', '.btn-show-crew', function (e) {
+                e.preventDefault()
+
+                $('#modalShowCrew').modal("show")
+
+                let crew_id = $(this).val()
+
+                $.ajax({
+                    type: "get",
+                    url: `crew/${crew_id}`,
+                    dataType: "json",
+                    contentType:'application/json',
+                    success: function (response) {
+                        if(response.status == 200) {
+                            $('#crewNameShow').text(response.crew.full_name);
+                            $('#crewDobShow').text(response.crew.dob);
+                            $('#crewPobShow').text(response.crew.pob);
+                            $('#crewPhoneShow').text(response.crew.phone);
+                            $('#crewWhatsappShow').text(response.crew.whatsapp_phone);
+                            $('#crewGenderShow').text(response.crew.gender);
+                            $('#crewIdShow').text(response.crew.id_crew);
+                            $('#crewIdentityNumberShow').text(response.crew.identity_number);
+                            $('#crewMeritalStatusShow').text(response.crew.status_merital);
+                            $('#crewAddressShow').text(response.crew.address);
+                            $('#crewEmailShow').text(response.crew.email);
+                            $('#crewJobTitleShow').text(response.crew.job_title);
+                            $('#crewJoinDateShow').text(response.crew.join_date);
+                            $('#crewJoinPortShow').text(response.crew.join_port);
+                            $('#crewStatusShow').text(response.crew.status);
+                            $('#crewNoteShow').text(response.crew.note);
+                            
+                            if( response.crew.photo ) {
+                                $(".crewImgShow").attr("src", `/storage/${response.crew.photo}`)
+                            } else if( response.crew.gender == 'MALE' && !response.crew.photo ) {
+                                $(".crewImgShow").attr("src", '/img/default-male.png')
+                            } else if( response.crew.gender == 'FEMALE' && !response.crew.photo ) {
+                                $(".crewImgShow").attr("src", '/img/default-female.png')
+                            }
+                            
+                        $("#crewCountryShow").text(response.crew.crewCountry.country_nm);
+                            $('#crewIdentityTypeShow').text(response.crew.identity.name);
+
+                        }
+                        else{
+                            Swal.fire(
+                                'Not Found',
+                                `${response.message}`,
+                                'error'
+                            )
+                            fetchCrew()
+                        }
+                    }
+                });
             });
     
 
@@ -551,9 +756,9 @@
                             <td>${crew.job_title}</td>
                             <td>${crew.status}</td>
                             <td>
-                                <a href="#" class="btn btn-show-crew btn-info btn-sm" title="show">
+                                <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info btn-sm">
                                     <x-bi-eye-fill></x-bi-eye-fill>
-                                </a>
+                                </button>
             
                                 <button type="button" value="${crew.id_crew}" class="btn btn-edit-crew btn-warning btn-sm">
                                     <x-bi-pencil-square></x-bi-pencil-square>
