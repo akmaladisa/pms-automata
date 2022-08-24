@@ -27,7 +27,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="crew-master">
                 
             </tbody>
         </table>
@@ -173,31 +173,42 @@
                     
                     <div class="tab-content" id="justifyTabContent">
                         <div class="tab-pane fade show active" id="justify-medical-record" role="tabpanel" aria-labelledby="justify-home-tab">
-                            <p class="mb-4">
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.                                                
-                            </p>
-                    
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h2 style="font-size: 18px"><x-bi-heart-pulse-fill class="fs-2 mb-1 text-white mr-2"></x-bi-heart-pulse-fill>Crew Medical Record</h2>
+                                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#addRecordModal">Add New</button>
+
+                                    <div class="table-responsive mt-3">
+                                        <table class="table table-bordered table-hover table-striped mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Crew Name</th>
+                                                    <th>MCU Issued</th>
+                                                    <th>MCU Expired</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="justify-education" role="tabpanel" aria-labelledby="justify-profile-tab">
-                            <div class="media">
-                                <img class="mr-3" src="assets/img/90x90.jpg" alt="Generic placeholder image">
-                                <div class="media-body">
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h2 style="font-size: 18px"><x-bi-mortarboard-fill class="fs-2 mb-1 text-white mr-2"></x-bi-mortarboard-fill>Crew Education</h2>
                                 </div>
-                              </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="justify-work-experience" role="tabpanel" aria-labelledby="justify-contact-tab">
-                            <p class="dropcap  dc-outline-primary">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h2 style="font-size: 18px"><x-bi-briefcase-fill class="fs-2 mb-1 text-white mr-2"></x-bi-briefcase-fill>Crew Work Experience</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -473,10 +484,93 @@
     </div>
     {{-- modal show crew end --}}
 
+    {{-- modal add crew medical record --}}
+    <div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Medical Record</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCrewMedical" method="POST">
+                        <div class="input-group mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Crew</label>
+                            <select class="form-control col-sm-8" name="id_crew" id="id_crew_medical" required>
+                                <option disabled selected>Crew</option>
+                                @foreach ($crew as $c)
+                                    <option value="{{ $c->id_crew }}">{{ $c->full_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Height</label>
+                            <div class="col-sm-10">
+                                <input name="height" id="crew_height_medical" type="number" required class="form-control" placeholder="Crew Height" value="{{ old('height') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Weight</label>
+                            <div class="col-sm-10">
+                                <input name="weight" type="number" required class="form-control" id="crew_weight_medical" placeholder="Crew Weight" value="{{ old('weight') }}">
+                            </div>
+                        </div>
+                
+                        <div class="input-group mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Status</label>
+                            <select id="crew_status_medical" class="form-control col-sm-3" name="status" required>
+                                <option value="ACT">ACT</option>
+                                <option value="DE">DE</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Issued</label>
+                            <div class="col-sm-10">
+                                <input name="mcu_issued" type="text" required class="form-control" id="crew_mcu_issued_medical" placeholder="MCU Issued" value="{{ old('mcu_issued') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Expired</label>
+                            <div class="col-sm-10">
+                                <input type="datetime-local" required name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical" placeholder="col-form-label">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">History Of Pain</label>
+                            <div class="col-sm-10">
+                                <input name="history_of_pain" type="text" required class="form-control" id="crew_history_medical" placeholder="History Of Pain" value="{{ old('history_of_pain') }}">
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Created User</label>
+                            <div class="col-sm-10">
+                                <input name="created_user" type="text" readonly value="{{ auth()->user()->id_login }}" class="form-control" id="crew_created_medical" placeholder="col-form-label">
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-close" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal add crew medical record end --}}
 
 @endsection
 
 @section('js')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/crew-master.js"></script>
+    <script src="/js/crew-medical-record.js"></script>
 @endsection

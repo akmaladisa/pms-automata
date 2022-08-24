@@ -238,22 +238,22 @@ function fetchCrew() {
         success: function (response) {
             $('tbody').html('');
             $.each(response.crews, function (key, crew) { 
-                $('tbody').append(`
+                $('tbody#crew-master').append(`
                 <tr>
                     <td>${crew.id_crew}</td>
                     <td>${crew.full_name}</td>
                     <td>${crew.job_title}</td>
                     <td>${crew.status}</td>
                     <td>
-                        <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info btn-sm">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info">
                             <i class="bi bi-eye-fill"></i>
                         </button>
     
-                        <button type="button" value="${crew.id_crew}" class="btn btn-edit-crew btn-warning btn-sm">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-edit-crew btn-warning">
                             <i class="bi bi-pencil-square"></i>
                         </button>
     
-                        <button type="button" value="${crew.id_crew}" class="btn btn-delete-crew btn-danger btn-sm">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-delete-crew btn-danger">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
