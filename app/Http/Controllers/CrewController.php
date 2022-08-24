@@ -191,7 +191,7 @@ class CrewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $crewNew = $request->validate([
+        $validator = Validator::make($request->all(),[
             'id_crew' => "required",
             'full_name' => 'required',
             'email' => 'required|email',
@@ -210,22 +210,100 @@ class CrewController extends Controller
             'note' => 'required',
             'status' => 'required|max:3',
             'join_port' => 'required',
-            'photo' => 'image|file',
+            'photo' => 'image|file|mimes:jpg,jpeg,png,gif',
             'updated_user' => 'required'
         ]);
 
-        $crew = Crew::find($id);
+        if( $validator->fails() )
+        {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator
+            ]);
+        }
+        else
+        {
+            $crew = Crew::find($id);
 
-        if( $request->file('photo') ) {
-            Storage::delete( $crew->photo );
-            $crewNew['photo'] = $request->file('photo')->store('crew-img');
+            if( $crew )
+            {
+                $crew->id_crew = $request->id_crew;
+                $crew->full_name = $request->full_name;
+                $crew->email = $request->email;
+                $crew->identity_type = $request->identity_type;
+                $crew->identity_number = $request->identity_number;
+                $crew->job_title = $request->job_title;
+                $crew->country = $request->country;
+                $crew->phone = $request->phone;
+                $crew->whatsapp_phone = $request->whatsapp_phone;
+                $crew->gender = $request->gender;
+                $crew->status_merital = $request->status_merital;
+                $crew->pob = $request->pob;
+                $crew->dob = $request->dob;
+                $crew->address = $request->address;
+                $crew->join_date = $request->join_date;
+                $crew->note = $request->note;
+                $crew->status = $request->status;
+                $crew->join_port = $request->join_port;
+    
+                if( $request->file('photo') ) {
+                    Storage::delete( $crew->photo );
+                    $crew->photo = $request->file('photo')->store('crew-img');
+                }
+    
+                $crew->updated_user = $request->updated_user;
+    
+                $crew->save();
+    
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Crew Has Been Updated'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Crew Not Found'
+                ]);
+            }
         }
 
-        $crew->update($crewNew);
+        // $crewNew = $request->validate([
+        //     'id_crew' => "required",
+        //     'full_name' => 'required',
+        //     'email' => 'required|email',
+        //     'identity_type' => 'required',
+        //     'identity_number' => 'required',
+        //     'job_title' => 'required',
+        //     'country' => 'required',
+        //     'phone' => "required",
+        //     'whatsapp_phone' => 'required',
+        //     'gender' => 'required',
+        //     'status_merital' => 'required',
+        //     'pob' => 'required',
+        //     'dob' => 'required',
+        //     'address' => 'required',
+        //     'join_date' => 'required',
+        //     'note' => 'required',
+        //     'status' => 'required|max:3',
+        //     'join_port' => 'required',
+        //     'photo' => 'image|file',
+        //     'updated_user' => 'required'
+        // ]);
 
-        alert()->success("Success", "Crew Updated Successfully");
+        // $crew = Crew::find($id);
 
-        return redirect()->route('crew.index');
+        // if( $request->file('photo') ) {
+        //     Storage::delete( $crew->photo );
+        //     $crewNew['photo'] = $request->file('photo')->store('crew-img');
+        // }
+
+        // $crew->update($crewNew);
+
+        // alert()->success("Success", "Crew Updated Successfully");
+
+        // return redirect()->route('crew.index');
     }
 
     /**

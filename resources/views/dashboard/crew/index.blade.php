@@ -363,6 +363,12 @@
         $(document).ready(function(){
             fetchCrew()
 
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
             // reset input image, when edit modal is closed
             $("#modalEditCrew").on("hidden.bs.modal", function () {
                 $("#filePhotoEdit").val("")
@@ -371,12 +377,6 @@
 
             $(document).on('click', '.btn-edit-crew', function (e) {
                 e.preventDefault();
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
 
                 let crew_id = $(this).val()
                 // alert(crew_id)
@@ -426,6 +426,51 @@
                         }
                     }
                 });
+            });
+
+            $(document).on('submit', '#crewUpdateForm', function (e) {
+                e.preventDefault()
+
+                let id = $('#txtIdCrewEdit').val();
+                let editFormData = new FormData( $('#crewUpdateForm')[0] );
+
+                $.ajax({
+                    type: "post",
+                    url: `update-crew/${id}`,
+                    data: editFormData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if( response.status == 400 ) {
+                            $("#modalEditCrew").modal("hide");
+                            Swal.fire(
+                                'Fail!',
+                                `Failed To Update Crew`,
+                                'error'
+                            )
+                            fetchCrew()
+                        }
+                        else if( response.status == 404 ) {
+                            $("#modalEditCrew").modal("hide");
+                            Swal.fire(
+                                'Not Found',
+                                `${response.message}`,
+                                'error'
+                            )
+                            fetchCrew()
+                        }
+                        else if( response.status == 200 ) {
+                            $("#modalEditCrew").modal("hide");
+                            Swal.fire(
+                                'Success!',
+                                `${response.message}`,
+                                'success'
+                            )
+                            fetchCrew()
+                        }
+                    }
+                });
+
             });
 
         })
