@@ -386,13 +386,6 @@
                                     <div class="tab-pane fade show active" id="justify-home" role="tabpanel" aria-labelledby="justify-home-tab">
                                         <div class="row">
                                             <div class="col-lg-3 col-sm-12">
-                                                {{-- @if ( $crew->photo )
-                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
-                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @else
-                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @endif --}}
                                                 <img width="200px" height="200px" class="rounded-circle crewImgShow" >
                                             </div>
                                             <div class="col-lg-9 col-sm-12">
@@ -427,13 +420,6 @@
                                     <div class="tab-pane fade" id="justify-profile" role="tabpanel" aria-labelledby="justify-profile-tab">
                                         <div class="row">
                                             <div class="col-lg-3 col-sm-12">
-                                                {{-- @if ( $crew->photo )
-                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
-                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @else
-                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @endif --}}
                                                 <img width="200px" height="200px" class="rounded-circle crewImgShow" >
                                             </div>
                                             <div class="col-lg-9 col-sm-12">
@@ -456,13 +442,6 @@
                                     <div class="tab-pane fade" id="justify-contact" role="tabpanel" aria-labelledby="justify-contact-tab">
                                         <div class="row">
                                             <div class="col-lg-3 col-sm-12">
-                                                {{-- @if ( $crew->photo )
-                                                    <img src="{{ asset("storage/" . $crew->photo) }}" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @elseif ( !$crew->photo && $crew->gender == "FEMALE" )
-                                                    <img src="/img/default-female.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @else
-                                                    <img src="/img/default-male.png" width="200px" height="200px" class="rounded-circle" alt="">
-                                                @endif --}}
                                                 <img width="200px" height="200px" class="rounded-circle crewImgShow" >
                                             </div>
                                             <div class="col-lg-9 col-sm-12">
@@ -496,7 +475,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
-                    <button class="btn btn-primary" type="submit">Update</button>
                 </div>
             </div>
         </div>
@@ -563,8 +541,8 @@
                                 $(".crewImgShow").attr("src", '/img/default-female.png')
                             }
                             
-                        $("#crewCountryShow").text(response.crew.crewCountry.country_nm);
-                            $('#crewIdentityTypeShow').text(response.crew.identity.name);
+                            $("#crewCountryShow").text(response.crew_country);
+                            $('#crewIdentityTypeShow').text(response.crew_identity_type);
 
                         }
                         else{

@@ -141,11 +141,17 @@ class CrewController extends Controller
     public function show($id)
     {
         $crew = Crew::find($id);
+
+        $crew_country = $crew->crewCountry->country_nm;
+        $crew_identity_type = $crew->identity->name;
+
         if($crew)
         {
             return response()->json([
                 'status' => 200,
-                'crew' => $crew
+                'crew' => $crew,
+                'crew_country' => $crew_country,
+                'crew_identity_type' => $crew_identity_type
             ]);
         }
         else
