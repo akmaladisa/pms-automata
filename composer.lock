@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e043ba80eb79f9036cc2b3710dede8d",
+    "content-hash": "250efe07df9fa9991840df74b0a6ffac",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -222,6 +222,45 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "components/font-awesome",
+            "version": "6.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/font-awesome.git",
+                "reference": "2c8dd579722272a218d2cfb510d7ca2d239e48ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/2c8dd579722272a218d2cfb510d7ca2d239e48ad",
+                "reference": "2c8dd579722272a218d2cfb510d7ca2d239e48ad",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "styles": [
+                        "css/all.css"
+                    ],
+                    "files": [
+                        "css/all.min.css",
+                        "webfonts/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-4.0",
+                "MIT",
+                "OFL-1.1"
+            ],
+            "description": "Font Awesome, the iconic SVG, font, and CSS framework.",
+            "support": {
+                "issues": "https://github.com/components/font-awesome/issues",
+                "source": "https://github.com/components/font-awesome/tree/6.1.2"
+            },
+            "time": "2022-07-29T06:42:00+00:00"
         },
         {
             "name": "davidhsianturi/blade-bootstrap-icons",
