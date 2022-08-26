@@ -52,7 +52,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="formGroupExampleInput">Crew ID</label>
-                                    <input type="text" lang="en" class="form-control form-control-sm" id="txtIdCrew" value="{{ $crewId }}" aria-describedby="txtIdCrew" placeholder="Crew ID" name="id_crew" required readonly>
+                                    <input type="text" lang="en" class="form-control form-control-sm" id="txtIdCrew" value="{{ $crewId }}" aria-describedby="txtIdCrew" placeholder="Crew ID" name="id_crew" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="txtFullName" lang="en">Full Name</label>
@@ -176,7 +176,7 @@
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <h2 style="font-size: 18px"><x-bi-heart-pulse-fill class="fs-2 mb-1 text-white mr-2"></x-bi-heart-pulse-fill>Crew Medical Record</h2>
-                                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#addRecordModal">Add New</button>
+                                    <button id="crew_medical_record_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
 
                                     <div class="table-responsive mt-3">
                                         <table class="table table-bordered table-hover table-striped mb-4">
@@ -319,7 +319,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="txtJoinDate" lang="en">Join Date</label>
-                                    <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinDateEdit" aria-describedby="txtJoinDate" placeholder="Join Date" required name="join_date">
+                                    <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinDateEdit" aria-describedby="txtJoinDate" placeholder="Join Date" name="join_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="txtNote" lang="en">Note</label>
@@ -334,7 +334,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="txtJoinPort" lang="en">Join Port</label>
-                                    <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinPortEdit" aria-describedby="txtJoinPort" placeholder="Join Port" required name="join_port">
+                                    <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinPortEdit" aria-describedby="txtJoinPort" placeholder="Join Port" name="join_port">
                                 </div>
                                 <div class="form-group">
                                     <label for="imgCrew" lang="en">Photo</label>
@@ -498,7 +498,7 @@
                     <form id="addCrewMedical" method="POST">
                         <div class="input-group mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Crew</label>
-                            <select class="form-control col-sm-8" name="id_crew" id="id_crew_medical" required>
+                            <select class="form-control col-sm-8" name="id_crew" id="id_crew_medical">
                                 <option disabled selected>Crew</option>
                                 @foreach ($crew as $c)
                                     <option value="{{ $c->id_crew }}">{{ $c->full_name }}</option>
@@ -509,46 +509,46 @@
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Height</label>
                             <div class="col-sm-10">
-                                <input name="height" id="crew_height_medical" type="number" required class="form-control" placeholder="Crew Height" value="{{ old('height') }}">
+                                <input name="height" id="crew_height_medical" type="number" class="form-control" placeholder="Crew Height" value="{{ old('height') }}">
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Weight</label>
                             <div class="col-sm-10">
-                                <input name="weight" type="number" required class="form-control" id="crew_weight_medical" placeholder="Crew Weight" value="{{ old('weight') }}">
+                                <input name="weight" type="number" class="form-control" id="crew_weight_medical" placeholder="Crew Weight" value="{{ old('weight') }}">
                             </div>
                         </div>
                 
-                        <div class="input-group mb-4">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Status</label>
-                            <select id="crew_status_medical" class="form-control col-sm-3" name="status" required>
-                                <option value="ACT">ACT</option>
-                                <option value="DE">DE</option>
-                            </select>
-                        </div>
-
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Issued</label>
                             <div class="col-sm-10">
-                                <input name="mcu_issued" type="text" required class="form-control" id="crew_mcu_issued_medical" placeholder="MCU Issued" value="{{ old('mcu_issued') }}">
+                                <input name="mcu_issued" type="text" class="form-control" id="crew_mcu_issued_medical" placeholder="MCU Issued" value="{{ old('mcu_issued') }}">
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Expired</label>
                             <div class="col-sm-10">
-                                <input type="datetime-local" required name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical" placeholder="col-form-label">
+                                <input type="datetime-local" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical" placeholder="col-form-label">
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">History Of Pain</label>
                             <div class="col-sm-10">
-                                <input name="history_of_pain" type="text" required class="form-control" id="crew_history_medical" placeholder="History Of Pain" value="{{ old('history_of_pain') }}">
+                                <input name="history_of_pain" type="text" class="form-control" id="crew_history_medical" placeholder="History Of Pain" value="{{ old('history_of_pain') }}">
                             </div>
                         </div>
                 
+                        <div class="input-group mb-4">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Status</label>
+                            <select id="crew_status_medical" class="form-control col-sm-3" name="status">
+                                <option value="ACT">ACT</option>
+                                <option value="DE">DE</option>
+                            </select>
+                        </div>
+
                         <div class="form-group row mb-4">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Created User</label>
                             <div class="col-sm-10">
@@ -559,7 +559,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-close" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" id="btn_crew_medical_record_store" class="btn btn-primary">Save</button>
                     </form>
                     
                 </div>
@@ -571,6 +571,6 @@
 @endsection
 
 @section('js')
-    <script src="/js/crew-master.js"></script>
     <script src="/js/crew-medical-record.js"></script>
+    <script src="/js/crew-master.js"></script>
 @endsection

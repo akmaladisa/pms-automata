@@ -107,7 +107,8 @@ Route::middleware('auth')->group(function(){
     // part routing end
 
     // crew medical record routing
-    Route::resource('crew-medical-record', CrewMedicalRecordController::class);
+    // Route::resource('crew-medical-record', CrewMedicalRecordController::class);
+    Route::post('crew-medical-record', [CrewMedicalRecordController::class, 'store']);
     Route::get('change-status-crew-medical-record/{id}', [CrewMedicalRecordController::class, 'destroy'])->name('crew-medical-record.isDeleted');
     // crew medical record routing end
 

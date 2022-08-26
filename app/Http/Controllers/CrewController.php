@@ -84,10 +84,8 @@ class CrewController extends Controller
 
         if( $validator->fails() )
         {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator
-            ]);
+            alert()->error("Error", "Failed To Add New Crew");
+            return redirect()->route('crew.index');
         }
         else
         {

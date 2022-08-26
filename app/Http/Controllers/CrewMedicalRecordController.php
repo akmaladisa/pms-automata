@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Crew;
-use App\Models\CrewMedicalRecord;
 use Illuminate\Http\Request;
+use App\Models\CrewMedicalRecord;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Support\ValidatedData;
 
 class CrewMedicalRecordController extends Controller
 {
@@ -39,21 +42,40 @@ class CrewMedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
-        $crew = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_crew' => 'required',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
             'mcu_issued' => 'required',
             'mcu_expired' => 'required',
             'history_of_pain' => 'required',
-            'status' => 'required|max:3',
+            'status' => 'required',
             'created_user' => 'required'
         ]);
 
-        if( CrewMedicalRecord::create( $crew ) ) {
-            alert()->success("Success", "Medical Record Created");
+        if( $validator->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ]);
+        } else {
+            // CrewMedicalRecord::create( $request->all() );
 
-            return redirect()->route('crew-medical-record.index');
+            $crew_medical = new CrewMedicalRecord();
+            $crew_medical->id_crew = $request->id_crew;
+            $crew_medical->height = $request->height;
+            $crew_medical->weight = $request->weight;
+            $crew_medical->mcu_issued = $request->mcu_issued;
+            $crew_medical->mcu_expired = $request->mcu_expired;
+            $crew_medical->history_of_pain = $request->history_of_pain;
+            $crew_medical->status = $request->status;
+            $crew_medical->created_user = $request->created_user;
+            $crew_medical->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Medical Record Has Been Added'
+            ]);
         }
     }
 

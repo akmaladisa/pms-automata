@@ -22,7 +22,7 @@ class MstCrewMedicalRecord extends Migration
             $table->dateTime('mcu_expired');
             $table->string('history_of_pain');
             $table->string('status');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->string('created_user');
             $table->string('updated_user')->nullable();
         });
