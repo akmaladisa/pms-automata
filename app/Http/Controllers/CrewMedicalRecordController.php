@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\CrewMedicalRecord;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\ValidatedData;
+use Illuminate\Database\Eloquent\Builder;
 
 class CrewMedicalRecordController extends Controller
 {
@@ -79,6 +80,17 @@ class CrewMedicalRecordController extends Controller
         }
     }
 
+    public function read()
+    {
+        $records = CrewMedicalRecord::where('status', 'ACT')->get();
+
+        return response()->json( 
+            [
+                'records' => $records
+            ]
+        );
+    }
+
     /**
      * Display the specified resource.
      *
@@ -87,9 +99,22 @@ class CrewMedicalRecordController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.crew-medical-record.show', [
-            'medicalRecord' => CrewMedicalRecord::find($id)
-        ]);
+        $crew_medical_record = CrewMedicalRecord::find($id);
+        $crew_name = $crew_medical_record->crew->full_name;
+
+        if( $crew_medical_record ) {
+            return response()->json([
+                'status' => 200,
+                'record' => $crew_medical_record,
+                'crew_name' => $crew_name
+            ]);
+        } else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Medical Record Not Found'
+            ]);
+        }
     }
 
     /**
@@ -115,7 +140,7 @@ class CrewMedicalRecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $crew = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_crew' => 'required',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
@@ -126,11 +151,39 @@ class CrewMedicalRecordController extends Controller
             'updated_user' => 'required'
         ]);
 
-        if( CrewMedicalRecord::find($id)->update( $crew ) ) {
-            alert()->success("Success", "Medical Record Updated");
+        if( $validator->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ]);
+        }
+        else {
+            $crew_medical = CrewMedicalRecord::find($id);
 
-            return redirect()->route('crew-medical-record.index');
-        };
+            if( $crew_medical ) {
+
+                $crew_medical->id_crew = $request->id_crew;
+                $crew_medical->height = $request->height;
+                $crew_medical->weight = $request->weight;
+                $crew_medical->mcu_issued = $request->mcu_issued;
+                $crew_medical->mcu_expired = $request->mcu_expired;
+                $crew_medical->history_of_pain = $request->history_of_pain;
+                $crew_medical->status = $request->status;
+                $crew_medical->updated_user = $request->updated_user;
+                $crew_medical->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Medical Record Has Been Added'
+            ]);
+
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Medical Record Not Found'
+                ]);
+            }
+        }
     }
 
     /**
@@ -142,11 +195,26 @@ class CrewMedicalRecordController extends Controller
     public function destroy($id)
     {
         $medicalRecord = CrewMedicalRecord::find($id);
-        $medicalRecord->status = "DE";
-        $medicalRecord->save();
 
-        alert()->success("Success", "Medical Record Deleted");
+        if( $medicalRecord ) {   
+            $medicalRecord->status = "DE";
+            $medicalRecord->save();
 
-        return redirect()->route('crew-medical-record.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Medical Record Has Been Deleted',
+            ]);
+        }
+        else{
+
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Medical Record Not Found'
+            ]);
+
+        }
+
+
+        
     }
 }

@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    fetch_crew_medical_record()
+    fetch_crew_list()
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -23,8 +26,6 @@ $(document).ready(function() {
 
     // crew medical record store
     $('#btn_crew_medical_record_store').on('click', function (e) {
-        
-        console.log('crew medical record');
 
         e.preventDefault();
         
@@ -39,26 +40,25 @@ $(document).ready(function() {
             created_user: $('#crew_created_medical').val(),
         }
 
-        console.log( crew_medical_record_data );
-
         $.ajax({
             type: "POST",
             url: "crew-medical-record",
             data: crew_medical_record_data,
             success: function (response) {
                 if( response.status != 200 ) {
-                    $("#addRecordModal").modal("hide");
-                    Swal.fire(
-                        'Fail!',
-                        `${
-                            response.errors.message
-                        }`,
-                        'error'
-                    )
-                    console.log(response.errors.message);
-                    // fetchCrew()
-                    add_required_attribute_from_crew_master_modal_input()
-                    add_required_attribute_from_crew_master_modal_edit_input()
+                    
+                    $.each(response.errors, function (indexInArray, valueOfElement) { 
+                        $('.alert-group-list').append(
+                            `
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>${valueOfElement}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            `
+                        )
+                    });
                 }
                 else if( response.status == 200 ) {
                     $("#addRecordModal").modal("hide");
@@ -67,9 +67,17 @@ $(document).ready(function() {
                         `${response.message}`,
                         'success'
                     )
-                    // fetchCrew()
+                    fetch_crew_medical_record()
+                    fetch_crew_list()
                     add_required_attribute_from_crew_master_modal_input()
                     add_required_attribute_from_crew_master_modal_edit_input()
+
+                    // reseting form
+                    $('#crew_weight_medical').val('');
+                    $('#crew_height_medical').val('');
+                    $('#crew_mcu_issued_medical').val('');
+                    $('#crew_mcu_expired_medical').val('');
+                    $('#crew_history_medical').val('');
                 }
             },
             error: function(xhr) {
@@ -79,9 +87,254 @@ $(document).ready(function() {
 
     });
 
+    // show
+    $(document).on('click', '.btn-show-crew-medical-record', function (e) {
+        e.preventDefault();
+        let id = $(this).val();
+        $('#show-crew-medical-record').modal('show');
+
+        $.ajax({
+            type: "get",
+            url: `crew-medical-record/${id}`,
+            dataType: "json",
+            contentType:'application/json',
+            success: function (response) {
+                if( response.status == 200 ) {
+
+                    $('#crew-name-medical-record').text(response.crew_name);
+                    $('#crew-id-medical-record').text(response.record.id_crew);
+                    $('#crew-height-medical-record').text(response.record.height);
+                    $('#crew-weight-medical-record').text(response.record.weight);
+                    $('#crew-mcu-issued-medical-record').text(response.record.mcu_issued);
+                    $('#crew-mcu-expired-medical-record').text(response.record.mcu_expired);
+                    $('#crew-history-pain-medical-record').text(response.record.history_of_pain);
+                    $('#crew-created-at-medical-record').text(response.record.created_at);
+                    $('#crew-updated-at-medical-record').text(response.record.updated_at);
+                    $('#crew-created-user-medical-record').text(response.record.created_user);
+                    $('#crew-updated-user-medical-record').text(response.record.updated_user);
+                    $('#crew-status-medical-record').text(response.record.status);
+
+                } else {
+                    Swal.fire(
+                        'Not Found',
+                        `${response.message}`,
+                        'error'
+                    )
+                    $('#show-crew-medical-record').modal('hide');
+                }
+            }
+        });
+
+    });
+
+    // edit
+    $(document).on('click', '.btn-edit-crew-medical-record', function (e) {
+        e.preventDefault();
+
+        let id = $(this).val();
+
+        $('#medical_record_edit').modal('show');
+
+        $.ajax({
+            type: "get",
+            url: `crew-medical-record/${id}`,
+            success: function (response) {
+                if( response.status == 200 ) {
+                    $('#id_crew_medical_edit').val(response.record.id_crew);
+                    $('#crew_height_medical_edit').val(response.record.height);
+                    $('#crew_weight_medical_edit').val(response.record.weight);
+                    $('#crew_mcu_issued_medical_edit').val(response.record.mcu_issued);
+                    $('#crew_mcu_expired_medical_edit').val(response.record.mcu_expired);
+                    $('#crew_history_medical_edit').val(response.record.history_of_pain);
+                    $('#crew_status_medical_edit').val(response.record.status);
+                    $('#id_medical_record_edit').val(response.record.id);
+                } else {
+                    Swal.fire(
+                        'Not Found',
+                        `${response.message}`,
+                        'error'
+                    )
+                    $('#show-crew-medical-record').modal('hide');
+                }
+            }
+        });
+    });
+
+    //update
+    $(document).on('click', '#btn_crew_medical_record_update', function (e) {
+        e.preventDefault()
+        let id = $('#id_medical_record_edit').val();
+        let new_medical_record = {
+            id_crew: $('#id_crew_medical_edit').val(),
+            height: $('#crew_height_medical_edit').val(),
+            weight: $('#crew_weight_medical_edit').val(),
+            mcu_issued: $('#crew_mcu_issued_medical_edit').val(),
+            mcu_expired: $('#crew_mcu_expired_medical_edit').val(),
+            history_of_pain: $('#crew_history_medical_edit').val(),
+            status: $('#crew_status_medical_edit').val(),
+            updated_user: $('#crew_updated_medical').val()
+        }
+
+        console.log(new_medical_record);
+
+        $.ajax({
+            type: "post",
+            url: `update-crew-medical-record/${id}`,
+            data: new_medical_record,
+            success: function (response) {
+                if( response.status == 400 ) {
+                    $.each(response.errors, function (indexInArray, valueOfElement) { 
+                        $('.alert-group-list-edit-error').append(
+                            `
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>${valueOfElement}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            `
+                        )
+                    });
+                }
+                else if( response.status == 404 ) {
+                    $("#medical_record_edit").modal("hide");
+                    Swal.fire(
+                        'Not Found',
+                        `${response.message}`,
+                        'error'
+                    )
+                    fetch_crew_list()
+                    fetch_crew_medical_record()
+                }
+                else if( response.status == 200 ) {
+                    $("#medical_record_edit").modal("hide");
+                    Swal.fire(
+                        'Success!',
+                        `${response.message}`,
+                        'success'
+                    )
+                    fetch_crew_list()
+                    fetch_crew_medical_record()
+                }
+            }
+        });
+
+    });
+
+    // delete
+    $(document).on('click', '.btn-delete-crew-medical-record', function (e) { 
+        e.preventDefault();
+
+        let id = $(this).val();    
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "The Crew Medical Record Status Will Change To 'DE'",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url:`change-status-crew-medical-record/${id}`,
+                success: function (response) {
+                    if( response.status == 404 ) {
+                        Swal.fire(
+                            'Not Found',
+                            `${response.message}`,
+                            'error'
+                        )
+                        fetch_crew_medical_record()
+                        fetch_crew_list()
+                    } else if( response.status == 400 ) {
+                        Swal.fire(
+                            'Error!',
+                            'Error To Delete Crew',
+                            'error'
+                        )
+                        fetch_crew_medical_record()
+                        fetch_crew_list()
+                    } else if( response.status == 200 ) {
+                        Swal.fire(
+                            'Success!',
+                            `${response.message}`,
+                            'success'
+                        )
+                        fetch_crew_medical_record()
+                        fetch_crew_list()
+                    }
+                }
+            });
+        }
+        })
+        
+    });
+
 })
 
 // =====FUNCTION LIST========
+
+function fetch_crew_medical_record() {
+    $.ajax({
+        type: "get",
+        url: "read-crew-medical-record",
+        dataType: "json",
+        success: function (response) {
+
+            $('tbody#crew-medical-record').html('');
+            $.each(response.records, function (key, record) { 
+                $('tbody#crew-medical-record').append(`
+                <tr>
+                    <td>${record.id_crew}</td>
+                    <td>${record.mcu_issued}</td>
+                    <td>${record.mcu_expired}</td>
+                    <td>
+                        <button type="button" value="${record.id}" class="btn btn-show-crew-medical-record btn-info">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+    
+                        <button type="button" value="${record.id}" class="btn btn-edit-crew-medical-record btn-warning">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+    
+                        <button type="button" value="${record.id}" class="btn btn-delete-crew-medical-record btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+                `)
+            });
+        }
+    });
+}
+
+function fetch_crew_list() {
+    // fetching list crew for medical record info
+    $.ajax({
+        type: "get",
+        url: "read-crew",
+        dataType: "json",
+        success: function (response) {
+            $('#id_crew_medical').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_medical').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_medical_edit').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_medical_edit').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+        }
+    });
+}
+
 function remove_required_attribute_from_crew_master_modal_input() {
     // this function is to solve this issue : https://stackoverflow.com/questions/22148080/an-invalid-form-control-with-name-is-not-focusable
 

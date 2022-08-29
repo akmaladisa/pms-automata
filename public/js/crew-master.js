@@ -211,7 +211,11 @@ $(document).ready(function(){
                         'success'
                     )
                     fetchCrew()
+                    fetch_crew_list()
                 }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
             }
         });
 
@@ -236,7 +240,7 @@ function fetchCrew() {
         url: "/read-crew",
         dataType: "json",
         success: function (response) {
-            $('tbody').html('');
+            $('tbody#crew-master').html('');
             $.each(response.crews, function (key, crew) { 
                 $('tbody#crew-master').append(`
                 <tr>

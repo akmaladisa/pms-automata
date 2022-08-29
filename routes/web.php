@@ -18,6 +18,7 @@ use App\Http\Controllers\ShipController;
 use App\Http\Controllers\SubGroupController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
+use App\Models\CrewMedicalRecord;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,9 @@ Route::middleware('auth')->group(function(){
     // crew medical record routing
     // Route::resource('crew-medical-record', CrewMedicalRecordController::class);
     Route::post('crew-medical-record', [CrewMedicalRecordController::class, 'store']);
+    Route::get('crew-medical-record/{id}', [CrewMedicalRecordController::class, 'show']);
+    Route::get('read-crew-medical-record', [CrewMedicalRecordController::class, 'read']);
+    Route::post('update-crew-medical-record/{id}', [CrewMedicalRecordController::class, 'update']);
     Route::get('change-status-crew-medical-record/{id}', [CrewMedicalRecordController::class, 'destroy'])->name('crew-medical-record.isDeleted');
     // crew medical record routing end
 

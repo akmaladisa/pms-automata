@@ -231,7 +231,6 @@ class CrewController extends Controller
 
             if( $crew )
             {
-                $crew->id_crew = $request->id_crew;
                 $crew->full_name = $request->full_name;
                 $crew->email = $request->email;
                 $crew->identity_type = $request->identity_type;
@@ -303,40 +302,6 @@ class CrewController extends Controller
                 'message' => 'Crew Not Found'
             ]);
         }
-        // $validator = Validator::make( $request->all(), [
-        //     'id_crew' => "required",
-        // ] );
 
-        // if( $validator->fails() )
-        // {
-        //     return response()->json([
-        //         'status' => 400,
-        //         'errors' => $validator
-        //     ]);
-        // }
-        // else
-        // {
-        //     $crew = Crew::find($id);
-
-        //     if( $crew )
-        //     {
-        //         $crew->status = "DE";
-        //         $crew->save();
-
-        //         return response()->json([
-        //             'status' => 200,
-        //             'message' => 'Crew Has Been Deleted',
-        //             'crew' => $crew
-        //         ]);
-        //     }
-        //     else
-        //     {
-        //         return response()->json([
-        //             'status' => 404,
-        //             'message' => 'Crew Not Found'
-        //         ]);
-        //     }
-
-        // }
     }
 }
