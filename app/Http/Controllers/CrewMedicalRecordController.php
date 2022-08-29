@@ -174,7 +174,7 @@ class CrewMedicalRecordController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Crew Medical Record Has Been Added'
+                'message' => 'Crew Medical Record Has Been Updated'
             ]);
 
             } else {

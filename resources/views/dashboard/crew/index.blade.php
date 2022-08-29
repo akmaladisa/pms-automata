@@ -685,7 +685,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-close" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                    <button type="submit" id="btn_crew_medical_record_update" class="btn btn-primary">Save</button>
+                    <button type="submit" id="btn_crew_medical_record_update" class="btn btn-primary">Update</button>
                     </form>
                     
                 </div>
