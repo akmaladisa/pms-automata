@@ -1,6 +1,16 @@
 $(document).ready(function() {
     fetch_crew_education()
 
+    $("#addCrewEducationdModal").on("hidden.bs.modal", function () {
+        $("#certificate_crew_education").val("")
+        $('#file-certificate-name').text('');
+    });
+
+    $("#edit-crew-education-modal").on('hidden.bs.modal', function() {
+        $("#certificate_crew_education_edit").val("")
+        $('#file-certificate-name-edit').text('');
+    })
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
