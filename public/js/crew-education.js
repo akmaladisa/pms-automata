@@ -26,7 +26,7 @@ $(document).ready(function() {
     });
 
     //store crew education
-    $(document).on('click', '#btn_store_crew_education', function (e) {
+    $(document).on('submit', '#form-add-crew-education', function (e) {
         e.preventDefault()
 
         let crew_education_data = {
@@ -40,10 +40,14 @@ $(document).ready(function() {
             created_user: $('#created_user_crew_education').val(),
         }
 
+        let dataxx = new FormData( $(this)[0] );
+
         $.ajax({
             type: "post",
             url: "crew-education",
-            data: crew_education_data,
+            data: dataxx,
+            processData: false,
+            contentType: false,
             success: function (response) {                
                 if( response.status == 200 ) {
                     $("#addCrewEducationdModal").modal("hide");

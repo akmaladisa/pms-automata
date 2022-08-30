@@ -13,6 +13,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\SubGroupController;
@@ -76,6 +77,10 @@ Route::middleware('auth')->group(function(){
     Route::post('update-crew/{id}', [CrewController::class, 'update']);
     Route::get('/change-status-crew/{id}', [CrewController::class, 'destroy']);
     //routing crew end
+
+    // position routing
+    Route::resource('position', PositionController::class);
+    // position routing end
 
     // ship access routing
     Route::resource('ship-access', ShipAccessController::class);

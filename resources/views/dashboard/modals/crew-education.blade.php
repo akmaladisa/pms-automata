@@ -10,7 +10,7 @@
             <div class="modal-body">
                 {{-- alert if any error exist --}}
                 <div class="alert-group-list-education mb-4"></div>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" id="form-add-crew-education" enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Crew</label>
