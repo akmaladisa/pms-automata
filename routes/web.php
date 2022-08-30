@@ -129,6 +129,9 @@ Route::middleware('auth')->group(function(){
     // crew education routing
     // Route::resource('crew-education', CrewEducationController::class);
     Route::post('crew-education', [CrewEducationController::class, 'store']);
+    Route::get('read-crew-education', [CrewEducationController::class, 'read']);
+    Route::get('crew-education/{id}', [CrewEducationController::class, 'show']);
+    Route::post('crew-education/{id}', [CrewEducationController::class, 'update']);
     Route::get('change-status-crew-education/{id}', [CrewEducationController::class, 'destroy'])->name('crew-education.isDeleted');
     // crew education routing end
 

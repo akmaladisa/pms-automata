@@ -84,6 +84,13 @@ class CrewEducationController extends Controller
         }
     }
 
+    public function read()
+    {
+        return response()->json([
+            'crew_education' => CrewEducation::where('status', "ACT")->get()
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -92,9 +99,23 @@ class CrewEducationController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.crew-education.show', [
-            'crew_education' => CrewEducation::find($id)
-        ]);
+        $crew_education = CrewEducation::find($id);
+        $crew_name = $crew_education->crew->full_name;
+
+        if( $crew_education ) {
+            return response()->json([
+                'status' => 200,
+                'crew_education' => $crew_education,
+                'crew_name' => $crew_name
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Education Not Found'
+            ]);
+        }
     }
 
     /**
@@ -121,7 +142,7 @@ class CrewEducationController extends Controller
     public function update(Request $request, $id)
     {
         
-        $crew_education = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_crew' => 'required',
             'instance_nm' => 'required',
             'scan_certificate' => 'mimes:pdf,doc,docx',
@@ -132,19 +153,45 @@ class CrewEducationController extends Controller
             'updated_user' => 'required',
         ]);
 
-        $old_crew_education = CrewEducation::find($id);
+        if( $validator->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->getMessageBag() 
+            ]);
+        } else {
 
-        if( $request->file('scan_certificate') ) {
-            Storage::delete( $old_crew_education->scan_certificate );
+            $crew_education = CrewEducation::find($id);
 
-            $crew_education['scan_certificate'] = $request->file('scan_certificate')->store('crew-scan-certificate');
-        }
+            if($crew_education) {
+                $crew_education->id_crew = $request->id_crew;
+                $crew_education->instance_nm = $request->instance_nm;
+    
+                if( $request->file('scan_certificate') ) {
+                    Storage::delete( $crew_education->scan_certificate );
+                    $crew_education->scan_certificate = $request->file('scan_certificate')->store('crew-scan-certificate');
+                } 
+    
+                $crew_education->more_information = $request->more_information;
+                $crew_education->year_in = $request->year_in;
+                $crew_education->year_out = $request->year_out;
+                $crew_education->status = $request->status;
+                $crew_education->updated_user = $request->updated_user;
+    
+                $crew_education->save();
 
-        $old_crew_education->update($crew_education);
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Crew Education Has Been Updated'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Crew Education Not Found'
+                ]);
+            }
 
-        alert()->success("Success", "Crew Education Updated");
-
-        return redirect()->route('crew-education.index');
+        }        
     }
 
     /**
@@ -156,11 +203,19 @@ class CrewEducationController extends Controller
     public function destroy($id)
     {
         $crew_edu = CrewEducation::find($id);
-        $crew_edu->status = "DE";
-        $crew_edu->save();
+        if( $crew_edu ) {
+            $crew_edu->status = "DE";
+            $crew_edu->save();
 
-        alert()->success("Success", "Crew Education Deleted");
-
-        return redirect()->route('crew-education.index');
+            return response()->json([
+                'status' => 200,
+                'message' => "Crew Education Has Been Deleted"
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Not Found'
+            ]);
+        }
     }
 }

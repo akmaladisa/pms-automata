@@ -173,8 +173,6 @@ $(document).ready(function() {
             updated_user: $('#crew_updated_medical').val()
         }
 
-        console.log(new_medical_record);
-
         $.ajax({
             type: "post",
             url: `update-crew-medical-record/${id}`,
@@ -333,6 +331,13 @@ function fetch_crew_list() {
             $('#id_crew_education').html('');
             $.each(response.crews, function (indexInArray, valueOfElement) { 
                 $('#id_crew_education').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_education_edit').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_education_edit').append(`
                     <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
                 `);
             });
