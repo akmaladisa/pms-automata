@@ -12,9 +12,7 @@ $(document).ready(function() {
     $('#crew_medical_record_add_btn_modal').click(function (e) { 
         e.preventDefault();
         $('#addRecordModal').modal('show')
-        // $("#fullScreenModal").modal("hide")
 
-        // removing 'required' attr in crew modal master when this modal showing up
         remove_required_attribute_from_crew_master_modal_input()
         remove_required_attribute_from_crew_master_modal_edit_input()
     });
@@ -328,6 +326,20 @@ function fetch_crew_list() {
             $('#id_crew_medical_edit').html('');
             $.each(response.crews, function (indexInArray, valueOfElement) { 
                 $('#id_crew_medical_edit').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_education').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_education').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_wo').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_wo').append(`
                     <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
                 `);
             });

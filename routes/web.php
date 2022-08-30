@@ -122,7 +122,8 @@ Route::middleware('auth')->group(function(){
     // crew WO routing end
 
     // crew education routing
-    Route::resource('crew-education', CrewEducationController::class);
+    // Route::resource('crew-education', CrewEducationController::class);
+    Route::post('crew-education', [CrewEducationController::class, 'store']);
     Route::get('change-status-crew-education/{id}', [CrewEducationController::class, 'destroy'])->name('crew-education.isDeleted');
     // crew education routing end
 
