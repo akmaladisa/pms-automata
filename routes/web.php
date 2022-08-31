@@ -128,7 +128,11 @@ Route::middleware('auth')->group(function(){
     // crew medical record routing end
 
     // crew WO routing
-    Route::resource('crew-wo', Crew_WO_Controller::class);
+    // Route::resource('crew-wo', Crew_WO_Controller::class);
+    Route::post('crew-wo', [Crew_WO_Controller::class, 'store']);
+    Route::get('read-crew-wo', [Crew_WO_Controller::class, 'read']);
+    Route::get('crew-wo/{id}', [Crew_WO_Controller::class, 'show']);
+    Route::post('crew-wo/{id}', [Crew_WO_Controller::class, 'update']);
     Route::get('change-status-crew-wo/{id}', [Crew_WO_Controller::class, 'destroy'])->name('crew-wo.isDeleted');
     // crew WO routing end
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Crew;
 use App\Models\CrewWO;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class Crew_WO_Controller extends Controller
 {
@@ -37,9 +38,17 @@ class Crew_WO_Controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function read()
+    {
+        return response()->json([
+            'crew_wo' => CrewWO::where('status', 'ACT')->get()
+        ]);
+    }
+
     public function store(Request $request)
     {
-        $crew_wo = $request->validate([
+        $validator = Validator::make($request->all(),[
             'id_crew' => 'required',
             'company_nm' => 'required',
             'last_position' => 'required',
@@ -51,10 +60,17 @@ class Crew_WO_Controller extends Controller
             'created_user' => 'required'
         ]);
 
-        if( CrewWO::create($crew_wo) ) {
-            alert()->success("Success", "Crew WO created");
-
-            return redirect()->route('crew-wo.index'); 
+        if( $validator->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->getMessageBag() 
+            ]);
+        } else {
+            CrewWO::create( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Work Experience Has Been Added'
+            ]);
         }
     }
 
@@ -66,9 +82,21 @@ class Crew_WO_Controller extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.crew-wo.show', [
-            'crew_wo' => CrewWO::find($id)
-        ]);
+        $crew_wo = CrewWO::find($id);
+        $crew_name = $crew_wo->crew->full_name;
+
+        if( $crew_wo ) {
+            return response()->json([
+                'status' => 200,
+                'crew_wo' => $crew_wo,
+                'crew_name' => $crew_name
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'messages' => 'Crew Work Experience Not Found'
+            ]);
+        }
     }
 
     /**
@@ -94,7 +122,7 @@ class Crew_WO_Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $crew_wo = $request->validate([
+        $validator = Validator::make($request->all(),[
             'id_crew' => 'required',
             'company_nm' => 'required',
             'last_position' => 'required',
@@ -106,11 +134,35 @@ class Crew_WO_Controller extends Controller
             'updated_user' => 'required'
         ]);
 
-        if( CrewWO::find($id)->update($crew_wo) ) {
-            alert()->success("Success", "Crew WO updated");
-
-            return redirect()->route('crew-wo.index');
+        if( $validator->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->getMessageBag() 
+            ]);
         }
+        else
+        {
+            $old_crew_wo = CrewWO::find($id);
+
+            if( $old_crew_wo )
+            {
+                $old_crew_wo->update( $request->all() );
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Crew Work Experience Has Been Updated"
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Crew Work Experience Not Found'
+                ]);
+            }
+
+        }
+        
     }
 
     /**
@@ -122,11 +174,22 @@ class Crew_WO_Controller extends Controller
     public function destroy($id)
     {
         $crew_wo = CrewWO::find($id);
-        $crew_wo->status = "DE";
-        $crew_wo->save();
+        
+        if($crew_wo) {
+            $crew_wo->status = "DE";
+            $crew_wo->save();
 
-        alert()->success("Success", "Crew WO deleted");
-
-        return redirect()->route('crew-wo.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Crew Work Experience Deleted'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Crew Work Experience Not Found'
+            ]);
+        }
     }
 }
