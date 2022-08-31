@@ -33,6 +33,9 @@
                     <li class="{{ Request::is('identity-type*') ? 'active' : '' }}">
                         <a href="/identity-type"> Identity Type </a>
                     </li>
+                    <li class="{{ Request::is('position*') ? 'active' : '' }}">
+                        <a href="/position"> Position </a>
+                    </li>
                     <li class="{{ Request::is('crew/*') || Request::is('crew') ? 'active' : '' }}">
                         <a href="/crew"> Crew </a>
                     </li>

@@ -20,6 +20,7 @@ use App\Http\Controllers\SubGroupController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
 use App\Models\CrewMedicalRecord;
+use App\Models\Position;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,12 @@ Route::middleware('auth')->group(function(){
     //routing crew end
 
     // position routing
-    Route::resource('position', PositionController::class);
+    Route::get('position', [PositionController::class, 'index']);
+    Route::get('position/{id}', [PositionController::class, 'edit']);
+    Route::post('position/{id}', [PositionController::class, 'update']);
+    Route::post('position', [PositionController::class, 'store']);
+    Route::get('delete-position/{id}', [PositionController::class, 'destroy']);
+    Route::get('read-position', [PositionController::class, 'read']);
     // position routing end
 
     // ship access routing
