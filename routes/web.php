@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BankMasterController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
@@ -87,6 +88,15 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-position/{id}', [PositionController::class, 'destroy']);
     Route::get('read-position', [PositionController::class, 'read']);
     // position routing end
+
+    // bank routing
+    Route::get('bank', [BankMasterController::class, 'index']);
+    Route::get('bank/{id}', [BankMasterController::class, 'edit']);
+    Route::post('bank/{id}', [BankMasterController::class, 'update']);
+    Route::post('bank', [BankMasterController::class, 'store']);
+    Route::get('delete-bank/{id}', [BankMasterController::class, 'destroy']);
+    Route::get('read-bank', [BankMasterController::class, 'read']);
+    // bank routing end
 
     // ship access routing
     Route::resource('ship-access', ShipAccessController::class);
