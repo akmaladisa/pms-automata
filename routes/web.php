@@ -5,8 +5,10 @@ use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
 use App\Http\Controllers\CrewBankAccountController;
+use App\Http\Controllers\CrewCertificateController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\CrewEducationController;
+use App\Http\Controllers\CrewInsuranceController;
 use App\Http\Controllers\CrewMedicalRecordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -154,6 +156,22 @@ Route::middleware('auth')->group(function(){
     Route::post('crew-bank/{id}', [CrewBankAccountController::class, 'update']);
     Route::get('change-status-crew-bank/{id}', [CrewBankAccountController::class, 'destroy']);
     // crew bank routing
+
+    // crew certificate routing
+    Route::post('crew-certificate', [CrewCertificateController::class, 'store']);
+    Route::get('read-crew-certificate', [CrewCertificateController::class, 'read']);
+    Route::get('crew-certificate/{id}', [CrewCertificateController::class, 'show']);
+    Route::post('crew-certificate/{id}', [CrewCertificateController::class, 'update']);
+    Route::get('change-status-crew-certificate/{id}', [CrewCertificateController::class, 'destroy']);
+    // crew certificate routing
+
+    // crew insurance routing
+    Route::post('crew-insurance', [CrewInsuranceController::class, 'store']);
+    Route::get('read-crew-insurance', [CrewInsuranceController::class, 'read']);
+    Route::get('crew-insurance/{id}', [CrewInsuranceController::class, 'show']);
+    Route::post('crew-insurance/{id}', [CrewInsuranceController::class, 'update']);
+    Route::get('change-status-crew-insurance/{id}', [CrewInsuranceController::class, 'destroy']);
+    // crew insurance routing
 
     // crew education routing
     // Route::resource('crew-education', CrewEducationController::class);

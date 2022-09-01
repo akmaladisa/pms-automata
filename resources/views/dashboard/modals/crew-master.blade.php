@@ -126,16 +126,22 @@
                 <br />
                 <ul class="nav nav-tabs  mb-3 mt-3 nav-fill" id="justifyTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="justify-home-tab" data-toggle="tab" href="#justify-medical-record" role="tab" aria-controls="justify-home" aria-selected="true">Crew Medical Record</a>
+                        <a class="nav-link active" id="justify-meidcal-tab" data-toggle="tab" href="#justify-medical-record" role="tab" aria-controls="justify-home" aria-selected="true">Crew Medical Record</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="justify-profile-tab" data-toggle="tab" href="#justify-education" role="tab" aria-controls="justify-profile" aria-selected="false">Crew Education</a>
+                        <a class="nav-link" id="justify-education-tab" data-toggle="tab" href="#justify-education" role="tab" aria-controls="justify-profile" aria-selected="false">Crew Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="justify-contact-tab" data-toggle="tab" href="#justify-work-experience" role="tab" aria-controls="justify-contact" aria-selected="false">Crew Work Experience</a>
+                        <a class="nav-link" id="justify-wo-tab" data-toggle="tab" href="#justify-work-experience" role="tab" aria-controls="justify-contact" aria-selected="false">Crew Work Experience</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="justify-contact-tab" data-toggle="tab" href="#justify-bank-account" role="tab" aria-controls="justify-contact" aria-selected="false">Bank Account</a>
+                        <a class="nav-link" id="justify-bank-tab" data-toggle="tab" href="#justify-bank-account" role="tab" aria-controls="justify-contact" aria-selected="false">Bank Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="justify-insurance-tab" data-toggle="tab" href="#justify-crew-insurance" role="tab" aria-controls="justify-contact" aria-selected="false">Crew Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="justify-certificate-tab" data-toggle="tab" href="#justify-crew-certificate" role="tab" aria-controls="justify-contact" aria-selected="false">Crew Certificate</a>
                     </li>
                 </ul>
                 
@@ -232,6 +238,56 @@
                                             </tr>
                                         </thead>
                                         <tbody id="crew-bank-tbody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="justify-crew-insurance" role="tabpanel" aria-labelledby="justify-contact-tab">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2 style="font-size: 18px"><x-file-medical-fill class="fs-2 mb-1 text-white mr-2"></x-file-medical-fill>Crew Insurance</h2>
+
+                                <button id="crew_bank_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered table-hover table-striped mb-4">
+                                        <thead>
+                                            <tr>
+                                                <th>Crew ID</th>
+                                                <th>Insurance Name</th>
+                                                <th>Account Number</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crew-insurance-tbody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="justify-crew-certificate" role="tabpanel" aria-labelledby="justify-contact-tab">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2 style="font-size: 18px"><x-file-medical-fill class="fs-2 mb-1 text-white mr-2"></x-file-medical-fill>Crew Certificate</h2>
+
+                                <button id="crew_bank_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered table-hover table-striped mb-4">
+                                        <thead>
+                                            <tr>
+                                                <th>Crew ID</th>
+                                                <th>Certificate Name</th>
+                                                <th>Certificate Number</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crew-certificate-tbody">
                                             
                                         </tbody>
                                     </table>

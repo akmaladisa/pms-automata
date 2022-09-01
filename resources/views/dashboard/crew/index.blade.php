@@ -42,6 +42,10 @@
 
     @include('dashboard.modals.crew-bank')
 
+    @include('dashboard.modals.crew-certificate')
+
+    @include('dashboard.modals.crew-insurance')
+
 @endsection
 
 @section('js')
@@ -50,4 +54,6 @@
     <script src="/js/crew-education.js"></script>
     <script src="/js/crew-wo.js"></script>
     <script src="/js/crew-bank.js"></script>
+    <script src="/js/crew-insurance.js"></script>
+    <script src="/js/crew-certificate.js"></script>
 @endsection
