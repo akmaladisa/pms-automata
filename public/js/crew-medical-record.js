@@ -152,7 +152,7 @@ $(document).ready(function() {
                         `${response.message}`,
                         'error'
                     )
-                    $('#show-crew-medical-record').modal('hide');
+                    $('#medical_record_edit').modal('hide');
                 }
             }
         });
@@ -352,6 +352,20 @@ function fetch_crew_list() {
             $('#id_crew_wo_edit').html('');
             $.each(response.crews, function (indexInArray, valueOfElement) { 
                 $('#id_crew_wo_edit').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_bank').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_bank').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_bank_edit').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_bank_edit').append(`
                     <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
                 `);
             });

@@ -134,6 +134,9 @@
                     <li class="nav-item">
                         <a class="nav-link" id="justify-contact-tab" data-toggle="tab" href="#justify-work-experience" role="tab" aria-controls="justify-contact" aria-selected="false">Crew Work Experience</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="justify-contact-tab" data-toggle="tab" href="#justify-bank-account" role="tab" aria-controls="justify-contact" aria-selected="false">Bank Account</a>
+                    </li>
                 </ul>
                 
                 <div class="tab-content" id="justifyTabContent">
@@ -204,6 +207,31 @@
                                             </tr>
                                         </thead>
                                         <tbody id="crew-wo-tbody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="justify-bank-account" role="tabpanel" aria-labelledby="justify-contact-tab">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2 style="font-size: 18px"><x-bi-bank2 class="fs-2 mb-1 text-white mr-2"></x-bi-bank2>Crew Bank Account</h2>
+
+                                <button id="crew_bank_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered table-hover table-striped mb-4">
+                                        <thead>
+                                            <tr>
+                                                <th>Crew ID</th>
+                                                <th>Bank Name</th>
+                                                <th>Account Number</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crew-bank-tbody">
                                             
                                         </tbody>
                                     </table>

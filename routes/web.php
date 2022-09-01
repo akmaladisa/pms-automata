@@ -4,6 +4,7 @@ use App\Http\Controllers\BankMasterController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
+use App\Http\Controllers\CrewBankAccountController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\CrewEducationController;
 use App\Http\Controllers\CrewMedicalRecordController;
@@ -145,6 +146,14 @@ Route::middleware('auth')->group(function(){
     Route::post('crew-wo/{id}', [Crew_WO_Controller::class, 'update']);
     Route::get('change-status-crew-wo/{id}', [Crew_WO_Controller::class, 'destroy'])->name('crew-wo.isDeleted');
     // crew WO routing end
+
+    // crew bank routing
+    Route::post('crew-bank', [CrewBankAccountController::class, 'store']);
+    Route::get('read-crew-bank', [CrewBankAccountController::class, 'read']);
+    Route::get('crew-bank/{id}', [CrewBankAccountController::class, 'show']);
+    Route::post('crew-bank/{id}', [CrewBankAccountController::class, 'update']);
+    Route::get('change-status-crew-bank/{id}', [CrewBankAccountController::class, 'destroy']);
+    // crew bank routing
 
     // crew education routing
     // Route::resource('crew-education', CrewEducationController::class);
