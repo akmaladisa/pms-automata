@@ -16,6 +16,7 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
+use App\Http\Controllers\MasterCrewCertificateController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ShipAccessController;
@@ -91,6 +92,15 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-position/{id}', [PositionController::class, 'destroy']);
     Route::get('read-position', [PositionController::class, 'read']);
     // position routing end
+
+    // MASTER Crew Certificate Routing
+    Route::get('crew-certificate-master', [MasterCrewCertificateController::class, 'index']);
+    Route::get('crew-certificate-master/{id}', [MasterCrewCertificateController::class, 'edit']);
+    Route::post('crew-certificate-master/{id}', [MasterCrewCertificateController::class, 'update']);
+    Route::post('crew-certificate-master', [MasterCrewCertificateController::class, 'store']);
+    Route::get('delete-crew-certificate-master/{id}', [MasterCrewCertificateController::class, 'destroy']);
+    Route::get('read-crew-certificate-master', [MasterCrewCertificateController::class, 'read']);
+    // MASTER Crew Certificate Routing
 
     // bank routing
     Route::get('bank', [BankMasterController::class, 'index']);

@@ -39,6 +39,9 @@
                     <li class="{{ Request::is('bank*') ? 'active' : '' }}">
                         <a href="/bank"> Bank </a>
                     </li>
+                    <li class="{{ Request::is('crew-certificate-master*') ? 'active' : '' }}">
+                        <a href="/crew-certificate-master"> Crew Certificate </a>
+                    </li>
                     <li class="{{ Request::is('crew/*') || Request::is('crew') ? 'active' : '' }}">
                         <a href="/crew"> Crew </a>
                     </li>
