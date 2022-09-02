@@ -15,6 +15,7 @@ class CreateCrewInsurancesTable extends Migration
     {
         Schema::create('crew_insurances', function (Blueprint $table) {
             $table->id();
+            $table->string('id_crew');
             $table->string('insurance_name');
             $table->string('account_number');
             $table->string('insurance_type');

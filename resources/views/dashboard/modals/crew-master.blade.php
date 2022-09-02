@@ -248,9 +248,9 @@
                     <div class="tab-pane fade" id="justify-crew-insurance" role="tabpanel" aria-labelledby="justify-contact-tab">
                         <div class="row mb-4">
                             <div class="col-12">
-                                <h2 style="font-size: 18px"><x-file-medical-fill class="fs-2 mb-1 text-white mr-2"></x-file-medical-fill>Crew Insurance</h2>
+                                <h2 style="font-size: 18px"><x-bi-file-medical-fill class="fs-2 mb-1 text-white mr-2"></x-bi-file-medical-fill>Crew Insurance</h2>
 
-                                <button id="crew_bank_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+                                <button id="crew_insurance_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
 
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped mb-4">
@@ -273,9 +273,9 @@
                     <div class="tab-pane fade" id="justify-crew-certificate" role="tabpanel" aria-labelledby="justify-contact-tab">
                         <div class="row mb-4">
                             <div class="col-12">
-                                <h2 style="font-size: 18px"><x-file-medical-fill class="fs-2 mb-1 text-white mr-2"></x-file-medical-fill>Crew Certificate</h2>
+                                <h2 style="font-size: 18px"><x-bi-clipboard2-data-fill class="fs-2 mb-1 text-white mr-2"></x-bi-clipboard2-data-fill>Crew Certificate</h2>
 
-                                <button id="crew_bank_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+                                <button id="crew_certificate_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
 
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped mb-4">

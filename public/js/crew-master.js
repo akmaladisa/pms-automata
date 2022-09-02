@@ -46,10 +46,16 @@ $(document).ready(function(){
                     
                     if( response.crew.photo ) {
                         $(".crewImgShow").attr("src", `/storage/${response.crew.photo}`)
+                        $(".crewImgShow").attr('width', '200px')
+                        $(".crewImgShow").attr('height', '200px')
                     } else if( response.crew.gender == 'MALE' && !response.crew.photo ) {
                         $(".crewImgShow").attr("src", '/img/default-male.png')
+                        $(".crewImgShow").attr('width', '200px')
+                        $(".crewImgShow").attr('height', '200px')
                     } else if( response.crew.gender == 'FEMALE' && !response.crew.photo ) {
                         $(".crewImgShow").attr("src", '/img/default-female.png')
+                        $(".crewImgShow").attr('width', '200px')
+                        $(".crewImgShow").attr('height', '200px')
                     }
                     
                     $("#crewCountryShow").text(response.crew_country);
