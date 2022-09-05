@@ -1,6 +1,28 @@
 $(document).ready(function() {
-    fetch_position_list()
+    
     fetch_crew_wo()
+
+    $('#certificate_crew_wo').change(function(e) {
+        var geekss = e.target.files[0].name;
+        $("#file-certificate-name-crew-wo").text(geekss);
+
+    });
+
+    $('#certificate_crew_wo_edit').change(function(e) {
+        var geekss = e.target.files[0].name;
+        $("#file-certificate-name-crew-wo-edit").text(geekss);
+
+    });
+
+    $("#add-crew-wo-modal").on("hidden.bs.modal", function () {
+        $("#certificate_crew_wo").val("")
+        $('#file-certificate-name-crew-wo').text('');
+    });
+
+    $("#edit-crew-wo-modal").on('hidden.bs.modal', function() {
+        $("#certificate_crew_wo_edit").val("")
+        $('#file-certificate-name-crew-wo-edit').text('');
+    })
 
     $('#crew_wo_add_btn_modal').on('click', function (e) {
         e.preventDefault();
@@ -35,13 +57,26 @@ $(document).ready(function() {
                     $('#crew-last-position-wo').text(response.crew_wo.last_position);
                     $('#crew-year-in-wo').text(response.crew_wo.year_in);
                     $('#crew-year-out-wo').text(response.crew_wo.year_out);
-                    $('#crew-job-status-wo').text(response.crew_wo.jobs_status);
-                    $('#crew-more-info-wo').text(response.crew_wo.more_info);
+                    $('#crew-more-info-wo').text(response.crew_wo.remarks);
                     $('#crew-status-wo').text(response.crew_wo.status);
                     $('#crew-created-at-wo').text(response.crew_wo.created_at);
                     $('#crew-updated-at-wo').text(response.crew_wo.updated_at);
                     $('#crew-created-user-wo').text(response.crew_wo.created_user);
                     $('#crew-updated-user-wo').text(response.crew_wo.updated_user);
+
+                    if(response.crew_wo.certificate) {
+                        $('#crew-certificate-wo').html(
+                            `
+                            <a target="_blank" href="/storage/${response.crew_wo.certificate}" class="btn btn-success btn-sm">
+                                <i class="bi bi-download"></i>
+                            </a>
+                            `
+                        );
+                    } else {
+                        $('#crew-certificate-wo').html(`<button class="btn btn-dark btn-sm disabled">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        </button>`)
+                    }
                 }
                 else{
                     Swal.fire('Error!', `${response.message}`, 'error')
@@ -68,9 +103,15 @@ $(document).ready(function() {
                     $('#last_position_crew_wo_edit').val(response.crew_wo.last_position)
                     $('#year_in_crew_wo_edit').val(response.crew_wo.year_in)
                     $('#year_out_crew_wo_edit').val(response.crew_wo.year_out)
-                    $('#job_status_crew_wo_edit').val(response.crew_wo.jobs_status)
-                    $('#more_info_crew_wo_edit').val(response.crew_wo.more_info)
+                    $('#more_info_crew_wo_edit').val(response.crew_wo.remarks)
                     $('#status_crew_wo_edit').val(response.crew_wo.status)
+
+                    if( response.crew_wo.certificate ) {
+                        $('#file-certificate-name-crew-wo-edit').text(response.crew_wo.certificate)
+                    } else {
+                        $('#file-certificate-name-crew-wo-edit').text('')
+                    }
+
                 } else {
                     Swal.fire('Error!', `${response.message}`, 'error')
                 }
@@ -82,22 +123,14 @@ $(document).ready(function() {
     $(document).on('submit', '#edit-crew-wo-form', function(e) {
         e.preventDefault();
         let id = $('#real_id_crew_WO').val();
-        let new_crew_wo = {
-            id_crew: $('#id_crew_wo_edit').val(),
-            company_nm: $('#company_name_crew_wo_edit').val(),
-            last_position: $('#last_position_crew_wo_edit').val(),
-            year_in: $('#year_in_crew_wo_edit').val(),
-            year_out: $('#year_out_crew_wo_edit').val(),
-            jobs_status: $('#job_status_crew_wo_edit').val(),
-            more_info: $('#more_info_crew_wo_edit').val(),
-            status: $('#status_crew_wo_edit').val(),
-            updated_user: $('#updated_user_crew_wo').val(),
-        }
+        let new_crew_wo = new FormData( $(this)[0] );
 
         $.ajax({
             type: "post",
             url: `crew-wo/${id}`,
             data: new_crew_wo,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if( response.status == 400 ) {
                     $.each(response.errors, function (indexInArray, valueOfElement) { 
@@ -122,7 +155,7 @@ $(document).ready(function() {
                     )
                     fetch_crew_list()
                     fetch_crew_wo()
-                    fetch_position_list()
+                    
                 }
                 else if( response.status == 200 ) {
                     $("#edit-crew-wo-modal").modal("hide");
@@ -133,7 +166,7 @@ $(document).ready(function() {
                     )
                     fetch_crew_list()
                     fetch_crew_wo()
-                    fetch_position_list()
+                    
                 }
             }
         });
@@ -165,7 +198,7 @@ $(document).ready(function() {
                             )
                             fetch_crew_wo()
                             fetch_crew_list()
-                            fetch_position_list()
+                            
 
                         } else if( response.status == 400 ) {
                             Swal.fire(
@@ -175,7 +208,7 @@ $(document).ready(function() {
                             )
                             fetch_crew_wo()
                             fetch_crew_list()
-                            fetch_position_list()
+                            
 
                         } else if( response.status == 200 ) {
                             Swal.fire(
@@ -185,7 +218,7 @@ $(document).ready(function() {
                             )
                             fetch_crew_wo()
                             fetch_crew_list()
-                            fetch_position_list()
+                            
                         }
                     }
                 });
@@ -197,22 +230,14 @@ $(document).ready(function() {
     // store crew WO
     $('#add-crew-wo-form').on('submit', function (e) {
         e.preventDefault()
-        let crew_wo_data = {
-            id_crew: $('#id_crew_wo').val(),
-            company_nm: $('#company_name_crew_wo').val(),
-            last_position: $('#last_position_crew_wo').val(),
-            year_in: $('#year_in_crew_wo').val(),
-            year_out: $('#year_out_crew_wo').val(),
-            jobs_status: $('#job_status_crew_wo').val(),
-            more_info: $('#more_info_crew_wo').val(),
-            status: $('#status_crew_wo').val(),
-            created_user: $('#created_user_crew_wo').val(),
-        }
+        let crew_wo_data = new FormData( $(this)[0] )
 
         $.ajax({
             type: "post",
             url: "crew-wo",
             data: crew_wo_data,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if( response.status == 200 ) {
                     Swal.fire(
@@ -221,7 +246,7 @@ $(document).ready(function() {
                         'success'
                     )
                     $("#add-crew-wo-modal").modal('hide')
-                    fetch_position_list()
+                    
                     fetch_crew_list()
                     fetch_crew_wo()
 
@@ -232,8 +257,9 @@ $(document).ready(function() {
                     $('#company_name_crew_wo').val('');
                     $('#year_in_crew_wo').val('');
                     $('#year_out_crew_wo').val('');
-                    $('#job_status_crew_wo').val('');
+                    $('#last_position_crew_wo').val('');
                     $('#more_info_crew_wo').val('');
+                    $('#certificate_crew_wo').val('');
                 }
                 else
                 {
@@ -250,6 +276,9 @@ $(document).ready(function() {
                         )
                     });
                 }
+            },
+            error: function(err) {
+                console.log(err.responseText);
             }
         });
     });
@@ -284,29 +313,6 @@ function fetch_crew_wo() {
                         </button>
                     </td>
                 </tr>
-                `)
-            });
-        }
-    });
-}
-
-function fetch_position_list() {
-    $.ajax({
-        type: "get",
-        url: "read-position",
-        dataType: "json",
-        success: function (response) {
-            $('#last_position_crew_wo').html('');
-            $.each(response.positions, function (indexInArray, valueOfElement) { 
-                $('#last_position_crew_wo').append(`
-                    <option value="${valueOfElement.name}">${valueOfElement.name}</option>
-                `)
-            });
-
-            $('#last_position_crew_wo_edit').html('');
-            $.each(response.positions, function (indexInArray, valueOfElement) { 
-                $('#last_position_crew_wo_edit').append(`
-                    <option value="${valueOfElement.name}">${valueOfElement.name}</option>
                 `)
             });
         }

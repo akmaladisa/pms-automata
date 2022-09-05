@@ -10,7 +10,7 @@
             <div class="modal-body">
                 {{-- show error list if exist --}}
                 <div class="alert-group-list-crew-wo-error mb-4"></div>
-                <form id="add-crew-wo-form" method="POST">
+                <form id="add-crew-wo-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Crew</label>
@@ -26,11 +26,11 @@
                         </div>
                     </div>
 
-                    <div class="input-group mb-4">
+                    <div class="form-group row mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Last Position</label>
-                        <select class="form-control col-sm-8" name="last_position" id="last_position_crew_wo">
-                            
-                        </select>
+                        <div class="col-sm-10">
+                            <input name="last_position" type="text" class="form-control" id="last_position_crew_wo" placeholder="Last Position" value="{{ old('last_position') }}">
+                        </div>
                     </div>
 
                     <div class="form-group row mb-4">
@@ -48,16 +48,23 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Job Status</label>
-                        <div class="col-sm-10">
-                            <input name="jobs_status" type="text" class="form-control" id="job_status_crew_wo" placeholder="Job Status" value="{{ old('jobs_status') }}">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label mr-3">Certificate</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="custom-file-input" id="certificate_crew_wo" name="certificate">
+                            <label class="custom-file-label" for="customFile">Choose Certificate</label>
+                            <div class=" mt-2">
+                                <span class="badge badge-primary">
+                                    <small id="sh-text4" class="form-text mt-0">PDF,DOCX,DOC</small>
+                                </span>
+                                <small id="file-certificate-name-crew-wo"></small>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">More Info</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Remarks</label>
                         <div class="col-sm-10">
-                            <input name="more_info" type="text" class="form-control" id="more_info_crew_wo" placeholder="More Info" value="{{ old('more_info') }}">
+                            <input name="remarks" type="text" class="form-control" id="more_info_crew_wo" placeholder="Remarks" value="{{ old('remarks') }}">
                         </div>
                     </div>
             
@@ -107,8 +114,8 @@
                             <li class="list-group-item active">Last Position : <span id="crew-last-position-wo"></span></li>
                             <li class="list-group-item active">Year In : <span id="crew-year-in-wo"></span></li>
                             <li class="list-group-item active">Year Out : <span id="crew-year-out-wo"></span></li>
-                            <li class="list-group-item active">Job Status : <span id="crew-job-status-wo"></span></li>
-                            <li class="list-group-item active">More Info : <span id="crew-more-info-wo"></span></li>
+                            <li class="list-group-item active">Certificate : <span id="crew-certificate-wo"></span></li>
+                            <li class="list-group-item active">Remarks : <span id="crew-more-info-wo"></span></li>
                             <li class="list-group-item active">Status : <span id="crew-status-wo"></span></li>
                             <li class="list-group-item active">Created At : <span id="crew-created-at-wo"></span></li>
                             <li class="list-group-item active">Updated At : <span id="crew-updated-at-wo"></span></li>
@@ -139,7 +146,7 @@
             <div class="modal-body">
                 {{-- show error list if exist --}}
                 <div class="alert-group-list-crew-wo-edit-error mb-4"></div>
-                <form id="edit-crew-wo-form" method="POST">
+                <form id="edit-crew-wo-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="real_id_crew_WO">
                     <div class="input-group mb-4">
@@ -156,11 +163,11 @@
                         </div>
                     </div>
 
-                    <div class="input-group mb-4">
+                    <div class="form-group row mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Last Position</label>
-                        <select class="form-control col-sm-8" name="last_position" id="last_position_crew_wo_edit">
-                            
-                        </select>
+                        <div class="col-sm-10">
+                            <input name="last_position" type="text" class="form-control" id="last_position_crew_wo_edit" placeholder="Last Position" value="{{ old('last_position') }}">
+                        </div>
                     </div>
 
                     <div class="form-group row mb-4">
@@ -178,16 +185,23 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Job Status</label>
-                        <div class="col-sm-10">
-                            <input name="jobs_status" type="text" class="form-control" id="job_status_crew_wo_edit" placeholder="Job Status" value="{{ old('jobs_status') }}">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label mr-3">Certificate</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="custom-file-input" id="certificate_crew_wo_edit" name="certificate">
+                            <label class="custom-file-label" for="customFile">Choose Certificate</label>
+                            <div class=" mt-2">
+                                <span class="badge badge-primary">
+                                    <small id="sh-text4" class="form-text mt-0">PDF,DOCX,DOC</small>
+                                </span>
+                                <small id="file-certificate-name-crew-wo-edit"></small>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">More Info</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Remarks</label>
                         <div class="col-sm-10">
-                            <input name="more_info" type="text" class="form-control" id="more_info_crew_wo_edit" placeholder="More Info" value="{{ old('more_info') }}">
+                            <input name="remarks" type="text" class="form-control" id="more_info_crew_wo_edit" placeholder="Remarks" value="{{ old('remarks') }}">
                         </div>
                     </div>
             

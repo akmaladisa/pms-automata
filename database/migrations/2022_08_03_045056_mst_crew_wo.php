@@ -20,8 +20,8 @@ class MstCrewWo extends Migration
             $table->string('last_position');
             $table->integer('year_in');
             $table->integer('year_out');
-            $table->string('jobs_status');
-            $table->string('more_info');
+            $table->string('certificate')->nullable();
+            $table->string('remarks');
             $table->string('status');
             $table->timestampsTz();
             $table->string('created_user');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Crew;
 use App\Models\CrewWO;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Crew_WO_Controller extends Controller
@@ -48,25 +49,40 @@ class Crew_WO_Controller extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id_crew' => 'required',
             'company_nm' => 'required',
             'last_position' => 'required',
             'year_in' => 'required|numeric',
             'year_out' => 'required|numeric',
-            'jobs_status' => 'required',
-            'more_info' => 'required',
+            'certificate' => 'mimes:pdf,doc,docx',
+            'remarks' => 'required',
             'status' => 'required|max:3',
             'created_user' => 'required'
         ]);
 
-        if( $validator->fails() ) {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->getMessageBag() 
+                'errors' => $validator->getMessageBag()
             ]);
         } else {
-            CrewWO::create( $request->all() );
+            $crew_wo = new CrewWO();
+            $crew_wo->id_crew = $request->id_crew;
+            $crew_wo->company_nm = $request->company_nm;
+            $crew_wo->last_position = $request->last_position;
+            $crew_wo->year_in = $request->year_in;
+            $crew_wo->year_out = $request->year_out;
+            $crew_wo->remarks = $request->remarks;
+            $crew_wo->status = $request->status;
+            $crew_wo->created_user = $request->created_user;
+
+            if($request->file('certificate')) {
+                $crew_wo->certificate = $request->file('certificate')->store('crew-scan-certificate');
+            }
+
+            $crew_wo->save();
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Crew Work Experience Has Been Added'
@@ -85,7 +101,7 @@ class Crew_WO_Controller extends Controller
         $crew_wo = CrewWO::find($id);
         $crew_name = $crew_wo->crew->full_name;
 
-        if( $crew_wo ) {
+        if ($crew_wo) {
             return response()->json([
                 'status' => 200,
                 'crew_wo' => $crew_wo,
@@ -122,47 +138,54 @@ class Crew_WO_Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'id_crew' => 'required',
             'company_nm' => 'required',
             'last_position' => 'required',
             'year_in' => 'required|numeric',
             'year_out' => 'required|numeric',
-            'jobs_status' => 'required',
-            'more_info' => 'required',
+            'certificate' => 'mimes:pdf,doc,docx',
+            'remarks' => 'required',
             'status' => 'required|max:3',
             'updated_user' => 'required'
         ]);
 
-        if( $validator->fails() ) {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->getMessageBag() 
+                'errors' => $validator->getMessageBag()
             ]);
-        }
-        else
-        {
-            $old_crew_wo = CrewWO::find($id);
+        } else {
+            $crew_wo = CrewWO::find($id);
 
-            if( $old_crew_wo )
-            {
-                $old_crew_wo->update( $request->all() );
+            if ($crew_wo) {
+                $crew_wo->id_crew = $request->id_crew;
+                $crew_wo->company_nm = $request->company_nm;
+                $crew_wo->last_position = $request->last_position;
+                $crew_wo->year_in = $request->year_in;
+                $crew_wo->year_out = $request->year_out;
+                $crew_wo->remarks = $request->remarks;
+                $crew_wo->status = $request->status;
+                $crew_wo->updated_user = $request->updated_user;
+
+                if($request->file('certificate')) {
+                    Storage::delete($crew_wo->certificate);
+                    $crew_wo->certificate = $request->file('certificate')->store('crew-scan-certificate');
+                }
+
+                $crew_wo->save();
 
                 return response()->json([
                     'status' => 200,
                     'message' => "Crew Work Experience Has Been Updated"
                 ]);
-            }
-            else
-            {
+            } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'Crew Work Experience Not Found'
                 ]);
             }
-
         }
-        
     }
 
     /**
@@ -174,8 +197,8 @@ class Crew_WO_Controller extends Controller
     public function destroy($id)
     {
         $crew_wo = CrewWO::find($id);
-        
-        if($crew_wo) {
+
+        if ($crew_wo) {
             $crew_wo->status = "DE";
             $crew_wo->save();
 
@@ -183,9 +206,7 @@ class Crew_WO_Controller extends Controller
                 'status' => 200,
                 'message' => 'Crew Work Experience Deleted'
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'Crew Work Experience Not Found'
