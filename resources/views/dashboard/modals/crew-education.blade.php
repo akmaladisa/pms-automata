@@ -21,9 +21,9 @@
                     </div>
             
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Instance</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Institution Name</label>
                         <div class="col-sm-10">
-                            <input name="instance_nm" type="text" class="form-control" id="instance_crew_education" placeholder="Instance" value="{{ old('instance_nm') }}">
+                            <input name="instance_nm" type="text" class="form-control" id="instance_crew_education" placeholder="Institution Name" value="{{ old('instance_nm') }}">
                         </div>
                     </div>
 
@@ -42,9 +42,9 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">More Information</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Major</label>
                         <div class="col-sm-10">
-                            <input name="more_information" type="text" class="form-control" id="more_info_crew_education" placeholder="More Information" value="{{ old('more_information') }}">
+                            <input name="major" type="text" class="form-control" id="more_info_crew_education" placeholder="Major" value="{{ old('major') }}">
                         </div>
                     </div>
 
@@ -113,9 +113,9 @@
                     </div>
             
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Instance</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Institution Name</label>
                         <div class="col-sm-10">
-                            <input name="instance_nm" type="text" class="form-control" id="instance_crew_education_edit" placeholder="Instance" value="{{ old('instance_nm') }}">
+                            <input name="instance_nm" type="text" class="form-control" id="instance_crew_education_edit" placeholder="Institution Name" value="{{ old('instance_nm') }}">
                         </div>
                     </div>
 
@@ -134,9 +134,9 @@
                     </div>
 
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">More Information</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Major</label>
                         <div class="col-sm-10">
-                            <input name="more_information" type="text" class="form-control" id="more_info_crew_education_edit" placeholder="More Information" value="{{ old('more_information') }}">
+                            <input name="major" type="text" class="form-control" id="more_info_crew_education_edit" placeholder="Major" value="{{ old('major') }}">
                         </div>
                     </div>
 
@@ -199,7 +199,7 @@
                             <li class="list-group-item active">ID : <span id="crew-id-education"></span></li>
                             <li class="list-group-item active">Instance : <span id="crew-instance-education"></span></li>
                             <li class="list-group-item active">Certificate : <span id="crew-certificate-education"></span></li>
-                            <li class="list-group-item active">More Information : <span id="crew-more-info-education"></span></li>
+                            <li class="list-group-item active">Major : <span id="crew-more-info-education"></span></li>
                             <li class="list-group-item active">Year In : <span id="crew-year-in-education"></span></li>
                             <li class="list-group-item active">Year Out : <span id="crew-year-out-education"></span></li>
                             <li class="list-group-item active">Status : <span id="crew-status-education"></span></li>

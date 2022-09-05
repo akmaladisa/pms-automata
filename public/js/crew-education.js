@@ -60,7 +60,7 @@ $(document).ready(function() {
                     $('#crew-name-education').text(response.crew_name);
                     $('#crew-id-education').text(response.crew_education.id_crew);
                     $('#crew-instance-education').text(response.crew_education.instance_nm);
-                    $('#crew-more-info-education').text(response.crew_education.more_information);
+                    $('#crew-more-info-education').text(response.crew_education.major);
                     $('#crew-year-in-education').text(response.crew_education.year_in);
                     $('#crew-year-out-education').text(response.crew_education.year_out);
                     $('#crew-status-education').text(response.crew_education.status);
@@ -106,7 +106,7 @@ $(document).ready(function() {
                         $('#file-certificate-name-edit').text('')
                     }
 
-                    $('#more_info_crew_education_edit').val(response.crew_education.more_information)
+                    $('#more_info_crew_education_edit').val(response.crew_education.major)
                     $('#year_in_crew_education_edit').val(response.crew_education.year_in)
                     $('#year_out_crew_education_edit').val(response.crew_education.year_out)
                 } else {
@@ -223,7 +223,7 @@ $(document).ready(function() {
             id_crew: $('#id_crew_education').val(),
             instance_nm: $('#instance_crew_education').val(),
             scan_certificate: $('#certificate_crew_education').val(),
-            more_information: $('#more_info_crew_education').val(),
+            major: $('#more_info_crew_education').val(),
             year_in: $('#year_in_crew_education').val(),
             year_out: $('#year_out_crew_education').val(),
             status: $('#status_crew_education').val(),

@@ -45,7 +45,7 @@ class CrewEducationController extends Controller
             'id_crew' => 'required',
             'instance_nm' => 'required',
             'scan_certificate' => ['mimes:pdf,docx,doc'],
-            'more_information' => 'required',
+            'major' => 'required',
             'year_in' => 'required|numeric',
             'year_out' => 'required|numeric',
             'status' => 'required',
@@ -68,7 +68,7 @@ class CrewEducationController extends Controller
                 $crew_education->scan_certificate = $request->file('scan_certificate')->store('crew-scan-certificate');
             } 
 
-            $crew_education->more_information = $request->more_information;
+            $crew_education->major = $request->major;
             $crew_education->year_in = $request->year_in;
             $crew_education->year_out = $request->year_out;
             $crew_education->status = $request->status;
@@ -146,7 +146,7 @@ class CrewEducationController extends Controller
             'id_crew' => 'required',
             'instance_nm' => 'required',
             'scan_certificate' => 'mimes:pdf,doc,docx',
-            'more_information' => 'required',
+            'major' => 'required',
             'year_in' => 'required|numeric',
             'year_out' => 'required|numeric',
             'status' => 'required|max:3',
@@ -171,7 +171,7 @@ class CrewEducationController extends Controller
                     $crew_education->scan_certificate = $request->file('scan_certificate')->store('crew-scan-certificate');
                 } 
     
-                $crew_education->more_information = $request->more_information;
+                $crew_education->major = $request->major;
                 $crew_education->year_in = $request->year_in;
                 $crew_education->year_out = $request->year_out;
                 $crew_education->status = $request->status;
