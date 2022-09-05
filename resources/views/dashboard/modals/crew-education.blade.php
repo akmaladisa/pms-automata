@@ -191,7 +191,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="contentShowCrewMedicalRecord">
+            <div class="modal-body" id="contentShowCrewEducation">
                 <div class="row">
                     <div class="col-12">
                         <ul class="list-group ">

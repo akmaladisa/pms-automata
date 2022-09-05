@@ -283,7 +283,7 @@
                                             <tr>
                                                 <th>Crew ID</th>
                                                 <th>Certificate Name</th>
-                                                <th>Certificate Number</th>
+                                                <th>Certificate</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

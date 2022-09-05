@@ -15,6 +15,7 @@ use App\Models\Component;
 use App\Models\MainGroup;
 use App\Models\Departement;
 use App\Models\JenisIdentitas;
+use App\Models\MasterCrewCertificate;
 use App\Models\Position;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
         Part::factory(2)->create();
         Bank::factory(10)->create();
         Position::factory(10)->create();
+        MasterCrewCertificate::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
