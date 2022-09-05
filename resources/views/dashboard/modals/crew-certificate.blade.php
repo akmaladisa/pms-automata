@@ -106,6 +106,46 @@
 </div>
 {{-- add crew certificate modal --}}
 
+{{-- show crew certificate --}}
+<div class="modal animated fade" id="show-crew-certificate" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:2rem">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crew Certificate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="contentShowCrewCertificate">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="list-group ">
+                            <li class="list-group-item active">Name : <span id="crew-name-certificate"></span></li>
+                            <li class="list-group-item active">ID : <span id="crew-id-certificate"></span></li>
+                            <li class="list-group-item active">Certificate Name : <span id="certificate-name-certificate"></span></li>
+                            <li class="list-group-item active">Certificate Number : <span id="certificate-number-certificate"></span></li>
+                            <li class="list-group-item active">Certificate Type : <span id="certificate-type-certificate"></span></li>
+                            <li class="list-group-item active">Issued At : <span id="issued-at-certificate"></span></li>
+                            <li class="list-group-item active">Certificate Scan : <span id="certificate-scan-certificate"></span></li>
+                            <li class="list-group-item active">Issued Date : <span id="issued-date-certificate"></span></li>
+                            <li class="list-group-item active">Expired Date : <span id="expired-date-certificate"></span></li>
+                            <li class="list-group-item active">Warning Periode : <span id="warning-periode-certificate"></span></li>
+                            <li class="list-group-item active">Remarks : <span id="remarks-certificate"></span></li>
+                            <li class="list-group-item active">Status : <span id="status-certificate"></span></li>
+                            <li class="list-group-item active">Created At : <span id="crew-created-at-certificate"></span></li>
+                            <li class="list-group-item active">Updated At : <span id="crew-updated-at-certificate"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- show crew certificate --}}
+
 {{-- edit crew certificate --}}
 <div class="modal fade" id="edit-crew-cerficate-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -121,6 +161,7 @@
                 <div class="alert-group-list-certificate-edit mb-4"></div>
                 <form method="POST" id="form-edit-crew-certificate" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id" id="real_id_crew_certificate">
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Crew</label>
                         <select class="form-control" name="id_crew" id="id_crew_certificate_edit">

@@ -66,10 +66,13 @@ class CrewCertificateController extends Controller
 
     public function show($id)
     {
-        if( CrewCertificate::find($id) ) {
+        $crew_certificate = CrewCertificate::find($id);
+
+        if( $crew_certificate ) {
             return response()->json([
                 'status' => 200,
-                'crew_cerficate' => CrewCertificate::find($id)
+                'crew_certificate' => $crew_certificate,
+                'crew_name' => $crew_certificate->crew->full_name
             ]);
         }
 
