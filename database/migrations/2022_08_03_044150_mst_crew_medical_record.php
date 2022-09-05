@@ -18,11 +18,13 @@ class MstCrewMedicalRecord extends Migration
             $table->string('id_crew');
             $table->integer('height');
             $table->integer('weight');
-            $table->string('mcu_issued');
-            $table->dateTime('mcu_expired');
+            $table->string('blood_type');
+            $table->date('mcu_validity_date');
+            $table->date('mcu_expired');
+            $table->date('warning_period');
             $table->string('history_of_pain');
             $table->string('status');
-            $table->timestamps();
+            $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();
         });

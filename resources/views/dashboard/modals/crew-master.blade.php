@@ -157,7 +157,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Crew ID</th>
-                                                <th>MCU Issued</th>
+                                                <th>Pain History</th>
                                                 <th>MCU Expired</th>
                                                 <th>Action</th>
                                             </tr>

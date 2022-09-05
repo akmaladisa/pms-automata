@@ -31,8 +31,10 @@ $(document).ready(function() {
             id_crew: $('#id_crew_medical').val(),
             height: $('#crew_height_medical').val(),
             weight: $('#crew_weight_medical').val(),
-            mcu_issued: $('#crew_mcu_issued_medical').val(),
+            blood_type: $('#crew_blood_type_medical').val(),
+            mcu_validity_date: $('#crew_mcu_issued_medical').val(),
             mcu_expired: $('#crew_mcu_expired_medical').val(),
+            warning_period: $('#crew_warning_period_medical').val(),
             history_of_pain: $('#crew_history_medical').val(),
             status: $('#crew_status_medical').val(),
             created_user: $('#crew_created_medical').val(),
@@ -76,6 +78,8 @@ $(document).ready(function() {
                     $('#crew_mcu_issued_medical').val('');
                     $('#crew_mcu_expired_medical').val('');
                     $('#crew_history_medical').val('');
+                    $('#crew_warning_period_medical').val('');
+                    $('#crew_blood_type_medical').val('');
                 }
             },
             error: function(xhr) {
@@ -103,7 +107,9 @@ $(document).ready(function() {
                     $('#crew-id-medical-record').text(response.record.id_crew);
                     $('#crew-height-medical-record').text(response.record.height);
                     $('#crew-weight-medical-record').text(response.record.weight);
-                    $('#crew-mcu-issued-medical-record').text(response.record.mcu_issued);
+                    $('#crew-mcu-issued-medical-record').text(response.record.mcu_validity_date);
+                    $('#crew-warning-period-medical-record').text(response.record.warning_period);
+                    $('#crew-blood-type-medical-record').text(response.record.blood_type);
                     $('#crew-mcu-expired-medical-record').text(response.record.mcu_expired);
                     $('#crew-history-pain-medical-record').text(response.record.history_of_pain);
                     $('#crew-created-at-medical-record').text(response.record.created_at);
@@ -141,11 +147,13 @@ $(document).ready(function() {
                     $('#id_crew_medical_edit').val(response.record.id_crew);
                     $('#crew_height_medical_edit').val(response.record.height);
                     $('#crew_weight_medical_edit').val(response.record.weight);
-                    $('#crew_mcu_issued_medical_edit').val(response.record.mcu_issued);
+                    $('#crew_mcu_issued_medical_edit').val(response.record.mcu_validity_date);
                     $('#crew_mcu_expired_medical_edit').val(response.record.mcu_expired);
                     $('#crew_history_medical_edit').val(response.record.history_of_pain);
                     $('#crew_status_medical_edit').val(response.record.status);
                     $('#id_medical_record_edit').val(response.record.id);
+                    $('#crew_warning_period_medical_edit').val(response.record.warning_period);
+                    $('#crew_blood_type_medical_edit').val(response.record.blood_type);
                 } else {
                     Swal.fire(
                         'Not Found',
@@ -166,8 +174,10 @@ $(document).ready(function() {
             id_crew: $('#id_crew_medical_edit').val(),
             height: $('#crew_height_medical_edit').val(),
             weight: $('#crew_weight_medical_edit').val(),
-            mcu_issued: $('#crew_mcu_issued_medical_edit').val(),
+            blood_type: $('#crew_blood_type_medical_edit').val(),
+            mcu_validity_date: $('#crew_mcu_issued_medical_edit').val(),
             mcu_expired: $('#crew_mcu_expired_medical_edit').val(),
+            warning_period: $("#crew_warning_period_medical_edit").val(),
             history_of_pain: $('#crew_history_medical_edit').val(),
             status: $('#crew_status_medical_edit').val(),
             updated_user: $('#crew_updated_medical').val()
@@ -285,7 +295,7 @@ function fetch_crew_medical_record() {
                 $('tbody#crew-medical-record').append(`
                 <tr>
                     <td>${record.id_crew}</td>
-                    <td>${record.mcu_issued}</td>
+                    <td>${record.history_of_pain}</td>
                     <td>${record.mcu_expired}</td>
                     <td>
                         <button type="button" value="${record.id}" class="btn btn-show-crew-medical-record btn-info">

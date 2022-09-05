@@ -47,8 +47,10 @@ class CrewMedicalRecordController extends Controller
             'id_crew' => 'required',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
-            'mcu_issued' => 'required',
+            'blood_type' => 'required',
+            'mcu_validity_date' => 'required',
             'mcu_expired' => 'required',
+            'warning_period' => 'required',
             'history_of_pain' => 'required',
             'status' => 'required',
             'created_user' => 'required'
@@ -66,11 +68,13 @@ class CrewMedicalRecordController extends Controller
             $crew_medical->id_crew = $request->id_crew;
             $crew_medical->height = $request->height;
             $crew_medical->weight = $request->weight;
-            $crew_medical->mcu_issued = $request->mcu_issued;
+            $crew_medical->mcu_validity_date = $request->mcu_validity_date;
             $crew_medical->mcu_expired = $request->mcu_expired;
             $crew_medical->history_of_pain = $request->history_of_pain;
             $crew_medical->status = $request->status;
             $crew_medical->created_user = $request->created_user;
+            $crew_medical->warning_period = $request->warning_period;
+            $crew_medical->blood_type = $request->blood_type;
             $crew_medical->save();
 
             return response()->json([
@@ -144,8 +148,10 @@ class CrewMedicalRecordController extends Controller
             'id_crew' => 'required',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
-            'mcu_issued' => 'required',
+            'blood_type' => 'required',
+            'mcu_validity_date' => 'required',
             'mcu_expired' => 'required',
+            'warning_period' => 'required',
             'history_of_pain' => 'required',
             'status' => 'required|max:3',
             'updated_user' => 'required'
@@ -165,11 +171,13 @@ class CrewMedicalRecordController extends Controller
                 $crew_medical->id_crew = $request->id_crew;
                 $crew_medical->height = $request->height;
                 $crew_medical->weight = $request->weight;
-                $crew_medical->mcu_issued = $request->mcu_issued;
+                $crew_medical->mcu_validity_date = $request->mcu_validity_date;
                 $crew_medical->mcu_expired = $request->mcu_expired;
                 $crew_medical->history_of_pain = $request->history_of_pain;
                 $crew_medical->status = $request->status;
                 $crew_medical->updated_user = $request->updated_user;
+                $crew_medical->warning_period = $request->warning_period;
+                $crew_medical->blood_type = $request->blood_type;
                 $crew_medical->save();
 
             return response()->json([

@@ -16,8 +16,10 @@
                             <li class="list-group-item active">ID : <span id="crew-id-medical-record"></span></li>
                             <li class="list-group-item active">Height: <span id="crew-height-medical-record"></span></li>
                             <li class="list-group-item active">Weight : <span id="crew-weight-medical-record"></span></li>
-                            <li class="list-group-item active">MCU Issued : <span id="crew-mcu-issued-medical-record"></span></li>
+                            <li class="list-group-item active">Blood Type : <span id="crew-blood-type-medical-record"></span></li>
+                            <li class="list-group-item active">MCU Validity Date : <span id="crew-mcu-issued-medical-record"></span></li>
                             <li class="list-group-item active">MCU Expired : <span id="crew-mcu-expired-medical-record"></span></li>
+                            <li class="list-group-item active">Warning Period : <span id="crew-warning-period-medical-record"></span></li>
                             <li class="list-group-item active">History Of Pain : <span id="crew-history-pain-medical-record"></span></li>
                             <li class="list-group-item active">Status : <span id="crew-status-medical-record"></span></li>
                             <li class="list-group-item active">Created At : <span id="crew-created-at-medical-record"></span></li>
@@ -72,18 +74,32 @@
                             <input name="weight" type="number" class="form-control" id="crew_weight_medical" placeholder="Crew Weight" value="{{ old('weight') }}">
                         </div>
                     </div>
+
+                    <div class="form-group row mb-4">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Blood Type</label>
+                        <div class="col-sm-10">
+                            <input name="blood_type" type="text" class="form-control" id="crew_blood_type_medical" placeholder="Blood Type" value="{{ old('blood_type') }}">
+                        </div>
+                    </div>
             
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Issued</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Validity Date</label>
                         <div class="col-sm-10">
-                            <input name="mcu_issued" type="text" class="form-control" id="crew_mcu_issued_medical" placeholder="MCU Issued" value="{{ old('mcu_issued') }}">
+                            <input name="mcu_validity_date" type="date" class="form-control" id="crew_mcu_issued_medical" placeholder="MCU Validity Date" value="{{ old('mcu_validity_date') }}">
                         </div>
                     </div>
 
                     <div class="form-group row mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Expired</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical" placeholder="col-form-label">
+                            <input type="date" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical" placeholder="col-form-label">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Warning Period</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="warning_period" placeholder="Warning Period" class="form-control" id="crew_warning_period_medical" placeholder="col-form-label">
                         </div>
                     </div>
 
@@ -159,11 +175,18 @@
                             <input name="weight" type="number" class="form-control" id="crew_weight_medical_edit" placeholder="Crew Weight" value="{{ old('weight') }}">
                         </div>
                     </div>
+
+                    <div class="form-group row mb-4">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Blood Type</label>
+                        <div class="col-sm-10">
+                            <input name="blood_type" type="text" class="form-control" id="crew_blood_type_medical_edit" placeholder="Blood Type" value="{{ old('blood_type') }}">
+                        </div>
+                    </div>
             
                     <div class="form-group row mb-4">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Issued</label>
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Validity Date</label>
                         <div class="col-sm-10">
-                            <input name="mcu_issued" type="text" class="form-control" id="crew_mcu_issued_medical_edit" placeholder="MCU Issued" value="{{ old('mcu_issued') }}">
+                            <input name="mcu_validity_date" type="date" class="form-control" id="crew_mcu_issued_medical_edit" placeholder="MCU Validity Date" value="{{ old('mcu_validity_date') }}">
                         </div>
                     </div>
 
@@ -171,6 +194,13 @@
                         <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Expired</label>
                         <div class="col-sm-10">
                             <input type="datetime-local" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical_edit" placeholder="col-form-label">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Warning Period</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="warning_period" placeholder="Warning Period" class="form-control" id="crew_warning_period_medical_edit" placeholder="col-form-label">
                         </div>
                     </div>
 
