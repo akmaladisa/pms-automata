@@ -118,6 +118,40 @@ $(document).ready(function() {
                     $('#crew-updated-user-medical-record').text(response.record.updated_user);
                     $('#crew-status-medical-record').text(response.record.status);
 
+
+                    // check if the alert should appear
+                    let todayDate = new Date()
+                    let expiredDate = new Date( response.record.mcu_expired )
+                    let warningPeriod = new Date( response.record.warning_period )
+
+                    if( todayDate >= warningPeriod
+                        &&
+                        todayDate < expiredDate
+                    ) {
+                        $("#warning-period-alert").html(
+                            `
+                            <div class="alert alert-warning" role="alert">
+                                This record is on warning period & will be expired on ${response.record.mcu_expired} <span class="bi bi-exclamation-circle"></span>
+                            </div>
+                            `
+                        );
+                    } 
+                    
+                    if( todayDate >= expiredDate ) {
+                        $("#warning-period-alert").html(
+                            `
+                            <div class="alert alert-danger" role="alert">
+                                This record is expired <span class="bi bi-exclamation-circle"></span>
+                            </div>
+                            `
+                        );
+                    }
+
+                    // delete the alert when modal is closed
+                    $('#show-crew-medical-record').on("hidden.bs.modal", function() {
+                        $("#warning-period-alert").html('')
+                    })
+
                 } else {
                     Swal.fire(
                         'Not Found',
@@ -289,12 +323,32 @@ function fetch_crew_medical_record() {
         url: "read-crew-medical-record",
         dataType: "json",
         success: function (response) {
-
             $('tbody#crew-medical-record').html('');
             $.each(response.records, function (key, record) { 
+
+                let todayDate = new Date()
+                let expiredDate = new Date( record.mcu_expired )
+                let warningPeriod = new Date( record.warning_period )
+                
+                let badge = `<span class="badge badge-success">Safe</span>`;
+
+                if( todayDate >= warningPeriod
+                    &&
+                    todayDate < expiredDate
+                ) {
+                    badge = `<span class="badge badge-warning">Warning</span>`
+                }
+
+                if( todayDate >= expiredDate  ) {
+                    badge = `<span class="badge badge-danger">Expired</span>`
+                }
+
                 $('tbody#crew-medical-record').append(`
                 <tr>
-                    <td>${record.id_crew}</td>
+                    <td>
+                        ${badge}
+                        ${record.id_crew}
+                    </td>
                     <td>${record.history_of_pain}</td>
                     <td>${record.mcu_expired}</td>
                     <td>

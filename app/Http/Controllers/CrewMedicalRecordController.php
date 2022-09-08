@@ -50,7 +50,7 @@ class CrewMedicalRecordController extends Controller
             'blood_type' => 'required',
             'mcu_validity_date' => 'required',
             'mcu_expired' => 'required',
-            'warning_period' => 'required',
+            'warning_period' => 'required|before:mcu_expired',
             'history_of_pain' => 'required',
             'status' => 'required',
             'created_user' => 'required'
@@ -151,7 +151,7 @@ class CrewMedicalRecordController extends Controller
             'blood_type' => 'required',
             'mcu_validity_date' => 'required',
             'mcu_expired' => 'required',
-            'warning_period' => 'required',
+            'warning_period' => 'required|before:mcu_expired',
             'history_of_pain' => 'required',
             'status' => 'required|max:3',
             'updated_user' => 'required'

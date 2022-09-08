@@ -11,6 +11,7 @@
             <div class="modal-body" id="contentShowCrewMedicalRecord">
                 <div class="row">
                     <div class="col-12">
+                        <div id="warning-period-alert"></div>
                         <ul class="list-group ">
                             <li class="list-group-item active">Name : <span id="crew-name-medical-record"></span></li>
                             <li class="list-group-item active">ID : <span id="crew-id-medical-record"></span></li>
@@ -193,7 +194,7 @@
                     <div class="form-group row mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">MCU Expired</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical_edit" placeholder="col-form-label">
+                            <input type="date" name="mcu_expired" placeholder="MCU Expired" class="form-control" id="crew_mcu_expired_medical_edit" placeholder="col-form-label">
                         </div>
                     </div>
 
