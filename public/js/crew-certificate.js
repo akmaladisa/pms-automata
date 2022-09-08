@@ -106,6 +106,7 @@ $(document).ready(function() {
             contentType:'application/json',
             success: function (response) {
                 if( response.status == 200 ) {
+
                     $('#crew-name-certificate').text(response.crew_name);
                     $('#crew-id-certificate').text(response.crew_certificate.id_crew);
                     $('#certificate-name-certificate').text(response.crew_certificate.certificate_name);
@@ -134,6 +135,37 @@ $(document).ready(function() {
                             </button>
                         `)
                     }
+
+                    let todayDate = new Date()
+                    let expiredDate = new Date( response.crew_certificate.expired_date )
+                    let warningPeriod = new Date( response.crew_certificate.warning_periode ) 
+
+                    if( todayDate >= warningPeriod && todayDate < expiredDate ) {
+                        $("#alert-show-certificate").html(`
+                        <div class="alert alert-warning" role="alert">
+                            <b>
+                                This certificate is on warning period & will be expired on ${response.crew_certificate.expired_date} <span class="bi bi-exclamation-circle"></span>
+                            </b>    
+                        </div>
+                        `);
+                    }
+
+                    if( todayDate >= expiredDate ) {
+                        $("#alert-show-certificate").html(
+                            `
+                            <div class="alert alert-danger" role="alert">
+                                <b>
+                                    This certificate is expired <span class="bi bi-exclamation-circle"></span>
+                                </b>
+                            </div>
+                            `
+                        )
+                    }
+
+                    $("#show-crew-certificate").on("hidden.bs.modal", function() {
+                        $("#alert-show-certificate").html('')
+                    })
+
                 }
             }
         });
@@ -318,6 +350,20 @@ function fetch_crew_certificate() {
         success: function (response) {
             $('tbody#crew-certificate-tbody').html('');
             $.each(response.crew_certificates, function (key, value) {
+
+                let todayDate = new Date()
+                let expiredDate = new Date( value.expired_date )
+                let warningPeriod = new Date( value.warning_periode )
+
+                let badge = `<span class="badge badge-success">Safe</span>`;
+
+                if( todayDate >= warningPeriod && todayDate < expiredDate ) {
+                    badge = `<span class="badge badge-warning">Warning</span>`
+                }
+
+                if( todayDate >= expiredDate ) {
+                    badge = `<span class="badge badge-danger">Expired</span>`
+                }
                 
                 let UI_scan_certificate;
 
@@ -333,7 +379,10 @@ function fetch_crew_certificate() {
 
                 $('tbody#crew-certificate-tbody').append(`
                 <tr>
-                    <td>${value.id_crew}</td>
+                    <td>
+                        ${badge}
+                        ${value.id_crew}
+                    </td>
                     <td>${value.certificate_name}</td>
                     <td>${UI_scan_certificate}</td>
                     <td>

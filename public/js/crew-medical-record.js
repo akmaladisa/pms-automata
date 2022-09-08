@@ -131,7 +131,9 @@ $(document).ready(function() {
                         $("#warning-period-alert").html(
                             `
                             <div class="alert alert-warning" role="alert">
-                                This record is on warning period & will be expired on ${response.record.mcu_expired} <span class="bi bi-exclamation-circle"></span>
+                                <b>
+                                    This record is on warning period & will be expired on ${response.record.mcu_expired} <span class="bi bi-exclamation-circle"></span>
+                                </b>
                             </div>
                             `
                         );
@@ -141,7 +143,9 @@ $(document).ready(function() {
                         $("#warning-period-alert").html(
                             `
                             <div class="alert alert-danger" role="alert">
-                                This record is expired <span class="bi bi-exclamation-circle"></span>
+                                <b>
+                                    This record is expired <span class="bi bi-exclamation-circle"></span>
+                                </b>
                             </div>
                             `
                         );

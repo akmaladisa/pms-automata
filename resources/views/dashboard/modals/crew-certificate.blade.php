@@ -119,6 +119,7 @@
             <div class="modal-body" id="contentShowCrewCertificate">
                 <div class="row">
                     <div class="col-12">
+                        <div id="alert-show-certificate"></div>
                         <ul class="list-group ">
                             <li class="list-group-item active">Name : <span id="crew-name-certificate"></span></li>
                             <li class="list-group-item active">ID : <span id="crew-id-certificate"></span></li>

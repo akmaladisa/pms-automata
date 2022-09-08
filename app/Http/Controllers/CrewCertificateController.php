@@ -22,7 +22,7 @@ class CrewCertificateController extends Controller
             'certificate_scan' => 'mimes:pdf,doc,docx',
             'issued_date' => 'required',
             'expired_date' => 'required',
-            'warning_periode' => 'required',
+            'warning_periode' => 'required|before:expired_date',
             'remarks' => 'required',
             'status' => 'required|max:3'
         ]);
@@ -93,7 +93,7 @@ class CrewCertificateController extends Controller
             'certificate_scan' => 'mimes:pdf,doc,docx',
             'issued_date' => 'required',
             'expired_date' => 'required',
-            'warning_periode' => 'required',
+            'warning_periode' => 'required|before:expired_date',
             'remarks' => 'required',
             'status' => 'required|max:3'
         ]);
