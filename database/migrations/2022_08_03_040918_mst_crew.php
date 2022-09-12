@@ -34,6 +34,7 @@ class MstCrew extends Migration
             $table->string('status');
             $table->date('join_port');
             $table->text('photo')->nullable();
+            $table->string('employment_status');
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();

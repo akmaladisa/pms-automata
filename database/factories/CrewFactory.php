@@ -38,6 +38,7 @@ class CrewFactory extends Factory
             'join_date' => $this->faker->dateTime(),
             'note' => $this->faker->text(80),
             'status' => "ACT",
+            'employment_status' => $this->faker->randomElement(['Contract', 'Permanent']),
             'join_port' => $this->faker->dateTime(),
             // 'photo' => $faker->image(public_path('storage\crew-img'), 200, 200, ['people']),
             'created_user' => "USR" . $this->faker->numberBetween(1000,9999)

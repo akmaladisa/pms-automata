@@ -28,9 +28,9 @@ class CrewController extends Controller
                 'field' => 'id_crew',
                 'prefix' => 'CR' 
             ]),
-            'countries' => Country::where('status', 'ACT')->get(),
-            'identytiesType' => JenisIdentitas::all(),
-            'ships' => Ship::where('status', 'ACT')->get()
+            'countries' => Country::where('status', 'ACT')->orderBy('country_nm')->get(),
+            'identytiesType' => JenisIdentitas::orderBy('name')->get(),
+            'ships' => Ship::where('status', 'ACT')->orderBy('ship_nm')->get()
         ]);
     }
 
@@ -81,13 +81,14 @@ class CrewController extends Controller
             'note' => 'required',
             'status' => 'required|max:3',
             'join_port' => 'required',
-            'photo' => 'image|file|mimes:jpg,jpeg,png,gif',
+            'photo' => 'mimes:jpg,jpeg,png,gif|image',
+            'employment_status' => 'required',
             'created_user' => 'required'
         ]);
 
         if( $validator->fails() )
         {
-            alert()->error("Error", "Failed To Add New Crew");
+            alert()->error("Error", $validator->errors()->first());
             return redirect()->route('crew.index');
         }
         else
@@ -112,6 +113,7 @@ class CrewController extends Controller
             $crew->status = $request->status;
             $crew->join_port = $request->join_port;
             $crew->duty_on_ship = $request->duty_on_ship;
+            $crew->employment_status = $request->employment_status;
 
             if( $request->file('photo') ) {
                 $crew->photo = $request->file('photo')->store('crew-img');
@@ -221,7 +223,8 @@ class CrewController extends Controller
             'note' => 'required',
             'status' => 'required|max:3',
             'join_port' => 'required',
-            'photo' => 'image|file|mimes:jpg,jpeg,png,gif',
+            'photo' => 'mimes:jpg,jpeg,png,gif|image',
+            'employment_status' => 'required',
             'updated_user' => 'required'
         ]);
 
@@ -229,7 +232,7 @@ class CrewController extends Controller
         {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator
+                'errors' => $validator->getMessageBag()
             ]);
         }
         else
@@ -256,6 +259,7 @@ class CrewController extends Controller
                 $crew->status = $request->status;
                 $crew->join_port = $request->join_port;
                 $crew->duty_on_ship = $request->duty_on_ship;
+                $crew->employment_status = $request->employment_status;
     
                 if( $request->file('photo') ) {
                     Storage::delete( $crew->photo );

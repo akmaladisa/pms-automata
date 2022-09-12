@@ -43,6 +43,7 @@ $(document).ready(function(){
                     $('#crewJoinPortShow').text(response.crew.join_port);
                     $('#crewStatusShow').text(response.crew.status);
                     $('#crewNoteShow').text(response.crew.note);
+                    $('#crewEmploymentStatus').text(response.crew.employment_status);
                     
                     if( response.crew.photo ) {
                         $(".crewImgShow").attr("src", `/storage/${response.crew.photo}`)
@@ -119,6 +120,7 @@ $(document).ready(function(){
                     $('#txtStatusEdit').val(response.crew.status)
                     $("#txtJoinPortEdit").val(response.crew.join_port)
                     $("#txtDutyOnShipEdit").val(response.crew.duty_on_ship)
+                    $("#txtEmploymentStatusEdit").val(response.crew.employment_status)
 
                     if( response.crew.photo ) {
                         $("#imgCrewEdit").css('display', 'block');
@@ -194,13 +196,18 @@ $(document).ready(function(){
             processData: false,
             success: function (response) {
                 if( response.status == 400 ) {
-                    $("#modalEditCrew").modal("hide");
-                    Swal.fire(
-                        'Fail!',
-                        `Failed To Update Crew`,
-                        'error'
-                    )
-                    fetchCrew()
+                    $.each(response.errors, function (indexInArray, valueOfElement) { 
+                        $('.alert-group-list-crew-master-edit').append(
+                            `
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>${valueOfElement}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            `
+                        )
+                    });
                 }
                 else if( response.status == 404 ) {
                     $("#modalEditCrew").modal("hide");

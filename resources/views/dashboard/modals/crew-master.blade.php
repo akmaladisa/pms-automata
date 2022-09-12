@@ -30,7 +30,6 @@
                             <div class="form-group">
                                 <label for="txtIdentityType" lang="en">Identity Type</label>
                                 <select lang="en" required name="identity_type" class="form-control form-control-sm" id="txtIdentityType" aria-describedby="txtIdentityType" style="width:100%">
-                                    <option selected disabled>Identity Type</option>
                                     @foreach ($identytiesType as $i)
                                         <option value="{{ $i->id }}">{{ $i->name }}</option>
                                     @endforeach
@@ -47,7 +46,6 @@
                             <div class="form-group">
                                 <label for="txtCountry" lang="en">Country</label>
                                 <select lang="en" required name="country" class="form-control form-control-sm" id="txtCountry" aria-describedby="txtCountry" style="width:100%">
-                                    <option selected disabled>Country</option>
                                     @foreach ($countries as $country)
                                         <option value="{{ $country->id_country }}">{{ $country->country_nm }}</option>
                                     @endforeach
@@ -90,7 +88,6 @@
                             <div class="form-group">
                                 <label for="txtDutyOnShip" lang="en">Duty On Ship</label>
                                 <select lang="en" required name="duty_on_ship" class="form-control form-control-sm" id="txtDutyOnShip" aria-describedby="txtDutyOnShip" style="width:100%">
-                                    <option selected disabled>Ship</option>
                                     @foreach ($ships as $ship)
                                         <option value="{{ $ship->id_ship }}">{{ $ship->ship_nm }}</option>
                                     @endforeach
@@ -111,6 +108,13 @@
                                 <textarea lang="en" name="note" required class="form-control form-control-sm" id="txtNote" aria-describedby="txtNote" placeholder="Note" rows="2"></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="txtEmploymentStatus" lang="en">Employment Status</label>
+                                <select lang="en" name="employment_status" required class="form-control form-control-sm" id="txtEmploymentStatus" aria-describedby="txtEmploymentStatus" style="width:100%">
+                                    <option value="Contract">Contract</option>
+                                    <option value="Permanent">Permanent</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="txtStatusMerital" lang="en">Status </label>
                                 <select lang="en" name="status" required class="form-control form-control-sm" id="txtStatus" aria-describedby="txtStatus" style="width:100%">
                                     <option value="ACT" selected="selected">ACT</option>
@@ -129,6 +133,9 @@
                                     <input id="txtCreatedUser" type="hidden" name="created_user" value="{{ auth()->user()->id_login }}">
                                 </div>
                             </div>
+                            @error('photo')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </fieldset>
@@ -329,6 +336,7 @@
             <div class="modal-body" id="contentEditCrew">
                 <fieldset>
                     <h2 style="font-size: 18px"><x-bi-person-fill class="fs-2 mb-1"></x-bi-person-fill> General Information</h2>
+                    <div class="alert-group-list-crew-master-edit"></div>
                     <div class="row">
                         <div class="col-md-4">
                             <form id="crewUpdateForm" enctype="multipart/form-data" method="POST">
@@ -391,7 +399,7 @@
                             <div class="form-group">
                                 <label for="txtStatusMerital" lang="en">Status Merital</label>
                                 <select lang="en" name="status_merital" required class="form-control form-control-sm" id="txtStatusMeritalEdit" aria-describedby="txtStatusMerital" style="width:100%">
-                                    <option value="MARRIED" selected="selected">MARRIED</option>
+                                    <option value="MARRIED">MARRIED</option>
                                     <option value="SINGLE">SINGLE</option>
                                     <option value="WIDOW">WIDOW</option>
                                     <option value="WIDOWER">WIDOWER</option>
@@ -427,6 +435,13 @@
                             <div class="form-group">
                                 <label for="txtNote" lang="en">Note</label>
                                 <textarea lang="en" name="note" required class="form-control form-control-sm" id="txtNoteEdit" aria-describedby="txtNote" placeholder="Note" rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmploymentStatus" lang="en">Employment Status</label>
+                                <select lang="en" name="employment_status" required class="form-control form-control-sm" id="txtEmploymentStatusEdit" aria-describedby="txtEmploymentStatus" style="width:100%">
+                                    <option value="Contract">Contract</option>
+                                    <option value="Permanent">Permanent</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="txtStatusMerital" lang="en">Status </label>
@@ -554,6 +569,9 @@
                                             <ul class="list-group ">
                                                 <li class="list-group-item active">
                                                     Job Title : <span id="crewJobTitleShow"></span>
+                                                </li>
+                                                <li class="list-group-item active">
+                                                    Employment Status : <span id="crewEmploymentStatus"></span>
                                                 </li>
                                                 <li class="list-group-item active">
                                                     Duty On Ship : <span id="dutyOnShip"></span>
