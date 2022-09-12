@@ -262,7 +262,7 @@ function fetchCrew() {
                     <td>${crew.id_crew}</td>
                     <td>${crew.full_name}</td>
                     <td>${crew.job_title}</td>
-                    <td>${crew.status}</td>
+                    <td>${crew.employment_status}</td>
                     <td>
                         <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info">
                             <i class="bi bi-eye-fill"></i>

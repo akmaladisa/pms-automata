@@ -61,7 +61,7 @@ class CrewController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validatedData = Validator::make($request->all(),[
             'id_crew' => "required",
             'full_name' => 'required',
             'email' => 'required|email',
@@ -86,9 +86,9 @@ class CrewController extends Controller
             'created_user' => 'required'
         ]);
 
-        if( $validator->fails() )
+        if( $validatedData->fails() )
         {
-            alert()->error("Error", $validator->errors()->first());
+            alert()->error("Error", $validatedData->errors()->first());
             return redirect()->route('crew.index');
         }
         else

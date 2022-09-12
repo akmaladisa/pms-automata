@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Departement::factory(10)->create();
         Country::factory(10)->create();
         JenisIdentitas::factory(10)->create();
-        Crew::factory(10)->create();
+        // Crew::factory(10)->create();
         MainGroup::factory(2)->create();
         Group::factory(2)->create();
         SubGroup::factory(2)->create();
