@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Crew;
 use Database\Factories\ShipFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,5 +22,10 @@ class Ship extends Model
     protected static function newFactory()
     {
         return ShipFactory::new();
+    }
+
+    public function crew()
+    {
+        return $this->hasMany(Crew::class, 'duty_on_ship');
     }
 }

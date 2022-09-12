@@ -87,6 +87,15 @@
                                 <label for="txtDob" lang="en">Date Of Birth</label>
                                 <input type="date" required name="dob" lang="en" class="form-control form-control-sm" id="txtDob" aria-describedby="txtDob" placeholder="Date Of Birth">
                             </div>
+                            <div class="form-group">
+                                <label for="txtDutyOnShip" lang="en">Duty On Ship</label>
+                                <select lang="en" required name="duty_on_ship" class="form-control form-control-sm" id="txtDutyOnShip" aria-describedby="txtDutyOnShip" style="width:100%">
+                                    <option selected disabled>Ship</option>
+                                    @foreach ($ships as $ship)
+                                        <option value="{{ $ship->id_ship }}">{{ $ship->ship_nm }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -396,6 +405,15 @@
                                 <label for="txtDob" lang="en">Date Of Birth</label>
                                 <input type="date" required name="dob" lang="en" class="form-control form-control-sm" id="txtDobEdit" aria-describedby="txtDob" placeholder="Date Of Birth">
                             </div>
+                            <div class="form-group">
+                                <label for="txtDutyOnShip" lang="en">Duty On Ship</label>
+                                <select lang="en" required name="duty_on_ship" class="form-control form-control-sm" id="txtDutyOnShipEdit" aria-describedby="txtDutyOnShip" style="width:100%">
+                                    <option selected disabled>Ship</option>
+                                    @foreach ($ships as $ship)
+                                        <option value="{{ $ship->id_ship }}">{{ $ship->ship_nm }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -536,6 +554,9 @@
                                             <ul class="list-group ">
                                                 <li class="list-group-item active">
                                                     Job Title : <span id="crewJobTitleShow"></span>
+                                                </li>
+                                                <li class="list-group-item active">
+                                                    Duty On Ship : <span id="dutyOnShip"></span>
                                                 </li>
                                                 <li class="list-group-item active">
                                                     Country : <span id="crewCountryShow"></span>

@@ -60,6 +60,7 @@ $(document).ready(function(){
                     
                     $("#crewCountryShow").text(response.crew_country);
                     $('#crewIdentityTypeShow').text(response.crew_identity_type);
+                    $("#dutyOnShip").text(response.crew_ship);
 
                 }
                 else{
@@ -117,6 +118,7 @@ $(document).ready(function(){
                     $("#txtNoteEdit").val(response.crew.note)
                     $('#txtStatusEdit').val(response.crew.status)
                     $("#txtJoinPortEdit").val(response.crew.join_port)
+                    $("#txtDutyOnShipEdit").val(response.crew.duty_on_ship)
 
                     if( response.crew.photo ) {
                         $("#imgCrewEdit").css('display', 'block');

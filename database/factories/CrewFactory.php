@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Crew;
 use App\Models\Country;
 use App\Models\JenisIdentitas;
+use App\Models\Ship;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CrewFactory extends Factory
@@ -32,6 +33,7 @@ class CrewFactory extends Factory
             'status_merital' => $this->faker->randomElement(['SINGLE', 'MARRIED']),
             'pob' => $this->faker->city(),
             'dob' => $this->faker->date(),
+            'duty_on_ship' => Ship::all()->random()->id_ship,
             'address' => $this->faker->address(),
             'join_date' => $this->faker->dateTime(),
             'note' => $this->faker->text(80),

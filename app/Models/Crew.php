@@ -30,6 +30,11 @@ class Crew extends Model
         return $this->belongsTo(Country::class, 'country');
     }
 
+    public function ship()
+    {
+        return $this->belongsTo(Ship::class, 'duty_on_ship');
+    }
+
     protected static function newFactory()
     {
         return CrewFactory::new();

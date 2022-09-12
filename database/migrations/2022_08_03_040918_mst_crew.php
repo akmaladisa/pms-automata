@@ -27,6 +27,7 @@ class MstCrew extends Migration
             $table->string('status_merital');
             $table->string('pob');
             $table->date('dob');
+            $table->string('duty_on_ship');
             $table->string('address');
             $table->date('join_date');
             $table->string('note');

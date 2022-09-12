@@ -6,6 +6,7 @@ use App\Models\Crew;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\JenisIdentitas;
+use App\Models\Ship;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -27,8 +28,9 @@ class CrewController extends Controller
                 'field' => 'id_crew',
                 'prefix' => 'CR' 
             ]),
-            'countries' => Country::all(),
-            'identytiesType' => JenisIdentitas::all()
+            'countries' => Country::where('status', 'ACT')->get(),
+            'identytiesType' => JenisIdentitas::all(),
+            'ships' => Ship::where('status', 'ACT')->get()
         ]);
     }
 
@@ -73,6 +75,7 @@ class CrewController extends Controller
             'status_merital' => 'required',
             'pob' => 'required',
             'dob' => 'required',
+            'duty_on_ship' => 'required',
             'address' => 'required',
             'join_date' => 'required',
             'note' => 'required',
@@ -108,6 +111,7 @@ class CrewController extends Controller
             $crew->note = $request->note;
             $crew->status = $request->status;
             $crew->join_port = $request->join_port;
+            $crew->duty_on_ship = $request->duty_on_ship;
 
             if( $request->file('photo') ) {
                 $crew->photo = $request->file('photo')->store('crew-img');
@@ -142,6 +146,7 @@ class CrewController extends Controller
 
         $crew_country = $crew->crewCountry->country_nm;
         $crew_identity_type = $crew->identity->name;
+        $crew_ship = $crew->ship->ship_nm;
 
         if($crew)
         {
@@ -149,7 +154,8 @@ class CrewController extends Controller
                 'status' => 200,
                 'crew' => $crew,
                 'crew_country' => $crew_country,
-                'crew_identity_type' => $crew_identity_type
+                'crew_identity_type' => $crew_identity_type,
+                'crew_ship' => $crew_ship
             ]);
         }
         else
@@ -209,6 +215,7 @@ class CrewController extends Controller
             'status_merital' => 'required',
             'pob' => 'required',
             'dob' => 'required',
+            'duty_on_ship' => 'required',
             'address' => 'required',
             'join_date' => 'required',
             'note' => 'required',
@@ -248,6 +255,7 @@ class CrewController extends Controller
                 $crew->note = $request->note;
                 $crew->status = $request->status;
                 $crew->join_port = $request->join_port;
+                $crew->duty_on_ship = $request->duty_on_ship;
     
                 if( $request->file('photo') ) {
                     Storage::delete( $crew->photo );
