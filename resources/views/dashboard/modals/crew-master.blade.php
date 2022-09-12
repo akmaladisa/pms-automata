@@ -95,7 +95,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtJoinDate" lang="en">Join Date</label>
-                                <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinDate" aria-describedby="txtJoinDate" placeholder="Join Date" required name="join_date">
+                                <input type="date" lang="en" class="form-control form-control-sm" id="txtJoinDate" aria-describedby="txtJoinDate" placeholder="Join Date" required name="join_date">
                             </div>
                             <div class="form-group">
                                 <label for="txtNote" lang="en">Note</label>
@@ -110,7 +110,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtJoinPort" lang="en">Join Port</label>
-                                <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinPort" aria-describedby="txtJoinPort" required placeholder="Join Port" name="join_port">
+                                <input type="date" lang="en" class="form-control form-control-sm" id="txtJoinPort" aria-describedby="txtJoinPort" required placeholder="Join Port" name="join_port">
                             </div>
                             <div class="form-group">
                                 <label for="imgCrew" lang="en">Photo</label>
@@ -404,7 +404,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtJoinDate" lang="en">Join Date</label>
-                                <input type="datetime-local" lang="en" class="form-control form-control-sm" id="txtJoinDateEdit" aria-describedby="txtJoinDate" required placeholder="Join Date" name="join_date">
+                                <input type="date" lang="en" class="form-control form-control-sm" id="txtJoinDateEdit" aria-describedby="txtJoinDate" required placeholder="Join Date" name="join_date">
                             </div>
                             <div class="form-group">
                                 <label for="txtNote" lang="en">Note</label>
@@ -419,7 +419,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtJoinPort" lang="en">Join Port</label>
-                                <input type="datetime-local" required lang="en" class="form-control form-control-sm" id="txtJoinPortEdit" aria-describedby="txtJoinPort" placeholder="Join Port" name="join_port">
+                                <input type="date" required lang="en" class="form-control form-control-sm" id="txtJoinPortEdit" aria-describedby="txtJoinPort" placeholder="Join Port" name="join_port">
                             </div>
                             <div class="form-group">
                                 <label for="imgCrew" lang="en">Photo</label>

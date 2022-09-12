@@ -28,10 +28,10 @@ class MstCrew extends Migration
             $table->string('pob');
             $table->date('dob');
             $table->string('address');
-            $table->dateTime('join_date');
+            $table->date('join_date');
             $table->string('note');
             $table->string('status');
-            $table->dateTime('join_port');
+            $table->date('join_port');
             $table->text('photo')->nullable();
             $table->timestampsTz();
             $table->string('created_user');
