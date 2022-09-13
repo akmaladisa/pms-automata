@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GroupController extends Controller
 {
@@ -26,9 +27,11 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'groups' => Group::orderBy('code_group')->get()
+        ]);
     }
 
     /**
@@ -39,20 +42,26 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $group = $request->validate([
+        $group = Validator::make($request->all(),[
             'code_group' => "required|numeric|max:99|min:10",
             'code_main_group' => "required|numeric|max:9|min:1",
             'group_name' => 'required',
             'created_user' => 'required'
         ]);
 
-        if( Group::create($group) ) {
-            alert()->success("Success", "Group Added Successfully");
-
-            return redirect()->route('group.index');
+        if( $group->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $group->getMessageBag()
+            ]);
         }
 
-        return redirect()->back();
+        Group::create( $request->all() );
+
+        return response()->json([
+            'status' => 200,
+            'message' => "Group created successfully"
+        ]);
     }
 
     /**
@@ -63,8 +72,20 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.group.show', [
-            'group' => Group::find($id)
+        $group = Group::find($id);
+        $main_group = $group->mainGroup->main_group_name;
+
+        if( $group ) {
+            return response()->json([
+                'status' => 200,
+                'group' => $group,
+                'main_group' => $main_group
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Group Not Found"
         ]);
     }
 
@@ -91,18 +112,35 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $group = $request->validate([
+        $group = Validator::make($request->all(), [
             'code_group' => "required|numeric|max:99|min:10",
             'code_main_group' => "required|numeric|max:9|min:1",
             'group_name' => 'required',
             'updated_user' => 'required'
         ]);
 
-        Group::find($id)->update($group);
+        if( $group->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $group->getMessageBag()
+            ]);
+        }
 
-        alert()->success("Success", "Group Edited Successfully");
+        $old_group = Group::find($id);
 
-        return redirect()->route('group.index');
+        if( $old_group ) {
+            $old_group->update( $request->all() );
+
+            return response()->json([
+                'status' => 200,
+                'message' => "Group has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Group not found"
+        ]);
     }
 
     /**
@@ -113,10 +151,19 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        Group::find($id)->delete();
+        $group = Group::find($id);
 
-        alert()->success("Success", "Group Deleted Successfully");
+        if($group) {
+            $group->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Group has been deleted'
+            ]);
+        }
 
-        return redirect()->route('group.index');
+        return response()->json([
+            'status' => 404,
+            'message' => "Group not found"
+        ]);
     }
 }

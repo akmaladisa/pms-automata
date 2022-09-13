@@ -1,47 +1,49 @@
-<div class="modal fade" id="add_main_group_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_group_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Main Group</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add New Group</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <form method="POST" action="main-group">
+                <form method="POST" id="add_group_form">
                     @csrf
 
-                    <div class="form-group mb-4">
-                        <label for="colFormLabel">Item Code</label>
-                        <div>
-                            <input name="kode_barang" readonly type="text" class="form-control" value="{{ $item_code }}">
-                        </div>
-                    </div>
+                    <div class="error-list-group"></div>
 
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input placeholder="Main Group Code" name="code_main_group" required max="9" min="1" type="number" class="form-control" value="{{ old('code_main_group') }}">
+                            <input id="code_group_group" placeholder="Group Code" name="code_group" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">
-                                <small id="sh-text4" class="form-text mt-0">Max: 9 - Min: 1</small>
+                                <small id="sh-text4" class="form-text mt-0">Max: 99 - Min: 10</small>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group mb-4">
+                        <label for="colFormLabel">Main Group</label>
+                        <select class="form-control" name="code_main_group" id="code_main_group_in_group">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-4">
                         <label for="colFormLabel">Name</label>
                         <div>
-                            <input name="main_group_name" required type="text" class="form-control"placeholder="Main Group Name" value="{{ old('main_group_name') }}">
+                            <input name="group_name" id="name_group_group" required type="text" class="form-control"placeholder="Group Name" value="{{ old('group_name') }}">
                         </div>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Created User</label>
                         <div>
-                            <input name="created_user" readonly type="text" class="form-control"placeholder="Main Group Name" value="{{ auth()->user()->id_crew }}">
+                            <input name="created_user" id="created_user_group" readonly type="text" class="form-control" value="{{ auth()->user()->id_crew }}">
                         </div>
                     </div>
             </div>
@@ -55,12 +57,12 @@
     </div>
 </div>
 
-{{-- show main group --}}
-<div class="modal animated fade" id="show-main-group" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
+{{-- show group --}}
+<div class="modal animated fade" id="show-group-modal" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Main Group</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Group</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -70,13 +72,14 @@
                     <div class="col-12">
                         <div id="alert-show-certificate"></div>
                         <ul class="list-group ">
-                            <li class="list-group-item active">Item Code : <span id="item-code-main-group"></span></li>
-                            <li class="list-group-item active">Main Group Code : <span id="code-main-group"></span></li>
-                            <li class="list-group-item active">Main Group Name : <span id="name-main-group"></span></li>
-                            <li class="list-group-item active">Created At : <span id="created-at-main-group"></span></li>
-                            <li class="list-group-item active">Updated At : <span id="updated-at-main-group"></span></li>
-                            <li class="list-group-item active">Created By : <span id="created-by-main-group"></span></li>
-                            <li class="list-group-item active">Updated By : <span id="updated-by-main-group"></span></li>
+                            <li class="list-group-item active">Group Code : <span id="code-group-in-group"></span></li>
+                            <li class="list-group-item active">Group Name : <span id="name-group-in-group"></span></li>
+                            <li class="list-group-item active">Main Group Code : <span id="code-main-group-in-group"></span></li>
+                            <li class="list-group-item active">Main Group : <span id="main-group-in-group"></span></li>
+                            <li class="list-group-item active">Created At : <span id="created-at-in-group"></span></li>
+                            <li class="list-group-item active">Updated At : <span id="updated-at-in-group"></span></li>
+                            <li class="list-group-item active">Created By : <span id="created-by-in-group"></span></li>
+                            <li class="list-group-item active">Updated By : <span id="updated-by-in-group"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -89,52 +92,55 @@
 </div>
 {{-- show main group --}}
 
-{{-- edit main group --}}
-<div class="modal fade" id="edit_main_group_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- edit group --}}
+<div class="modal fade" id="edit_group_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Main Group</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Group</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <form method="POST" action="main-group" id="update_main_group_form">
+                <form method="POST" id="update_group_form">
                     @csrf
 
-                    <input type="hidden" name="code_main_group" id="id_main_group">
-                    <div class="form-group mb-4">
-                        <label for="colFormLabel">Item Code</label>
-                        <div>
-                            <input name="kode_barang" id="item_code_main_group_edit" readonly type="text" class="form-control">
-                        </div>
-                    </div>
+                    <input type="hidden" name="code_group" id="id_group">
+
+                    <div class="error-list-group-edit"></div>
 
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input placeholder="Main Group Code" name="code_main_group" id="code_main_group_edit" required max="9" min="1" type="number" class="form-control" value="{{ old('code_main_group') }}">
+                            <input placeholder="Main Group Code" name="code_group" id="code_group_group_edit" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">
-                                <small id="sh-text4" class="form-text mt-0">Max: 9 - Min: 1</small>
+                                <small id="sh-text4" class="form-text mt-0">Max: 99 - Min: 10</small>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group mb-4">
+                        <label for="colFormLabel">Main Group</label>
+                        <select class="form-control" name="code_main_group" id="code_main_group_in_group_edit">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-4">
                         <label for="colFormLabel">Name</label>
                         <div>
-                            <input required name="main_group_name" id="name_main_group_edit" type="text" class="form-control"placeholder="Main Group Name" value="{{ old('main_group_name') }}">
+                            <input required name="group_name" id="name_group_group_edit" type="text" class="form-control"placeholder="Main Name" value="{{ old('group_name') }}">
                         </div>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Updated User</label>
                         <div>
-                            <input name="updated_user" id="updated_user_main_group" readonly type="text" class="form-control"placeholder="Main Group Name" value="{{ auth()->user()->id_crew }}">
+                            <input name="updated_user" id="updated_user_group" readonly type="text" class="form-control"placeholder="Main Group Name" value="{{ auth()->user()->id_crew }}">
                         </div>
                     </div>
             </div>

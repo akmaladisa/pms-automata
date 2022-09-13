@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
-                                    <th>Code</th>
+                                    <th>Code Main Group</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -58,6 +58,24 @@
                 </div>
                 <div class="tab-pane fade" id="justify-group" role="tabpanel" aria-labelledby="justify-group-tab">
                     <h5>Group</h5>
+
+                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#add_group_modal">Add New</button>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Group Code</th>
+                                    <th>Code Main Group</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="group-item">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="justify-sub-group" role="tabpanel" aria-labelledby="justify-sub-group-tab">
                     <h5>Sub Group</h5>
@@ -77,8 +95,11 @@
 
     @include('dashboard.modals.main-group')
 
+    @include('dashboard.modals.group')
+
 @endsection
 
 @section('js')
     <script src="/js/main-group.js"></script>
+    <script src="/js/group.js"></script>
 @endsection

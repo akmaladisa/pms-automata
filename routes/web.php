@@ -127,6 +127,14 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-main-group/{id}', [MainGroupController::class, 'destroy']);
     // Main Group (END)
 
+    // Group
+    Route::get('read-group', [GroupController::class, 'read']);
+    Route::post('group', [GroupController::class, 'store']);
+    Route::get('group/{id}', [GroupController::class, 'show']);
+    Route::post('group/{id}', [GroupController::class, 'update']);
+    Route::get('delete-group/{id}', [GroupController::class, 'destroy']);
+    // Group (END)
+
     // GROUPING from main-group until part (END)
 
 

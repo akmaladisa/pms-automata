@@ -15,9 +15,8 @@ class MstItemMainGroup extends Migration
     {
         Schema::create('mst_item_main_group', function(Blueprint $table){
             $table->string('kode_barang');
-            $table->increments('code_main_group');
+            $table->integer('code_main_group')->primary();
             $table->string('main_group_name');
-            $table->boolean('is_deleted')->default(false);
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();

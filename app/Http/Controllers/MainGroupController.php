@@ -35,7 +35,7 @@ class MainGroupController extends Controller
     public function read()
     {
         return response()->json([
-            'main_groups' => MainGroup::where('is_deleted', false)->orderBy('main_group_name')->get()
+            'main_groups' => MainGroup::orderBy('code_main_group')->get()
         ]);
     }
 
@@ -49,6 +49,7 @@ class MainGroupController extends Controller
     {
         $mainGroup = Validator::make($request->all(),[
             'kode_barang' => 'required',
+            'code_main_group' => 'required|numeric|max:9|min:1',
             'main_group_name' => 'required',
             'created_user' => 'required'
         ]);
@@ -110,6 +111,7 @@ class MainGroupController extends Controller
     {
         $mainGroup = Validator::make($request->all(), [
             'kode_barang' => 'required',
+            'code_main_group' => 'required|numeric|max:9|min:1',
             'main_group_name' => 'required',
             'updated_user' => 'required'
         ]);
@@ -151,8 +153,7 @@ class MainGroupController extends Controller
         $mainGroup = MainGroup::find($id);
 
         if($mainGroup) {
-            $mainGroup->is_deleted = true;
-            $mainGroup->save();
+            $mainGroup->delete();
 
             return response()->json([
                 'status' => 200,

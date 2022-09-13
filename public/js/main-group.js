@@ -48,6 +48,7 @@ $(document).ready( function() {
                 if( response.status == 200 ) {
                     $("#id_main_group").val(response.main_group.code_main_group);
                     $('#item_code_main_group_edit').val(response.main_group.kode_barang);
+                    $('#code_main_group_edit').val(response.main_group.code_main_group);
                     $("#name_main_group_edit").val(response.main_group.main_group_name);
                 }
                 else {
@@ -63,6 +64,7 @@ $(document).ready( function() {
         let id = $("#id_main_group").val();
         let new_main_group = {
             kode_barang: $("#item_code_main_group_edit").val(),
+            code_main_group: $("#code_main_group_edit").val(),
             main_group_name: $('#name_main_group_edit').val(),
             updated_user: $("#updated_user_main_group").val()
         }
@@ -95,7 +97,7 @@ $(document).ready( function() {
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "Main Group will be temporarily deleted",
+            text: "Main Group will be permanently deleted",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -117,7 +119,7 @@ $(document).ready( function() {
                     } else if( response.status == 400 ) {
                         Swal.fire(
                             'Error!',
-                            'Error To Delete Crew',
+                            'Error To Delete Main Group',
                             'error'
                         )
                         fetch_main_group()
