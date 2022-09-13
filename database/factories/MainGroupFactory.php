@@ -20,7 +20,7 @@ class MainGroupFactory extends Factory
     {
         return [
             'kode_barang' => "KDBRG" . $this->faker->numberBetween(1000,9999),
-            'code_main_group' => $this->faker->unique()->numberBetween(1, 9),
+            // 'code_main_group' => $this->faker->unique()->numberBetween(1, 9),
             'main_group_name' => $this->faker->jobTitle(),
             'created_user' => 'USR' . $this->faker->numberBetween(1000, 9999)
         ];

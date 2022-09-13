@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ItemMasterController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\MasterCrewCertificateController;
@@ -115,8 +116,22 @@ Route::middleware('auth')->group(function(){
     Route::resource('ship-access', ShipAccessController::class);
     // ship access routing end
 
+    // GROUPING from main-group until part
+    Route::get('item', [ItemMasterController::class, 'index']);
+
+    // Main Group
+    Route::get('read-main-group', [MainGroupController::class, 'read']);
+    Route::post('main-group', [MainGroupController::class, 'store']);
+    Route::get('main-group/{id}', [MainGroupController::class, 'show']);
+    Route::post('main-group/{id}', [MainGroupController::class, 'update']);
+    Route::get('delete-main-group/{id}', [MainGroupController::class, 'destroy']);
+    // Main Group (END)
+
+    // GROUPING from main-group until part (END)
+
+
     // Main Group Routing
-    Route::resource('main-group', MainGroupController::class);
+    // Route::resource('main-group', MainGroupController::class);
     // Main Group Routing
 
     // Group Routing

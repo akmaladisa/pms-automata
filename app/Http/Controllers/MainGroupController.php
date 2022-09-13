@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Validator;
 
 class MainGroupController extends Controller
 {
@@ -31,9 +32,11 @@ class MainGroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'main_groups' => MainGroup::where('is_deleted', false)->orderBy('main_group_name')->get()
+        ]);
     }
 
     /**
@@ -44,18 +47,22 @@ class MainGroupController extends Controller
      */
     public function store(Request $request)
     {
-        $mainGroup = $request->validate([
+        $mainGroup = Validator::make($request->all(),[
             'kode_barang' => 'required',
-            'code_main_group' => 'required|numeric|max:9|min:1',
             'main_group_name' => 'required',
             'created_user' => 'required'
         ]);
 
-        MainGroup::create($mainGroup);
+        if( $mainGroup->fails() ) {
+            alert()->error("Error", $mainGroup->errors()->first());
+            return redirect('/item');
+        }
+        
+        MainGroup::create($request->all());
 
         alert()->success("Success", "Main Group Created Successfully");
 
-        return redirect()->route('main-group.index');
+        return redirect('/item');
     }
 
     /**
@@ -66,8 +73,16 @@ class MainGroupController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.main-group.show', [
-            'mainGroup' => MainGroup::find($id)
+        if( MainGroup::find($id) ) {
+            return response()->json([
+                'status' => 200,
+                'main_group' => MainGroup::find($id)
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Not Found"
         ]);
     }
 
@@ -93,19 +108,37 @@ class MainGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $mainGroup = $request->validate([
+        $mainGroup = Validator::make($request->all(), [
             'kode_barang' => 'required',
-            'code_main_group' => 'required|numeric|max:9|min:1',
             'main_group_name' => 'required',
             'updated_user' => 'required'
         ]);
 
-        MainGroup::find($id)->update($mainGroup);
+        if( $mainGroup->fails() ) {
+            return response()->json([
+                'errors' => $mainGroup->getMessageBag(),
+                'status' => 400
+            ]);
+        }
 
-        alert()->success("Success", "Main Group Updated Successfully");
+        $old_main_group = MainGroup::find($id);
 
-        return redirect()->route('main-group.index');
-    }
+        if( $old_main_group ) {
+
+            $old_main_group->update( $request->all() );
+
+            return response()->json([
+                'status' => 200,
+                'message' => "Main Group has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data Not Found"
+        ]);
+
+    }   
 
     /**
      * Remove the specified resource from storage.
@@ -115,10 +148,21 @@ class MainGroupController extends Controller
      */
     public function destroy($id)
     {
-        MainGroup::find($id)->delete();
+        $mainGroup = MainGroup::find($id);
 
-        alert()->success("Success", "Main Group Deleted Successfully");
+        if($mainGroup) {
+            $mainGroup->is_deleted = true;
+            $mainGroup->save();
 
-        return redirect()->route('main-group.index');
+            return response()->json([
+                'status' => 200,
+                'message' => "Main Group has been deleted"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data Not Found"
+        ]);
     }
 }

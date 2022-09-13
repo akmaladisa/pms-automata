@@ -57,6 +57,9 @@
                     <li class="{{ Request::is('ship-access*') ? 'active' : '' }}">
                         <a href="/ship-access"> Ship Access </a>
                     </li>
+                    <li class="{{ Request::is('item*') ? 'active' : '' }}">
+                        <a href="/item"> Item </a>
+                    </li>
                     <li class="{{ Request::is('main-group*') ? 'active' : '' }}">
                         <a href="/main-group"> Main Group </a>
                     </li>
