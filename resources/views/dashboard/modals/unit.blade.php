@@ -17,7 +17,7 @@
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input id="code_unit_unit" placeholder="Unit Code" name="code_unit" required max="999999" min="100000" type="number" class="form-control" value="{{ old('code_group') }}">
+                            <input id="code_unit_unit" placeholder="Unit Code" name="code_unit" required max="999999" min="100000" type="number" class="form-control" value="{{ old('code_unit') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">
@@ -132,7 +132,7 @@
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input readonly id="code_unit_unit_edit" placeholder="Unit Code" name="code_unit" required max="999999" min="100000" type="number" class="form-control" value="{{ old('code_group') }}">
+                            <input readonly id="code_unit_unit_edit" placeholder="Unit Code" name="code_unit" required max="999999" min="100000" type="number" class="form-control" value="{{ old('code_unit') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">

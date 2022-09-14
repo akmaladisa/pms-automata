@@ -20,7 +20,6 @@ class MstItemComponent extends Migration
             $table->string('code_sub_group');
             $table->string('code_unit');
             $table->string('component_name');
-            $table->boolean('is_deleted');
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();

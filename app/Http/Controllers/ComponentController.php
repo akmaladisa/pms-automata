@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Component;
-use App\Models\Group;
-use App\Models\MainGroup;
-use App\Models\SubGroup;
 use App\Models\Unit;
+use App\Models\Group;
+use App\Models\SubGroup;
+use App\Models\Component;
+use App\Models\MainGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComponentController extends Controller
 {
@@ -32,9 +33,11 @@ class ComponentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'components' => Component::orderBy('code_component')->get()
+        ]);
     }
 
     /**
@@ -45,22 +48,28 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
-        $component = $request->validate([
+        $component = Validator::make($request->all(),[
             'code_component' => 'required|numeric|max:999999999|min:100000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
             'component_name' => 'required',
-            'is_deleted' => 'required|boolean',
             'created_user' => 'required'
         ]);
 
-        if( Component::create($component) ) {
-            alert()->success("Success", "Component Created Successfully");
-
-            return redirect()->route('component.index');
+        if( $component->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $component->getMessageBag()
+            ]);
         }
+
+        Component::create($request->all());
+        return response()->json([
+            'status' => 200,
+            'message' => "Component Created Successfully"
+        ]);
     }
 
     /**
@@ -71,8 +80,26 @@ class ComponentController extends Controller
      */
     public function show($id)
     {
-        return view("dashboard.component.show", [
-            'component' => Component::find($id),
+        $component = Component::find($id);
+        $unit = $component->unit->unit_name;
+        $sub_group = $component->subGroup->sub_group_name;
+        $group = $component->group->group_name;
+        $main_group = $component->mainGroup->main_group_name;
+
+        if( $component ) {
+            return response()->json([
+                'status' => 200,
+                'component' => $component,
+                'sub_group' => $sub_group,
+                'unit' => $unit,
+                'group' => $group,
+                'main_group' => $main_group,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Component Not Found"
         ]);
     }
 
@@ -102,22 +129,37 @@ class ComponentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $component = $request->validate([
+        $component = Validator::make($request->all(), [
             'code_component' => 'required|numeric|max:999999999|min:100000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
             'code_sub_group' => 'required|numeric|max:999|min:100',
             'code_unit' => "required|numeric|max:999999|min:100000",
             'component_name' => 'required',
-            'is_deleted' => 'required|boolean',
             'updated_user' => 'required'
         ]);
 
-        if( Component::find($id)->update($component) ) {
-            alert()->success("Success", "Component Updated Successfully");
-
-            return redirect()->route('component.index');
+        if( $component->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $component->getMessageBag()
+            ]);
         }
+
+        $old_component = Component::find($id);
+
+        if($old_component) {
+            $old_component->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Component has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Component Not Found"
+        ]);
     }
 
     /**
@@ -130,11 +172,17 @@ class ComponentController extends Controller
     {
         $component = Component::find($id);
 
-        $component->is_deleted = 1;
-        $component->save();
+        if($component) {
+            $component->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => "Component has been deleted"
+            ]);
+        }
 
-        alert()->success("Success", "Component Deleted Successfully");
-
-        return redirect()->route('component.index');
+        return response()->json([
+            'status' => 404,
+            'message' => "Component Not Found"
+        ]);
     }
 }

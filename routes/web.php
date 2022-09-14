@@ -151,6 +151,14 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-unit/{id}', [UnitController::class, 'destroy']);
     // UNIT (END)
 
+    // COMPONENT
+    Route::get('read-component', [ComponentController::class, 'read']);
+    Route::post('component', [ComponentController::class, 'store']);
+    Route::get('component/{id}', [ComponentController::class, 'show']);
+    Route::post('component/{id}', [ComponentController::class, 'update']);
+    Route::get('delete-component/{id}', [ComponentController::class, 'destroy']);
+    // COMPONENT (END)
+
     // GROUPING from main-group until part (END)
 
 
@@ -171,8 +179,8 @@ Route::middleware('auth')->group(function(){
     // unit routing end
 
     // component routing
-    Route::resource('component', ComponentController::class);
-    Route::get('component-is-deleted-to-true/{id}', [ComponentController::class, 'destroy'])->name('component.isDeleted');
+    // Route::resource('component', ComponentController::class);
+    // Route::get('component-is-deleted-to-true/{id}', [ComponentController::class, 'destroy'])->name('component.isDeleted');
     // component routing end
 
     // part routing

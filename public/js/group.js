@@ -246,6 +246,20 @@ function fetch_main_group_list() {
                 `);
             });
 
+            $('#code_main_group_in_component').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_component').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
+            $('#code_main_group_in_component_edit').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_component_edit').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
         }
     });
 }

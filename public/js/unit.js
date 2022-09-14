@@ -264,6 +264,20 @@ function fetch_sub_group_list() {
                 `);
             });
 
+            $('#code_sub_group_in_component').html('');
+            $.each(response.sub_groups, function (indexInArray, valueOfElement) { 
+                $('#code_sub_group_in_component').append(`
+                    <option value="${valueOfElement.code_sub_group}">${valueOfElement.sub_group_name}</option>
+                `);
+            });
+
+            $('#code_sub_group_in_component_edit').html('');
+            $.each(response.sub_groups, function (indexInArray, valueOfElement) { 
+                $('#code_sub_group_in_component_edit').append(`
+                    <option value="${valueOfElement.code_sub_group}">${valueOfElement.sub_group_name}</option>
+                `);
+            });
+
         }
     });
 }

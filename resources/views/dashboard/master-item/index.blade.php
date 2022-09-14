@@ -118,6 +118,23 @@
                 </div>
                 <div class="tab-pane fade" id="justify-component" role="tabpanel" aria-labelledby="justify-component-tab">
                     <h5>Component</h5>
+
+                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#add_component_modal">Add New</button>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Component Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="component-item">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="justify-part" role="tabpanel" aria-labelledby="justify-part-tab">
                     <h5>Part</h5>

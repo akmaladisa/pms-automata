@@ -27,7 +27,6 @@ class ComponentFactory extends Factory
             'code_sub_group' => SubGroup::all()->random()->code_sub_group,
             'code_unit' => Unit::all()->random()->code_unit,
             'component_name' => $this->faker->word(),
-            'is_deleted' => 0,
             'created_user' => "USR0001"
         ];
     }
