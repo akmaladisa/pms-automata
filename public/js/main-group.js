@@ -78,6 +78,7 @@ $(document).ready( function() {
                     Swal.fire("Success", `${response.message}`, 'success')
                     $("#edit_main_group_modal").modal('hide')
                     fetch_main_group()
+                    fetch_main_group_list()
                 }
 
                 if( response.status == 404 ) {
@@ -130,6 +131,7 @@ $(document).ready( function() {
                             'success'
                         )
                         fetch_main_group()
+                        fetch_main_group_list()
                     }
                 }
             });

@@ -135,6 +135,14 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-group/{id}', [GroupController::class, 'destroy']);
     // Group (END)
 
+    // Sub Group
+    Route::get('read-sub-group', [SubGroupController::class, 'read']);
+    Route::post('sub-group', [SubGroupController::class, 'store']);
+    Route::get('sub-group/{id}', [SubGroupController::class, 'show']);
+    Route::post('sub-group/{id}', [SubGroupController::class, 'update']);
+    Route::get('delete-sub-group/{id}', [SubGroupController::class, 'destroy']);
+    // Sub Group (END)
+
     // GROUPING from main-group until part (END)
 
 
@@ -142,9 +150,9 @@ Route::middleware('auth')->group(function(){
     // Route::resource('main-group', MainGroupController::class);
     // Main Group Routing
 
-    // Group Routing
-    Route::resource('group', GroupController::class);
-    // Group Routing END
+    // // Group Routing
+    // Route::resource('group', GroupController::class);
+    // // Group Routing END
 
     // sub group routing
     Route::resource('sub-group', SubGroupController::class);

@@ -174,6 +174,7 @@ $(document).ready(function(){
                             'success'
                         )
                         fetchCrew()
+                        fetch_crew_list()
                     }
                 }
             });

@@ -75,7 +75,7 @@
                             <li class="list-group-item active">Group Code : <span id="code-group-in-group"></span></li>
                             <li class="list-group-item active">Group Name : <span id="name-group-in-group"></span></li>
                             <li class="list-group-item active">Main Group Code : <span id="code-main-group-in-group"></span></li>
-                            <li class="list-group-item active">Main Group : <span id="main-group-in-group"></span></li>
+                            <li class="list-group-item active">Main Group Name : <span id="main-group-in-group"></span></li>
                             <li class="list-group-item active">Created At : <span id="created-at-in-group"></span></li>
                             <li class="list-group-item active">Updated At : <span id="updated-at-in-group"></span></li>
                             <li class="list-group-item active">Created By : <span id="created-by-in-group"></span></li>
@@ -114,7 +114,7 @@
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input placeholder="Main Group Code" name="code_group" id="code_group_group_edit" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
+                            <input placeholder="Group Code" name="code_group" id="code_group_group_edit" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">

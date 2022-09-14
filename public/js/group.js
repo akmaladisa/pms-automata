@@ -28,6 +28,7 @@ $(document).ready(function() {
                     $("#add_group_modal").modal("hide")
                     fetch_group()
                     fetch_main_group_list()
+                    fetch_group_list()
 
                     $('#code_group_group').val('')
                     $("#name_group_group").val('')
@@ -135,6 +136,7 @@ $(document).ready(function() {
                     $("#edit_group_modal").modal("hide")
                     fetch_group()
                     fetch_main_group_list()
+                    fetch_group_list()
                 }
 
                 if( response.status == 404 ) {
@@ -187,6 +189,7 @@ $(document).ready(function() {
                         )
                         fetch_group()
                         fetch_main_group_list()
+                        fetch_group_list()
                     }
                 }
             });
@@ -213,6 +216,20 @@ function fetch_main_group_list() {
             $('#code_main_group_in_group_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_group_edit').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
+            $('#code_main_group_in_sub_group').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_sub_group').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
+            $('#code_main_group_in_sub_group_edit').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_sub_group_edit').append(`
                     <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
                 `);
             });

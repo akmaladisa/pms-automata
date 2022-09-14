@@ -45,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
-                                    <th>Code Main Group</th>
+                                    <th>Main Group Code</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -66,7 +66,7 @@
                             <thead>
                                 <tr>
                                     <th>Group Code</th>
-                                    <th>Code Main Group</th>
+                                    <th>Main Group Code</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -79,6 +79,24 @@
                 </div>
                 <div class="tab-pane fade" id="justify-sub-group" role="tabpanel" aria-labelledby="justify-sub-group-tab">
                     <h5>Sub Group</h5>
+
+                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#add_sub_group_modal">Add New</button>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Sub Group Code</th>
+                                    <th>Group Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sub-group-item">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="justify-unit" role="tabpanel" aria-labelledby="justify-unit-tab">
                     <h5>Unit</h5>
@@ -97,9 +115,21 @@
 
     @include('dashboard.modals.group')
 
+    @include('dashboard.modals.sub-group')
+
+    @include('dashboard.modals.unit')
+
+    @include('dashboard.modals.component')
+
+    @include('dashboard.modals.part')
+
 @endsection
 
 @section('js')
     <script src="/js/main-group.js"></script>
     <script src="/js/group.js"></script>
+    <script src="/js/sub-group.js"></script>
+    <script src="/js/unit.js"></script>
+    <script src="/js/component.js"></script>
+    <script src="/js/part.js"></script>
 @endsection

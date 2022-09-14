@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\SubGroup;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SubGroupController extends Controller
 {
@@ -28,9 +29,11 @@ class SubGroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'sub_groups' => SubGroup::orderBy('code_sub_group')->get()
+        ]);
     }
 
     /**
@@ -41,7 +44,7 @@ class SubGroupController extends Controller
      */
     public function store(Request $request)
     {
-        $subGroup = $request->validate([
+        $subGroup = Validator::make($request->all(),[
             'code_sub_group' => "required|numeric|min:100|max:999",
             'code_main_group' => 'required|numeric|min:1|max:9',
             'code_group' => "required|numeric|min:10|max:99",
@@ -49,11 +52,19 @@ class SubGroupController extends Controller
             'created_user' => "required"
         ]);
 
-        if( SubGroup::create($subGroup) ) {
-            alert()->success("Success", "Sub Group Created Successfully");
-
-            return redirect()->route('sub-group.index');
+        if( $subGroup->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $subGroup->getMessageBag()
+            ]);
         }
+
+        SubGroup::create( $request->all() );
+        return response()->json([
+            'status' => 200,
+            'message' => "Sub Group Created Successfully"
+        ]);
+
     }
 
     /**
@@ -64,9 +75,18 @@ class SubGroupController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.sub-group.show', [
-            'subGroup' => SubGroup::find($id)
-        ]);
+        $subGroup = SubGroup::find($id);
+        $mainGroup = $subGroup->mainGroup->main_group_name;
+        $group = $subGroup->group->group_name;
+
+        if( $subGroup ) {
+            return response()->json([
+                'status' => 200,
+                'sub_group' => $subGroup,
+                'main_group' => $mainGroup,
+                'group' => $group
+            ]);
+        }
     }
 
     /**
@@ -93,7 +113,7 @@ class SubGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $subGroup = $request->validate([
+        $subGroup = Validator::make($request->all(),[
             'code_sub_group' => "required|numeric|min:100|max:999",
             'code_main_group' => 'required|numeric|min:1|max:9',
             'code_group' => "required|numeric|min:10|max:99",
@@ -101,11 +121,27 @@ class SubGroupController extends Controller
             'updated_user' => "required"
         ]);
 
-        if( SubGroup::find($id)->update($subGroup) ) {
-            alert()->success("Success", "Sub Group Updated Successfully");
-
-            return redirect()->route('sub-group.index');
+        if( $subGroup->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $subGroup->getMessageBag()
+            ]);
         }
+
+        $old_sub_group = SubGroup::find($id);
+
+        if( $old_sub_group ) {
+            $old_sub_group->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Sub Group has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data Not Found"
+        ]);
         
     }
 
@@ -117,10 +153,19 @@ class SubGroupController extends Controller
      */
     public function destroy($id)
     {
-        SubGroup::find($id)->delete();
+        $subGroup = SubGroup::find($id);
 
-        alert()->success("Success", "Sub Group Deleted Successfully");
+        if( $subGroup ) {
+            $subGroup->delete();
+            return response()->json([
+                'message' => "Sub Group has been deleted",
+                'status' => 200
+            ]);
+        }
 
-        return redirect()->route('sub-group.index');
+        return response()->json([
+            'message' => "Data Not Found",
+            'status' => 404
+        ]);
     }
 }
