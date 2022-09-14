@@ -28,12 +28,11 @@ $(document).ready(function() {
                 if( response.status == 200 ) {
                     Swal.fire("Success", `${response.message}`, "success")
                     $("#add_sub_group_modal").modal("hide")
-                    fetch_sub_group()
-                    fetch_main_group_list()
-                    fetch_group_list()
-
+                    
                     $("#code_sub_group_sub_group").val('')
                     $('#name_sub_group').val('')
+
+                    refresh_other_item_based_on_sub_group()
                 } else {
                     $.each(response.errors, function (indexInArray, valueOfElement) { 
                         $('.error-list-sub-group').append(
@@ -143,9 +142,7 @@ $(document).ready(function() {
                 if( response.status == 200 ) {
                     Swal.fire('Success', `${response.message}`, 'success')
                     $("#edit_sub_group_modal").modal("hide")
-                    fetch_sub_group()
-                    fetch_main_group_list()
-                    fetch_group_list()
+                    refresh_other_item_based_on_sub_group()
                 }
 
                 if( response.status == 404 ) {
@@ -196,9 +193,7 @@ $(document).ready(function() {
                             `${response.message}`,
                             'success'
                         )
-                        fetch_sub_group()
-                        fetch_main_group_list()
-                        fetch_group_list()
+                        refresh_other_item_based_on_sub_group()
                     }
                 }
             });
@@ -221,7 +216,6 @@ function fetch_sub_group() {
                     `
                         <tr>
                             <td>${valueOfElement.code_sub_group}</td>
-                            <td>${valueOfElement.code_group}</td>
                             <td>${valueOfElement.sub_group_name}</td>
                             <td>
                                 <button type="button" value="${valueOfElement.code_sub_group}" class="btn btn-show-sub-group btn-info">
@@ -265,4 +259,9 @@ function fetch_group_list() {
             });
         }
     });
+}
+
+function refresh_other_item_based_on_sub_group() {
+    fetch_sub_group()
+    fetch_sub_group_list()
 }

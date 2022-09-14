@@ -114,7 +114,7 @@
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Code</label>
                         <div>
-                            <input placeholder="Group Code" name="code_group" id="code_group_group_edit" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
+                            <input readonly placeholder="Group Code" name="code_group" id="code_group_group_edit" required max="99" min="10" type="number" class="form-control" value="{{ old('code_group') }}">
                         </div>
                         <div class=" mt-1">
                             <span class="badge badge-primary">

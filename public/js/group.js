@@ -26,12 +26,11 @@ $(document).ready(function() {
                 if( response.status == 200 ) {
                     Swal.fire("Success", `${response.message}`, 'success')
                     $("#add_group_modal").modal("hide")
-                    fetch_group()
-                    fetch_main_group_list()
-                    fetch_group_list()
 
                     $('#code_group_group').val('')
                     $("#name_group_group").val('')
+
+                    refresh_other_item_based_on_group()
 
                 } else {
                     $.each(response.errors, function (indexInArray, valueOfElement) { 
@@ -72,6 +71,9 @@ $(document).ready(function() {
                     $("#updated-by-in-group").text(response.group.updated_user)
                     $("#main-group-in-group").text(response.main_group)
                 }
+            },
+            error: function(e) {
+                console.log(e.responseText);
             }
         });
     });
@@ -134,9 +136,7 @@ $(document).ready(function() {
                 if( response.status == 200 ) {
                     Swal.fire('Success', `${response.message}`, 'success')
                     $("#edit_group_modal").modal("hide")
-                    fetch_group()
-                    fetch_main_group_list()
-                    fetch_group_list()
+                    refresh_other_item_based_on_group()
                 }
 
                 if( response.status == 404 ) {
@@ -187,9 +187,7 @@ $(document).ready(function() {
                             `${response.message}`,
                             'success'
                         )
-                        fetch_group()
-                        fetch_main_group_list()
-                        fetch_group_list()
+                        refresh_other_item_based_on_group()
                     }
                 }
             });
@@ -251,7 +249,6 @@ function fetch_group() {
                     `
                         <tr>
                             <td>${valueOfElement.code_group}</td>
-                            <td>${valueOfElement.code_main_group}</td>
                             <td>${valueOfElement.group_name}</td>
                             <td>
                                 <button type="button" value="${valueOfElement.code_group}" class="btn btn-show-group btn-info">
@@ -272,4 +269,9 @@ function fetch_group() {
             });
         }
     });
+}
+
+function refresh_other_item_based_on_group() {
+    fetch_group()
+    fetch_group_list()
 }

@@ -77,8 +77,7 @@ $(document).ready( function() {
                 if( response.status == 200 ) {
                     Swal.fire("Success", `${response.message}`, 'success')
                     $("#edit_main_group_modal").modal('hide')
-                    fetch_main_group()
-                    fetch_main_group_list()
+                    refresh_other_item_base_on_main_group()
                 }
 
                 if( response.status == 404 ) {
@@ -130,8 +129,7 @@ $(document).ready( function() {
                             `${response.message}`,
                             'success'
                         )
-                        fetch_main_group()
-                        fetch_main_group_list()
+                        refresh_other_item_base_on_main_group()
                     }
                 }
             });
@@ -140,6 +138,13 @@ $(document).ready( function() {
     });
 
 } )
+
+
+function refresh_other_item_base_on_main_group() {
+    fetch_main_group()
+    fetch_main_group_list()
+}
+
 
 function fetch_main_group() {
     $.ajax({

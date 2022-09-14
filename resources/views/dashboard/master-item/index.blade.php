@@ -66,7 +66,6 @@
                             <thead>
                                 <tr>
                                     <th>Group Code</th>
-                                    <th>Main Group Code</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -87,7 +86,6 @@
                             <thead>
                                 <tr>
                                     <th>Sub Group Code</th>
-                                    <th>Group Code</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
