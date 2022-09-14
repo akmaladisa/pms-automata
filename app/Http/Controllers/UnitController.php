@@ -7,6 +7,7 @@ use App\Models\MainGroup;
 use App\Models\SubGroup;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
@@ -30,9 +31,11 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'units' => Unit::orderBy('code_unit')->get()
+        ]);
     }
 
     /**
@@ -43,7 +46,7 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        $unit = $request->validate([
+        $unit = Validator::make($request->all(), [
             'code_unit' => "required|numeric|max:999999|min:100000",
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
@@ -52,11 +55,18 @@ class UnitController extends Controller
             'created_user' => 'required'
         ]);
 
-        if( Unit::create($unit) ) {
-            alert()->success("Success", "Unit Created Successfully");
-
-            return redirect()->route('unit.index');
+        if( $unit->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $unit->getMessageBag()
+            ]);
         }
+
+        Unit::create( $request->all() );
+        return response()->json([
+            'status' => 200,
+            'message' => "Unit Created Successfully"
+        ]);
     }
 
     /**
@@ -67,9 +77,26 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.unit.show', [
-            'unit' => Unit::find($id)
+        $unit = Unit::find($id);
+        $sub_group = $unit->subGroup->sub_group_name;
+        $group = $unit->group->group_name;
+        $main_group = $unit->mainGroup->main_group_name;
+
+        if( $unit ) {
+            return response()->json([
+                'status' => 200,
+                'unit' => $unit,
+                'sub_group' => $sub_group,
+                'group' => $group,
+                'main_group' => $main_group
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Unit Not Found"
         ]);
+
     }
 
     /**
@@ -97,7 +124,7 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unit = $request->validate([
+        $unit = Validator::make($request->all(), [
             'code_unit' => "required|numeric|max:999999|min:100000",
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
@@ -106,11 +133,27 @@ class UnitController extends Controller
             'updated_user' => 'required'
         ]);
 
-        if( Unit::find($id)->update($unit) ) {
-            alert()->success("Success", "Unit Updated Successfully");
-
-            return redirect()->route('unit.index');
+        if( $unit->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $unit->getMessageBag()
+            ]);
         }
+
+        $old_unit = Unit::find($id);
+
+        if( $old_unit ) {
+            $old_unit->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Unit Has Been Updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Unit Not Found"
+        ]);
     }
 
     /**
@@ -121,10 +164,19 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        Unit::find($id)->delete();
+        $unit = Unit::find($id);
 
-        alert()->success("Success", 'Unit Deleted Successfully');
+        if( $unit ) {
+            $unit->delete();
+            return response()->json([
+                'message' => "Unit Has Been Deleted",
+                'status' => 200
+            ]);
+        }
 
-        return redirect()->route('unit.index');
+        return response()->json([
+            'status' => 404,
+            'message' => "Unit Not Found"
+        ]);
     }
 }

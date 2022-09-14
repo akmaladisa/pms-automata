@@ -257,6 +257,20 @@ function fetch_group_list() {
                     <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
                 `);
             });
+
+            $('#code_group_in_unit').html('');
+            $.each(response.groups, function (indexInArray, valueOfElement) { 
+                $('#code_group_in_unit').append(`
+                    <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
+                `);
+            });
+
+            $('#code_group_in_unit_edit').html('');
+            $.each(response.groups, function (indexInArray, valueOfElement) { 
+                $('#code_group_in_unit_edit').append(`
+                    <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
+                `);
+            });
         }
     });
 }

@@ -98,6 +98,23 @@
                 </div>
                 <div class="tab-pane fade" id="justify-unit" role="tabpanel" aria-labelledby="justify-unit-tab">
                     <h5>Unit</h5>
+
+                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#add_unit_modal">Add New</button>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Unit Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="unit-item">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="justify-component" role="tabpanel" aria-labelledby="justify-component-tab">
                     <h5>Component</h5>

@@ -232,6 +232,20 @@ function fetch_main_group_list() {
                 `);
             });
 
+            $('#code_main_group_in_unit').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_unit').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
+            $('#code_main_group_in_unit_edit').html('');
+            $.each(response.main_groups, function (indexInArray, valueOfElement) { 
+                $('#code_main_group_in_unit_edit').append(`
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                `);
+            });
+
         }
     });
 }
