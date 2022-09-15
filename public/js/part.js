@@ -234,14 +234,14 @@ function fetch_component_list() {
             $('#code_component_in_part').html('');
             $.each(response.components, function (indexInArray, valueOfElement) { 
                 $('#code_component_in_part').append(`
-                    <option value="${valueOfElement.code_component}">${valueOfElement.component_name}</option>
+                    <option value="${valueOfElement.code_component}">${valueOfElement.code_component} - ${valueOfElement.component_name}</option>
                 `);
             });
 
             $('#code_component_in_part_edit').html('');
             $.each(response.components, function (indexInArray, valueOfElement) { 
                 $('#code_component_in_part_edit').append(`
-                    <option value="${valueOfElement.code_component}">${valueOfElement.component_name}</option>
+                    <option value="${valueOfElement.code_component}">${valueOfElement.code_component} - ${valueOfElement.component_name}</option>
                 `);
             });
 

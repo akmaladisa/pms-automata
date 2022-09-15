@@ -267,28 +267,28 @@ function fetch_unit_list() {
             $('#code_unit_in_component').html('');
             $.each(response.units, function (indexInArray, valueOfElement) { 
                 $('#code_unit_in_component').append(`
-                    <option value="${valueOfElement.code_unit}">${valueOfElement.unit_name}</option>
+                    <option value="${valueOfElement.code_unit}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
                 `);
             });
 
             $('#code_unit_in_component_edit').html('');
             $.each(response.units, function (indexInArray, valueOfElement) { 
                 $('#code_unit_in_component_edit').append(`
-                    <option value="${valueOfElement.code_unit}">${valueOfElement.unit_name}</option>
+                    <option value="${valueOfElement.code_unit}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
                 `);
             });
 
             $('#code_unit_in_part').html('');
             $.each(response.units, function (indexInArray, valueOfElement) { 
                 $('#code_unit_in_part').append(`
-                    <option value="${valueOfElement.code_unit}">${valueOfElement.unit_name}</option>
+                    <option value="${valueOfElement.code_unit}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
                 `);
             });
 
             $('#code_unit_in_part_edit').html('');
             $.each(response.units, function (indexInArray, valueOfElement) { 
                 $('#code_unit_in_part_edit').append(`
-                    <option value="${valueOfElement.code_unit}">${valueOfElement.unit_name}</option>
+                    <option value="${valueOfElement.code_unit}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
                 `);
             });
 

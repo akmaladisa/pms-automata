@@ -207,70 +207,70 @@ function fetch_main_group_list() {
             $('#code_main_group_in_group').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_group').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_group_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_group_edit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_sub_group').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_sub_group').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_sub_group_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_sub_group_edit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_unit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_unit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_unit_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_unit_edit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_component').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_component').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_component_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_component_edit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_part').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_part').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
             $('#code_main_group_in_part_edit').html('');
             $.each(response.main_groups, function (indexInArray, valueOfElement) { 
                 $('#code_main_group_in_part_edit').append(`
-                    <option value="${valueOfElement.code_main_group}">${valueOfElement.main_group_name}</option>
+                    <option value="${valueOfElement.code_main_group}">${valueOfElement.code_main_group} - ${valueOfElement.main_group_name}</option>
                 `);
             });
 
