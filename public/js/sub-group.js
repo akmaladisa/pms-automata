@@ -285,6 +285,20 @@ function fetch_group_list() {
                     <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
                 `);
             });
+
+            $('#code_group_in_part').html('');
+            $.each(response.groups, function (indexInArray, valueOfElement) { 
+                $('#code_group_in_part').append(`
+                    <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
+                `);
+            });
+
+            $('#code_group_in_part_edit').html('');
+            $.each(response.groups, function (indexInArray, valueOfElement) { 
+                $('#code_group_in_part_edit').append(`
+                    <option value="${valueOfElement.code_group}">${valueOfElement.group_name}</option>
+                `);
+            });
         }
     });
 }

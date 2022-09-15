@@ -41,16 +41,15 @@ use App\Models\Position;
 
 
 
-Route::middleware('guest')->group(function(){
+Route::middleware('guest')->group(function () {
     Route::get('/', [ LoginController::class, 'showFormLogin' ]);
     Route::post('/', [ LoginController::class, 'authenticate' ]);
 });
 
 // Route::get('dashboard', [ LoginController::class, 'dashboard' ])->middleware('auth');
 
-Route::middleware('auth')->group(function(){
-    
-    Route::get('/dashboard', function(){
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
         return view('dashboard.dashboard');
     })->name('main.dashboard');
 
@@ -159,6 +158,14 @@ Route::middleware('auth')->group(function(){
     Route::get('delete-component/{id}', [ComponentController::class, 'destroy']);
     // COMPONENT (END)
 
+    // PART
+    Route::get('read-part', [PartController::class, 'read']);
+    Route::post('part', [PartController::class, 'store']);
+    Route::get('part/{id}', [PartController::class, 'show']);
+    Route::post('part/{id}', [PartController::class, 'update']);
+    Route::get('delete-part/{id}', [PartController::class, 'destroy']);
+    // PART (END)
+
     // GROUPING from main-group until part (END)
 
 
@@ -184,8 +191,8 @@ Route::middleware('auth')->group(function(){
     // component routing end
 
     // part routing
-    Route::resource('part', PartController::class);
-    Route::get('part-is-deleted-to-true/{id}', [PartController::class, 'destroy'])->name('part.isDeleted');
+    // Route::resource('part', PartController::class);
+    // Route::get('part-is-deleted-to-true/{id}', [PartController::class, 'destroy'])->name('part.isDeleted');
     // part routing end
 
     // crew medical record routing
@@ -241,7 +248,3 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
-
-
-
-

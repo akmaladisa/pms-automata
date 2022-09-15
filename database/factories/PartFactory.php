@@ -29,7 +29,6 @@ class PartFactory extends Factory
             'code_unit' => Unit::all()->random()->code_unit,
             'code_component' => Component::all()->random()->code_component,
             'part_name' => $this->faker->word(),
-            'is_deleted' => 0,
             'created_user' => "USR0001"
         ];
     }

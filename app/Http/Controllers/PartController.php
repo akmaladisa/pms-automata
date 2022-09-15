@@ -9,6 +9,7 @@ use App\Models\SubGroup;
 use App\Models\Component;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PartController extends Controller
 {
@@ -34,9 +35,11 @@ class PartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'parts' => Part::orderBy('code_part')->get()
+        ]);
     }
 
     /**
@@ -47,7 +50,7 @@ class PartController extends Controller
      */
     public function store(Request $request)
     {
-        $part = $request->validate([
+        $part = Validator::make($request->all(), [
             'code_part' => 'required|numeric|max:999999999999|min:100000000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
@@ -55,15 +58,21 @@ class PartController extends Controller
             'code_unit' => "required|numeric|max:999999|min:100000",
             'code_component' => 'required|numeric|max:999999999|min:100000000',
             'part_name' => 'required',
-            'is_deleted' => 'required|boolean',
             'created_user' => 'required'
         ]);
 
-        if( Part::create($part) ) {
-            alert()->success("Success", "Part Created Successfully");
-
-            return redirect()->route('part.index');
+        if( $part->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $part->getMessageBag()
+            ]);
         }
+
+        Part::create( $request->all() );
+        return response()->json([
+            'status' => 200,
+            'message' => "Part Created Successfully"
+        ]);
     }
 
     /**
@@ -74,8 +83,28 @@ class PartController extends Controller
      */
     public function show($id)
     {
-        return view("dashboard.part.show", [
-            'part' => Part::find($id)
+        $part = Part::find($id);
+        $main_group = $part->mainGroup->main_group_name;
+        $group = $part->group->group_name;
+        $sub_group = $part->subGroup->sub_group_name;
+        $unit = $part->unit->unit_name;
+        $component = $part->component->component_name;
+
+        if( $part ) {
+            return response()->json([
+                'status' => 200,
+                'part' => $part,
+                'main_group' => $main_group,
+                'group' => $group,
+                'sub_group' => $sub_group,
+                'unit' => $unit,
+                'component' => $component,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
         ]);
     }
 
@@ -106,7 +135,7 @@ class PartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $part = $request->validate([
+        $part = Validator::make($request->all(), [
             'code_part' => 'required|numeric|max:999999999999|min:100000000000',
             'code_main_group' => 'required|numeric|max:9|min:1',
             'code_group' => 'required|numeric|max:99|min:10',
@@ -114,15 +143,30 @@ class PartController extends Controller
             'code_unit' => "required|numeric|max:999999|min:100000",
             'code_component' => 'required|numeric|max:999999999|min:100000000',
             'part_name' => 'required',
-            'is_deleted' => 'required|boolean',
             'updated_user' => 'required'
         ]);
 
-        if( Part::find($id)->update($part) ) {
-            alert()->success("Success", "Part Updated Successfully");
-
-            return redirect()->route('part.index');
+        if( $part->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $part->getMessageBag()
+            ]);
         }
+
+        $old_part = Part::find($id);
+        
+        if( $old_part ) {
+            $old_part->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Part has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 
     /**
@@ -134,11 +178,17 @@ class PartController extends Controller
     public function destroy($id)
     {
         $part = Part::find($id);
-        $part->is_deleted = true;
-        $part->save();
+        if( $part ) {
+            $part->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => "Part has been deleted"
+            ]);
+        }
 
-        alert()->success("Success", "Part Deleted Successfully");
-
-        return redirect()->route('part.index');
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 }

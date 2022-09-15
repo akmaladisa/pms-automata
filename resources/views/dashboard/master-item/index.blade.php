@@ -138,6 +138,23 @@
                 </div>
                 <div class="tab-pane fade" id="justify-part" role="tabpanel" aria-labelledby="justify-part-tab">
                     <h5>Part</h5>
+
+                    <button class="btn btn-dark mt-3" data-toggle="modal" data-target="#add_part_modal">Add New</button>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Part Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="part-item">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

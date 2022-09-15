@@ -21,7 +21,6 @@ class MstItemPart extends Migration
             $table->string('code_unit');
             $table->string('code_component');
             $table->string('part_name');
-            $table->boolean('is_deleted');
             $table->timestampsTz();
             $table->string('created_user');
             $table->string('updated_user')->nullable();
