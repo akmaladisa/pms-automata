@@ -132,7 +132,7 @@ class CrewController extends Controller
     public function read()
     {
         return response()->json( [
-            'crews' => Crew::where('status', 'ACT')->orderBy('id_crew')->get()
+            'crews' => Crew::where('status', 'ACT')->orderBy('full_name')->get()
         ] );
     }
 

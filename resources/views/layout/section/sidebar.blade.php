@@ -45,38 +45,11 @@
                     <li class="{{ Request::is('crew/*') || Request::is('crew') ? 'active' : '' }}">
                         <a href="/crew"> Crew </a>
                     </li>
-                    <li class="{{ Request::is('crew-medical-record*') ? 'active' : '' }}">
-                        <a href="/crew-medical-record"> Crew Medical Record </a>
-                    </li>
-                    <li class="{{ Request::is('crew-wo*') ? 'active' : '' }}">
-                        <a href="/crew-wo"> Crew WO </a>
-                    </li>
-                    <li class="{{ Request::is('crew-education*') ? 'active' : '' }}">
-                        <a href="/crew-education"> Crew Education </a>
-                    </li>
                     <li class="{{ Request::is('ship-access*') ? 'active' : '' }}">
                         <a href="/ship-access"> Ship Access </a>
                     </li>
                     <li class="{{ Request::is('item*') ? 'active' : '' }}">
                         <a href="/item"> Item </a>
-                    </li>
-                    <li class="{{ Request::is('main-group*') ? 'active' : '' }}">
-                        <a href="/main-group"> Main Group </a>
-                    </li>
-                    <li class="{{ Request::is('group*') ? 'active' : '' }}">
-                        <a href="/group"> Group </a>
-                    </li>
-                    <li class="{{ Request::is('sub-group*') ? 'active' : '' }}">
-                        <a href="/sub-group">Sub Group </a>
-                    </li>
-                    <li class="{{ Request::is('unit*') ? 'active' : '' }}">
-                        <a href="/unit">Unit </a>
-                    </li>
-                    <li class="{{ Request::is('component*') ? 'active' : '' }}">
-                        <a href="/component">Component </a>
-                    </li>
-                    <li class="{{ Request::is('part*') ? 'active' : '' }}">
-                        <a href="/part">Part </a>
                     </li>
                 </ul>
             </li>

@@ -168,33 +168,6 @@ Route::middleware('auth')->group(function () {
 
     // GROUPING from main-group until part (END)
 
-
-    // Main Group Routing
-    // Route::resource('main-group', MainGroupController::class);
-    // Main Group Routing
-
-    // // Group Routing
-    // Route::resource('group', GroupController::class);
-    // // Group Routing END
-
-    // sub group routing
-    // Route::resource('sub-group', SubGroupController::class);
-    // sub group routing end
-
-    // unit routing
-    // Route::resource('unit', UnitController::class);
-    // unit routing end
-
-    // component routing
-    // Route::resource('component', ComponentController::class);
-    // Route::get('component-is-deleted-to-true/{id}', [ComponentController::class, 'destroy'])->name('component.isDeleted');
-    // component routing end
-
-    // part routing
-    // Route::resource('part', PartController::class);
-    // Route::get('part-is-deleted-to-true/{id}', [PartController::class, 'destroy'])->name('part.isDeleted');
-    // part routing end
-
     // crew medical record routing
     // Route::resource('crew-medical-record', CrewMedicalRecordController::class);
     Route::post('crew-medical-record', [CrewMedicalRecordController::class, 'store']);
