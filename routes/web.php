@@ -54,7 +54,6 @@ Route::middleware('auth')->group(function () {
     })->name('main.dashboard');
 
     // ship Routing
-    // Route::resource('ship', ShipController::class);
     Route::get('ship', [ShipController::class, 'index']);
     Route::post('ship', [ShipController::class, 'store']);
     Route::get('read-ship', [ShipController::class, 'read']);
@@ -117,7 +116,12 @@ Route::middleware('auth')->group(function () {
     // bank routing end
 
     // ship access routing
-    Route::resource('ship-access', ShipAccessController::class);
+    Route::get('ship-access', [ShipAccessController::class, 'index']);
+    Route::post('ship-access', [ShipAccessController::class, 'store']);
+    Route::get('read-ship-access', [ShipAccessController::class, 'read']);
+    Route::get('ship-access/{id}', [ShipAccessController::class, 'show']);
+    Route::post('update-ship-access/{id}', [ShipAccessController::class, 'update']);
+    Route::get('delete-ship-access/{id}', [ShipAccessController::class, 'destroy']);
     // ship access routing end
 
     // GROUPING from main-group until part

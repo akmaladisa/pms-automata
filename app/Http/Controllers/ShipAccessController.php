@@ -6,6 +6,7 @@ use App\Models\Crew;
 use App\Models\Ship;
 use App\Models\ShipAccess;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ShipAccessController extends Controller
 {
@@ -16,11 +17,7 @@ class ShipAccessController extends Controller
      */
     public function index()
     {
-        return view('dashboard.ship-access.index', [
-            'shipAccess' => ShipAccess::all(),
-            'crews' => Crew::all(),
-            'ships' => Ship::all()
-        ]);
+        return view('dashboard.ship-access.index');
     }
 
     /**
@@ -28,9 +25,11 @@ class ShipAccessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([
+            'ship_accesses' => ShipAccess::orderBy('created_at')->get()
+        ]);
     }
 
     /**
@@ -41,16 +40,23 @@ class ShipAccessController extends Controller
      */
     public function store(Request $request)
     {
-        $shipAccess = $request->validate([
+        $shipAccess = Validator::make($request->all(), [
             'id_ship' => 'required',
             'id_crew' => 'required'
         ]);
 
-        ShipAccess::create( $shipAccess );
+        if( $shipAccess->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $shipAccess->getMessageBag()
+            ]);
+        }
 
-        alert()->success("Success", "Ship Access Created Successfully");
-
-        return redirect()->route('ship-access.index');
+        ShipAccess::create( $request->all() );
+        return response()->json([
+            'status' => 200,
+            'message' => "Ship Access created successfully"
+        ]);
     }
 
     /**
@@ -61,7 +67,23 @@ class ShipAccessController extends Controller
      */
     public function show($id)
     {
-        //
+        $ship_access = ShipAccess::find($id);
+        $crew = $ship_access->crew->full_name ? $ship_access->crew->full_name : null;
+        $ship = $ship_access->ship->ship_nm ? $ship_access->ship->ship_nm : null;
+
+        if( $ship_access ) {
+            return response()->json([
+                'ship_access' => $ship_access,
+                'crew' => $crew,
+                'ship' => $ship, 
+                'status' => 200
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 
     /**
@@ -88,16 +110,32 @@ class ShipAccessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $shipAccess = $request->validate([
+        $shipAccess = Validator::make($request->all(), [
             'id_ship' => 'required',
             'id_crew' => 'required'
         ]);
 
-        ShipAccess::find( $id )->update( $shipAccess );
+        if( $shipAccess->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $shipAccess->getMessageBag()
+            ]);
+        }
 
-        alert()->success("Success", "Ship Access Updated Successfully");
+        $old_data = ShipAccess::find($id);
 
-        return redirect()->route('ship-access.index');
+        if( $old_data ) {
+            $old_data->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Ship access has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 
     /**
@@ -110,10 +148,17 @@ class ShipAccessController extends Controller
     {
         $shipAccess = ShipAccess::find($id);
 
-        $shipAccess->delete();
+        if( $shipAccess ) {
+            $shipAccess->delete();
+            return response()->json([
+                'message' => "Ship access deleted successfully",
+                'status' => 200
+            ]);
+        }
 
-        alert()->success("Success", "Ship Access Deleted Successfully");
-
-        return redirect()->route('ship-access.index');
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 }

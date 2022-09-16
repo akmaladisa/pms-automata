@@ -465,6 +465,20 @@ function fetch_crew_list() {
                     <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
                 `);
             });
+
+            $('#id_crew_ship_access').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_ship_access').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_ship_access_edit').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_ship_access_edit').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
         }
     });
 }
