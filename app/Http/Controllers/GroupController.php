@@ -73,7 +73,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
-        $main_group = $group->mainGroup->main_group_name;
+        $main_group = $group->mainGroup->main_group_name ? $group->mainGroup->main_group_name : null;
 
         if( $group ) {
             return response()->json([

@@ -76,8 +76,8 @@ class SubGroupController extends Controller
     public function show($id)
     {
         $subGroup = SubGroup::find($id);
-        $mainGroup = $subGroup->mainGroup->main_group_name;
-        $group = $subGroup->group->group_name;
+        $mainGroup = $subGroup->mainGroup->main_group_name ? $subGroup->mainGroup->main_group_name : null;
+        $group = $subGroup->group->group_name ? $subGroup->group->group_name : null;
 
         if( $subGroup ) {
             return response()->json([

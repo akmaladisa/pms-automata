@@ -78,9 +78,9 @@ class UnitController extends Controller
     public function show($id)
     {
         $unit = Unit::find($id);
-        $sub_group = $unit->subGroup->sub_group_name;
-        $group = $unit->group->group_name;
-        $main_group = $unit->mainGroup->main_group_name;
+        $sub_group = $unit->subGroup->sub_group_name ? $unit->subGroup->sub_group_name : null;
+        $group = $unit->group->group_name ? $unit->group->group_name : null;
+        $main_group = $unit->mainGroup->main_group_name ? $unit->mainGroup->main_group_name : null;
 
         if( $unit ) {
             return response()->json([

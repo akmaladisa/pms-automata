@@ -84,11 +84,11 @@ class PartController extends Controller
     public function show($id)
     {
         $part = Part::find($id);
-        $main_group = $part->mainGroup->main_group_name;
-        $group = $part->group->group_name;
-        $sub_group = $part->subGroup->sub_group_name;
-        $unit = $part->unit->unit_name;
-        $component = $part->component->component_name;
+        $main_group = $part->mainGroup->main_group_name ? $part->mainGroup->main_group_name : null;
+        $group = $part->group->group_name ? $part->group->group_name : null;
+        $sub_group = $part->subGroup->sub_group_name ? $part->subGroup->sub_group_name : null;
+        $unit = $part->unit->unit_name ? $part->unit->unit_name : null;
+        $component = $part->component->component_name ? $part->component->component_name : null;
 
         if( $part ) {
             return response()->json([

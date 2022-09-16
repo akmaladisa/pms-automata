@@ -81,10 +81,10 @@ class ComponentController extends Controller
     public function show($id)
     {
         $component = Component::find($id);
-        $unit = $component->unit->unit_name;
-        $sub_group = $component->subGroup->sub_group_name;
-        $group = $component->group->group_name;
-        $main_group = $component->mainGroup->main_group_name;
+        $unit = $component->unit->unit_name ? $component->unit->unit_name : null;
+        $sub_group = $component->subGroup->sub_group_name ? $component->subGroup->sub_group_name : null;
+        $group = $component->group->group_name ? $component->group->group_name : null;
+        $main_group = $component->mainGroup->main_group_name ? $component->mainGroup->main_group_name : null;
 
         if( $component ) {
             return response()->json([

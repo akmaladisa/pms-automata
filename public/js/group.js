@@ -62,6 +62,7 @@ $(document).ready(function() {
             dataType: "json",
             success: function (response) {
                 if( response.status == 200 ) {
+                    console.log(response.main_group);
                     $("#code-group-in-group").text(response.group.code_group)
                     $("#code-main-group-in-group").text(response.group.code_main_group)
                     $("#name-group-in-group").text(response.group.group_name)
@@ -69,7 +70,12 @@ $(document).ready(function() {
                     $("#created-by-in-group").text(response.group.created_user)
                     $("#updated-at-in-group").text(response.group.updated_at)
                     $("#updated-by-in-group").text(response.group.updated_user)
-                    $("#main-group-in-group").text(response.main_group)
+
+                    if( response.main_group ) {
+                        $("#main-group-in-group").text(response.main_group)
+                    }else {
+                        ("#main-group-in-group").text('')
+                    } 
                 }
             },
             error: function(e) {
