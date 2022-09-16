@@ -54,7 +54,12 @@ Route::middleware('auth')->group(function () {
     })->name('main.dashboard');
 
     // ship Routing
-    Route::resource('ship', ShipController::class);
+    // Route::resource('ship', ShipController::class);
+    Route::get('ship', [ShipController::class, 'index']);
+    Route::post('ship', [ShipController::class, 'store']);
+    Route::get('read-ship', [ShipController::class, 'read']);
+    Route::get('ship/{id}', [ShipController::class, 'show']);
+    Route::post('ship/{id}', [ShipController::class, 'update']);
     Route::get('/change-status-ship/{id}', [ShipController::class, 'destroy']);
     // ship routing end
 

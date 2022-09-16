@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Validator;
 
 class ShipController extends Controller
 {
@@ -18,7 +19,6 @@ class ShipController extends Controller
     public function index()
     {
         return view('dashboard.ship.index', [
-            'ships' => DB::table('mst_ship')->where('status', 'ACT')->orderBy('id_ship')->get(),
             'shipID' => IdGenerator::generate([
                 'table' => 'mst_ship',
                 'length' => 7,
@@ -33,9 +33,11 @@ class ShipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        
+        return response()->json([
+            'ships' => Ship::where('status', 'ACT')->orderBy('ship_nm')->get()
+        ]);
     }
 
     /**
@@ -54,11 +56,10 @@ class ShipController extends Controller
             'created_user' => 'required'
         ]);
 
-        Ship::create($newShip);
+        Ship::create( $newShip );
+        alert()->success("Success", "Ship created successfully");
 
-        alert()->success('Success','Ship Added Successfully');
-
-        return redirect()->back();
+        return redirect('/ship');
     }
 
     /**
@@ -69,8 +70,17 @@ class ShipController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.ship.show', [
-            'ship' => Ship::find($id)
+        $ship = Ship::find($id);
+        if( $ship ) {
+            return response()->json([
+                'status' => 200,
+                'ship' => $ship
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Ship  not found"
         ]);
     }
 
@@ -94,24 +104,37 @@ class ShipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_ship)
+    public function update(Request $request, $id)
     {
-        $newShip = $request->validate([
+        $newShip = Validator::make($request->all(), [
             'ship_nm' => 'required',
             'description' => 'required',
             'status' => 'required|max:3',
             'updated_user' => 'required'
         ]);
 
-        if( Ship::find($id_ship)->update($newShip) ) {
-            alert()->success('Success','Ship Updated Successfully');
-
-            return redirect('/ship');
+        if( $newShip->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $newShip->getMessageBag()
+            ]);
         }
 
-        alert()->error('Error','Failed To Update Ship');
+        $old_ship = Ship::find($id);
 
-        return redirect('/ship');
+        if( $old_ship ) {
+            $old_ship->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Ship has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Ship  not found"
+        ]);
+
     }
 
     /**
@@ -124,12 +147,18 @@ class ShipController extends Controller
     {
         $ship = Ship::find( $id );
 
-        $ship->status = "DE";
+        if($ship) {
+            $ship->status = "DE";
+            $ship->save();
+            return response()->json([
+                'status' => 200,
+                'message' => "Ship status changed to 'DE'"
+            ]);
+        }
 
-        $ship->save();
-
-        alert()->success('Success',"Ship Status Changed To 'DE' ");
-
-        return redirect('/ship');
+        return response()->json([
+            'status' => 404,
+            'message' => "Ship  not found"
+        ]);
     }
 }
