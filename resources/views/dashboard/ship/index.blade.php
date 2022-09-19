@@ -161,7 +161,6 @@
                 <div class="modal-body" id="contentShowShip">
                     <div class="row">
                         <div class="col-12">
-                            <div id="alert-show-certificate"></div>
                             <ul class="list-group ">
                                 <li class="list-group-item active">Ship ID : <span id="ship-id-in-ship"></span></li>
                                 <li class="list-group-item active">Ship Name : <span id="ship-name-in-ship"></span></li>

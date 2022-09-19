@@ -72,8 +72,12 @@ Route::middleware('auth')->group(function () {
     // vendor routing end
 
     // routing departement
-    Route::resource('departement', DepartementController::class);
-    Route::get("/change-status-departement/{id}", [DepartementController::class, 'destroy'])->name('departement.changestatus');
+    Route::get('departement', [DepartementController::class, 'index']);
+    Route::post('departement', [DepartementController::class, 'store']);
+    Route::get('read-departement', [DepartementController::class, 'read']);
+    Route::get('departement/{id}', [DepartementController::class, 'show']);
+    Route::post('departement/{id}', [DepartementController::class, 'update']);
+    Route::get('/change-status-departement/{id}', [DepartementController::class, 'destroy']);
     // routing departement end
 
     // routing contry

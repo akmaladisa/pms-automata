@@ -7,6 +7,7 @@ use App\Models\Ship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Validator;
 
 class DepartementController extends Controller
 {
@@ -18,7 +19,6 @@ class DepartementController extends Controller
     public function index()
     {
         return view('dashboard.departement.index', [
-            'departements' => DB::table('mst_departement')->where('status', 'ACT')->orderBy('departement_id')->get(),
             'departementID' => IdGenerator::generate([
                 'table' => 'mst_departement',
                 'length' => 7,
@@ -33,9 +33,9 @@ class DepartementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json( [ 'departements' => Departement::where('status', 'ACT')->orderBy('departement_name')->get() ] );
     }
 
     /**
@@ -68,8 +68,16 @@ class DepartementController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.departement.show', [
-            'departement' => Departement::find($id)
+        if( Departement::find($id) ) {
+            return response()->json([
+                'status' => 200,
+                'departement' => Departement::find($id)
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Departement not found"
         ]);
     }
 
@@ -95,22 +103,34 @@ class DepartementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $departement = $request->validate([
+        $departement = Validator::make($request->all(), [
             'departement_id' => "required",
             'departement_name' => 'required',
             'status' => 'required|max:3',
             'updated_user' => 'required'
         ]);
 
-        if( Departement::find($id)->update($departement) ) {
-            alert()->success('Success','Departement Updated Successfully');
-
-            return redirect('/departement');
+        if( $departement->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $departement->getMessageBag()
+            ]);
         }
 
-        alert()->error('Error','Failed To Update Vendor');
+        $dprtmnt = Departement::find($id);
 
-        return redirect('/vendors');
+        if( $dprtmnt ) {
+            $dprtmnt->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Departement has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Departement not found"
+        ]);
     }
 
     /**
@@ -123,12 +143,13 @@ class DepartementController extends Controller
     {
         $departement = Departement::find($id);
 
-        $departement->status = "DE";
-
-        $departement->save();
-
-        alert()->success('Success',"Departement Status Changed To 'DE'");
-
-        return redirect('/departement');
+        if( $departement ) {
+            $departement->status = "DE";
+            $departement->save();
+            return response()->json([
+                'status' => 200,
+                'message' => "Departement has been deleted"
+            ]);
+        }
     }
 }
