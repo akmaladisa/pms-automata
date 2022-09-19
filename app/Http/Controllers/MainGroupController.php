@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Component;
+use App\Models\Group;
 use App\Models\MainGroup;
+use App\Models\Part;
+use App\Models\SubGroup;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Validator;
@@ -154,6 +159,12 @@ class MainGroupController extends Controller
 
         if($mainGroup) {
             $mainGroup->delete();
+
+            Group::where('code_main_group', $id)->update( ['code_main_group' => 'null'] );
+            SubGroup::where('code_main_group', $id)->update( ['code_main_group' => 'null'] );
+            Unit::where('code_main_group', $id)->update( ['code_main_group' => 'null'] );
+            Component::where('code_main_group', $id)->update( ['code_main_group' => 'null'] );
+            Part::where('code_main_group', $id)->update( ['code_main_group' => 'null'] );
 
             return response()->json([
                 'status' => 200,

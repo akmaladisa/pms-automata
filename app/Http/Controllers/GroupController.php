@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Part;
+use App\Models\Unit;
 use App\Models\Group;
+use App\Models\SubGroup;
+use App\Models\Component;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -73,7 +77,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
-        $main_group = $group->mainGroup->main_group_name ? $group->mainGroup->main_group_name : null;
+        $main_group = $group->code_main_group == 'null' ? $group->code_main_group  : $group->mainGroup->main_group_name;
 
         if( $group ) {
             return response()->json([
@@ -155,6 +159,12 @@ class GroupController extends Controller
 
         if($group) {
             $group->delete();
+
+            SubGroup::where('code_group', $id)->update(['code_group' => 'null']);
+            Unit::where('code_group', $id)->update(['code_group' => 'null']);
+            Component::where('code_group', $id)->update(['code_group' => 'null']);
+            Part::where('code_group', $id)->update(['code_group' => 'null']);
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Group has been deleted'

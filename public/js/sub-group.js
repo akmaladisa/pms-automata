@@ -78,6 +78,9 @@ $(document).ready(function() {
                 else {
                     Swal.fire("404", `${response.message}`, 'error')
                 }
+            },
+            error: function(e) {
+                console.log(e.responseText);
             }
         });
     });

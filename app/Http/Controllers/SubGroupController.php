@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Part;
+use App\Models\Unit;
 use App\Models\Group;
 use App\Models\SubGroup;
+use App\Models\Component;
 use App\Models\MainGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -76,8 +79,8 @@ class SubGroupController extends Controller
     public function show($id)
     {
         $subGroup = SubGroup::find($id);
-        $mainGroup = $subGroup->mainGroup->main_group_name ? $subGroup->mainGroup->main_group_name : null;
-        $group = $subGroup->group->group_name ? $subGroup->group->group_name : null;
+        $mainGroup = $subGroup->code_main_group == 'null' ? $subGroup->code_main_group : $subGroup->mainGroup->main_group_name;
+        $group = $subGroup->code_group == 'null' ? $subGroup->code_group: $subGroup->group->group_name;
 
         if( $subGroup ) {
             return response()->json([
@@ -87,6 +90,11 @@ class SubGroupController extends Controller
                 'group' => $group
             ]);
         }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Data not found"
+        ]);
     }
 
     /**
@@ -154,6 +162,10 @@ class SubGroupController extends Controller
     public function destroy($id)
     {
         $subGroup = SubGroup::find($id);
+
+        Unit::where('code_sub_group', $id)->update( ['code_sub_group' => 'null'] );
+        Component::where('code_sub_group', $id)->update( ['code_sub_group' => 'null'] );
+        Part::where('code_sub_group', $id)->update( ['code_sub_group' => 'null'] );
 
         if( $subGroup ) {
             $subGroup->delete();

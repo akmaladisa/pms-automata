@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Component;
 use App\Models\Group;
 use App\Models\MainGroup;
+use App\Models\Part;
 use App\Models\SubGroup;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -78,9 +80,9 @@ class UnitController extends Controller
     public function show($id)
     {
         $unit = Unit::find($id);
-        $sub_group = $unit->subGroup->sub_group_name ? $unit->subGroup->sub_group_name : null;
-        $group = $unit->group->group_name ? $unit->group->group_name : null;
-        $main_group = $unit->mainGroup->main_group_name ? $unit->mainGroup->main_group_name : null;
+        $sub_group = $unit->code_sub_group == 'null' ? $unit->code_sub_group: $unit->subGroup->sub_group_name;
+        $group = $unit->code_group == 'null' ? $unit->code_group : $unit->group->group_name;
+        $main_group = $unit->code_main_group == 'null' ? $unit->code_main_group : $unit->mainGroup->main_group_name;
 
         if( $unit ) {
             return response()->json([
@@ -165,6 +167,9 @@ class UnitController extends Controller
     public function destroy($id)
     {
         $unit = Unit::find($id);
+
+        Component::where('code_unit', $id)->update(['code_unit' => 'null']);
+        Part::where('code_unit', $id)->update(['code_unit' => 'null']);
 
         if( $unit ) {
             $unit->delete();

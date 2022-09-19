@@ -7,6 +7,7 @@ use App\Models\Group;
 use App\Models\SubGroup;
 use App\Models\Component;
 use App\Models\MainGroup;
+use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -81,10 +82,10 @@ class ComponentController extends Controller
     public function show($id)
     {
         $component = Component::find($id);
-        $unit = $component->unit->unit_name ? $component->unit->unit_name : null;
-        $sub_group = $component->subGroup->sub_group_name ? $component->subGroup->sub_group_name : null;
-        $group = $component->group->group_name ? $component->group->group_name : null;
-        $main_group = $component->mainGroup->main_group_name ? $component->mainGroup->main_group_name : null;
+        $unit = $component->code_unit == 'null' ? $component->code_unit : $component->unit->unit_name;
+        $sub_group = $component->code_sub_group == 'null' ? $component->code_sub_group : $component->subGroup->sub_group_name;
+        $group = $component->code_group == 'null' ? $component->code_group : $component->group->group_name;
+        $main_group = $component->code_main_group == 'null' ? $component->code_main_group : $component->mainGroup->main_group_name;
 
         if( $component ) {
             return response()->json([
@@ -174,6 +175,9 @@ class ComponentController extends Controller
 
         if($component) {
             $component->delete();
+
+            Part::where('code_component', $id)->update(['code_component' => 'null']);
+
             return response()->json([
                 'status' => 200,
                 'message' => "Component has been deleted"

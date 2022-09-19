@@ -70,12 +70,7 @@ $(document).ready(function() {
                     $("#created-by-in-group").text(response.group.created_user)
                     $("#updated-at-in-group").text(response.group.updated_at)
                     $("#updated-by-in-group").text(response.group.updated_user)
-
-                    if( response.main_group ) {
-                        $("#main-group-in-group").text(response.main_group)
-                    }else {
-                        ("#main-group-in-group").text('')
-                    } 
+                    $("#main-group-in-group").text(response.main_group)
                 }
             },
             error: function(e) {
@@ -195,6 +190,9 @@ $(document).ready(function() {
                         )
                         refresh_other_item_based_on_group()
                     }
+                },
+                error: function(e) {
+                    console.log(e.responseText);
                 }
             });
         }
