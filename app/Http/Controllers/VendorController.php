@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Vendor;
 use Illuminate\Http\Request;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class VendorController extends Controller
 {
@@ -24,8 +25,6 @@ class VendorController extends Controller
                 'field' => 'vendor_id',
                 'prefix' => 'VID' 
             ]),
-            'vendors' => DB::table('mst_vendor')->where('status', 'ACT')->orderBy('vendor_id')->get()
-
         ]);
     }
 
@@ -34,9 +33,9 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json([ 'vendors' => Vendor::where('status', 'ACT')->orderBy("vendor_name")->get() ]);
     }
 
     /**
@@ -58,7 +57,7 @@ class VendorController extends Controller
 
         alert()->success('Success','Vendor Added Successfully');
 
-        return redirect()->back();
+        return redirect('/vendors');
     }
 
     /**
@@ -69,8 +68,16 @@ class VendorController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.vendor.show', [
-            'vendor' => Vendor::find($id)
+        if( Vendor::find($id) ) {
+            return response()->json([
+                'vendor' => Vendor::find($id),
+                'status' => 200
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Vendor not found"
         ]);
     }
 
@@ -96,22 +103,34 @@ class VendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $newVendor = $request->validate([
+        $newVendor = Validator::make($request->all(),[
             'vendor_id' => 'required',
             'vendor_name' => "required",
             'status' => 'required|max:3',
             'updated_user' => 'required'
         ]);
 
-        if( Vendor::find($id)->update($newVendor) ) {
-            alert()->success('Success','Vendor Updated Successfully');
-
-            return redirect('/vendors');
+        if( $newVendor->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $newVendor->getMessageBag()
+            ]);
         }
 
-        alert()->error('Error','Failed To Update Vendor');
+        $vndr = Vendor::find($id);
 
-        return redirect('/vendors');
+        if( $vndr ) {
+            $vndr->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Vendor has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => "Vendor not found"
+        ]);
     }
 
     /**
@@ -124,12 +143,18 @@ class VendorController extends Controller
     {
         $vendor = Vendor::find($id);
 
-        $vendor->status = "DE";
+        if( $vendor ) {
+            $vendor->status = "DE";
+            $vendor->save();
+            return response()->json([
+                'status' => 200,
+                'message' => "Vendor has been deleted"
+            ]);
+        }
 
-        $vendor->save();
-
-        alert()->success('Success',"Vendor Status Changed To 'DE'");
-
-        return redirect('/vendors');
+        return response()->json([
+            'status' => 404,
+            'message' => "Vendor not found"
+        ]);
     }
 }

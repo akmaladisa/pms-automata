@@ -63,7 +63,11 @@ Route::middleware('auth')->group(function () {
     // ship routing end
 
     // vendor routing
-    Route::resource('vendors', VendorController::class);
+    Route::get('vendors', [VendorController::class, 'index']);
+    Route::post('vendors', [VendorController::class, 'store']);
+    Route::get('read-vendors', [VendorController::class, 'read']);
+    Route::get('vendors/{id}', [VendorController::class, 'show']);
+    Route::post('vendors/{id}', [VendorController::class, 'update']);
     Route::get('/change-status-vendor/{id}', [VendorController::class, 'destroy']);
     // vendor routing end
 

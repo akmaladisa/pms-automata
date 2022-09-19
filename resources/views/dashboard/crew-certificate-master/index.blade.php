@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-lg-8 col-sm-12">
-            <table class="table-dark table">
+            <table class="table-sm table mt-4 table-striped text-center">
                 <thead>
                     <tr>
                         <th>Certificate Name</th>
