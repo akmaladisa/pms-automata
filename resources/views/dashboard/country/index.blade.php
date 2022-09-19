@@ -50,6 +50,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add New Country</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('country.store') }}" method="POST">
@@ -68,11 +71,9 @@
                             </div>
                         </div>
 
-                        <div class="input-group mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Description</span>
-                            </div>
-                            <textarea class="form-control" required name="description" aria-label="With textarea"></textarea>
+                        <div class="input-group row mb-4">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <textarea class="form-control form-control-sm" id="desc_country_store" name="description" required aria-label="With textarea">{{ old('description') }}</textarea>
                         </div>
                 
                         <div class="input-group mb-4">

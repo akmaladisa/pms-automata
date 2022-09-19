@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-lg-8 col-sm-12">
-            <table class="table-sm table mt-4 table-striped text-center">
+            <table class="table-sm table mt-2 table-striped text-center">
                 <thead>
                     <tr>
                         <th>Certificate Name</th>
@@ -34,6 +34,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Update Certificate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form id="form_master_certificate_edit">
@@ -68,6 +71,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form id="form_master_certificate">
