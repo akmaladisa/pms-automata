@@ -6,6 +6,7 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
@@ -17,7 +18,6 @@ class CountryController extends Controller
     public function index()
     {
         return view('dashboard.country.index', [
-            'countries' => DB::table('mst_country')->where('status', 'ACT')->orderBy('id_country')->get(),
             'countryId' => IdGenerator::generate([
                 'table' => 'mst_country',
                 'length' => 8,
@@ -32,9 +32,9 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function read()
     {
-        //
+        return response()->json( [ 'countries' => Country::where('status', 'ACT')->orderBy('country_nm')->get() ] );
     }
 
     /**
@@ -68,8 +68,16 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.country.show', [
-            'country' => Country::find($id)
+        if( Country::find($id) ) {
+            return response()->json([
+                'status' => 200,
+                'country' => Country::find($id)
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => 'Country not found'
         ]);
     }
 
@@ -95,7 +103,7 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $country = $request->validate([
+        $country = Validator::make($request->all(), [
             'id_country' => 'required',
             'country_nm' => 'required',
             'description' => 'required',
@@ -103,15 +111,27 @@ class CountryController extends Controller
             'updated_user' => 'required'
         ]);
 
-        if( Country::find($id)->update($country) ) {
-            alert()->success("Success", 'Ship Updated Successfully');
-
-            return redirect("/country");
+        if( $country->fails() ) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $country->getMessageBag()
+            ]);
         }
 
-        alert()->error('Error','Failed To Update Country');
+        $cntry = Country::find($id);
 
-        return redirect('/country');
+        if( $cntry ) {
+            $cntry->update( $request->all() );
+            return response()->json([
+                'status' => 200,
+                'message' => "Country has been updated"
+            ]);
+        }
+
+        return response()->json([
+            'status' => 404,
+            'message' => 'Country not found'
+        ]);
     }
 
     /**
@@ -124,12 +144,18 @@ class CountryController extends Controller
     {
         $country = Country::find($id);
 
-        $country->status = "DE";
+        if( $country ) {
+            $country->status = "DE";
+            $country->save();
+            return response()->json([
+                'status' => 200,
+                'message' => "Country has been deleted"
+            ]);
+        }
 
-        $country->save();
-
-        alert()->success('Success', "Country Status Changed To 'DE'");
-
-        return redirect('/country');
+        return response()->json([
+            'status' => 404,
+            'message' => 'Country not found'
+        ]);
     }
 }

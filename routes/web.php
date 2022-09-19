@@ -81,8 +81,12 @@ Route::middleware('auth')->group(function () {
     // routing departement end
 
     // routing contry
-    Route::resource('country', CountryController::class);
-    Route::get('/change-status-country/{id}', [CountryController::class, 'destroy'])->name('country.changestatus');
+    Route::get('country', [CountryController::class, 'index']);
+    Route::post('country', [CountryController::class, 'store']);
+    Route::get('read-country', [CountryController::class, 'read']);
+    Route::get('country/{id}', [CountryController::class, 'show']);
+    Route::post('country/{id}', [CountryController::class, 'update']);
+    Route::get('/change-status-country/{id}', [CountryController::class, 'destroy']);
     // routing contry end
 
     // routing identity-type
