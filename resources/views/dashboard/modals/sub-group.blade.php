@@ -66,7 +66,7 @@
 
 {{-- show group --}}
 <div class="modal animated fade" id="show-sub-group-modal" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog mw-100 w-100" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Sub Group</h5>
@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body" id="contentShowCrewCertificate">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12">
                         <div id="alert-show-certificate"></div>
                         <ul class="list-group ">
@@ -91,6 +91,32 @@
                             <li class="list-group-item active">Updated By : <span id="updated-by-in-sub-group"></span></li>
                         </ul>
                     </div>
+                </div> --}}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Main Group</th>
+                                <th>Group</th>
+                                <th>Sub Group</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span id="code-main-group-in-sub-group"></span> - <span id="main-group-in-sub-group"></span></td>
+                                <td><span id="code-group-in-sub-group"></span> - <span id="name-group-in-sub-group"></span></td>
+                                <td><span id="code-sub-group-in-sub-group"></span> - <span id="name-sub-group-in-sub-group"></span></td>
+                                <td><span id="created-at-in-sub-group"></span></td>
+                                <td><span id="created-by-in-sub-group"></span></td>
+                                <td><span id="updated-at-in-sub-group"></span></td>
+                                <td><span id="updated-by-in-sub-group"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

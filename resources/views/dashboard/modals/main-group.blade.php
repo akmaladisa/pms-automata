@@ -57,7 +57,7 @@
 
 {{-- show main group --}}
 <div class="modal animated fade" id="show-main-group" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog mw-100 w-100" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Main Group</h5>
@@ -66,19 +66,29 @@
                 </button>
             </div>
             <div class="modal-body" id="contentShowCrewCertificate">
-                <div class="row">
-                    <div class="col-12">
-                        <div id="alert-show-certificate"></div>
-                        <ul class="list-group ">
-                            <li class="list-group-item active">Item Code : <span id="item-code-main-group"></span></li>
-                            <li class="list-group-item active">Main Group Code : <span id="code-main-group"></span></li>
-                            <li class="list-group-item active">Main Group Name : <span id="name-main-group"></span></li>
-                            <li class="list-group-item active">Created At : <span id="created-at-main-group"></span></li>
-                            <li class="list-group-item active">Updated At : <span id="updated-at-main-group"></span></li>
-                            <li class="list-group-item active">Created By : <span id="created-by-main-group"></span></li>
-                            <li class="list-group-item active">Updated By : <span id="updated-by-main-group"></span></li>
-                        </ul>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Main Group</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span id="item-code-main-group"></span></td>
+                                <td><span id="code-main-group"></span> - <span id="name-main-group"></span></td>
+                                <td><span id="created-at-main-group"></span></td>
+                                <td><span id="created-by-main-group"></span></td>
+                                <td><span id="updated-at-main-group"></span></td>
+                                <td><span id="updated-by-main-group"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

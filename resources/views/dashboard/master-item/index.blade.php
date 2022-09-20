@@ -4,6 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="/css/components/custom-list-group.css" rel="stylesheet" type="text/css">
     <link href="/css/components/tabs-accordian/custom-tabs.css" rel="stylesheet" type="text/css" />
+    <link href="/css/full-screen-modal.css" rel="stylesheet" type="text/css">
 @endsection
 
 @section('container')

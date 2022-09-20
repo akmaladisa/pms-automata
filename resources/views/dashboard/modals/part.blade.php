@@ -87,7 +87,7 @@
 
 {{-- show part --}}
 <div class="modal animated fade" id="show-part-modal" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog mw-100 w-100" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Part</h5>
@@ -96,28 +96,37 @@
                 </button>
             </div>
             <div class="modal-body" id="contentShowCrewCertificate">
-                <div class="row">
-                    <div class="col-12">
-                        <div id="alert-show-certificate"></div>
-                        <ul class="list-group ">
-                            <li class="list-group-item active">Part Code : <span id="code-part-in-part"></span></li>
-                            <li class="list-group-item active">Part Name : <span id="name-part-in-part"></span></li>
-                            <li class="list-group-item active">Component Code : <span id="code-component-in-part"></span></li>
-                            <li class="list-group-item active">Component Name : <span id="name-component-in-part"></span></li>
-                            <li class="list-group-item active">Unit Code : <span id="code-unit-in-part"></span></li>
-                            <li class="list-group-item active">Unit Name : <span id="name-unit-in-part"></span></li>
-                            <li class="list-group-item active">Sub Group Code : <span id="code-sub-group-in-part"></span></li>
-                            <li class="list-group-item active">Sub Group Name : <span id="name-sub-group-in-part"></span></li>
-                            <li class="list-group-item active">Group Code : <span id="code-group-in-part"></span></li>
-                            <li class="list-group-item active">Group Name : <span id="name-group-in-part"></span></li>
-                            <li class="list-group-item active">Main Group Code : <span id="code-main-group-in-part"></span></li>
-                            <li class="list-group-item active">Main Group Name : <span id="main-group-in-part"></span></li>
-                            <li class="list-group-item active">Created At : <span id="created-at-in-part"></span></li>
-                            <li class="list-group-item active">Updated At : <span id="updated-at-in-part"></span></li>
-                            <li class="list-group-item active">Created By : <span id="created-by-in-part"></span></li>
-                            <li class="list-group-item active">Updated By : <span id="updated-by-in-part"></span></li>
-                        </ul>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Main Group</th>
+                                <th>Group</th>
+                                <th>Sub Group</th>
+                                <th>Unit</th>
+                                <th>Component</th>
+                                <th>Part</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th>Updated At</th>
+                                <th>Updated By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span id="code-main-group-in-part"></span> - <span id="main-group-in-part"></span></td>
+                                <td><span id="code-group-in-part"></span> - <span id="name-group-in-part"></span></td>
+                                <td><span id="code-sub-group-in-part"></span> - <span id="name-sub-group-in-part"></span></td>
+                                <td><span id="code-unit-in-part"></span> - <span id="name-unit-in-part"></span></td>
+                                <td><span id="code-component-in-part"></span> - <span id="name-component-in-part"></span></td>
+                                <td><span id="code-part-in-part"></span> - <span id="name-part-in-part"></span></td>
+                                <td><span id="created-at-in-part"></span></td>
+                                <td><span id="created-by-in-part"></span></td>
+                                <td><span id="updated-at-in-part"></span></td>
+                                <td><span id="updated-by-in-part"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
