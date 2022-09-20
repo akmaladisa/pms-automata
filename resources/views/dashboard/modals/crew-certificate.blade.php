@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-certificate mb-4"></div>
+                <div class="alert-group-list-certificate mb-2"></div>
                 <form method="POST" id="form-add-crew-certificate" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-4">
@@ -159,7 +159,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-certificate-edit mb-4"></div>
+                <div class="alert-group-list-certificate-edit mb-2"></div>
                 <form method="POST" id="form-edit-crew-certificate" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="real_id_crew_certificate">

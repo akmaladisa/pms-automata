@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 {{-- show error list if exist --}}
-                <div class="alert-group-list-crew-wo-error mb-4"></div>
+                <div class="alert-group-list-crew-wo-error mb-2"></div>
                 <form id="add-crew-wo-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-4">
@@ -145,7 +145,7 @@
             </div>
             <div class="modal-body">
                 {{-- show error list if exist --}}
-                <div class="alert-group-list-crew-wo-edit-error mb-4"></div>
+                <div class="alert-group-list-crew-wo-edit-error mb-2"></div>
                 <form id="edit-crew-wo-form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="real_id_crew_WO">

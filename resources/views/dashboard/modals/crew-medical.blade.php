@@ -51,7 +51,7 @@
             </div>
             <div class="modal-body">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list mb-4"></div>
+                <div class="alert-group-list mb-2"></div>
                 <form id="addCrewMedical" method="POST">
                     <div class="input-group mb-4">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Crew</label>
@@ -150,7 +150,7 @@
             </div>
             <div class="modal-body">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-edit-error mb-4"></div>
+                <div class="alert-group-list-edit-error mb-2"></div>
                 <form id="addCrewMedical" method="POST">
                     <input type="hidden" name="id" id="id_medical_record_edit">
 

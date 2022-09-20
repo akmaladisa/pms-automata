@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-insurance mb-4"></div>
+                <div class="alert-group-list-insurance mb-2"></div>
                 <form method="POST" id="form-add-crew-insurance">
                     @csrf
                     <div class="input-group mb-4">
@@ -81,7 +81,7 @@
             </div>
             <div class="modal-body">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-insurance-edit mb-4"></div>
+                <div class="alert-group-list-insurance-edit mb-2"></div>
                 <form method="POST" id="form-edit-crew-insurance">
                     @csrf
                     <div class="input-group mb-4">

@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-seaman-book mb-4"></div>
+                <div class="alert-group-list-seaman-book mb-2"></div>
                 <form method="POST" id="form-add-seaman-book" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-4">
@@ -143,7 +143,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-seaman-book-edit mb-4"></div>
+                <div class="alert-group-list-seaman-book-edit mb-2"></div>
                 <form method="POST" id="form-edit-seaman-book" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="real_id_seaman_book">
