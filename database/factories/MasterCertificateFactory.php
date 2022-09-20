@@ -18,7 +18,8 @@ class MasterCertificateFactory extends Factory
     {
         return [
             'name' => $this->faker->jobTitle(),
-            'type' => $this->faker->word()
+            'type' => $this->faker->word(),
+            'rank' => $this->faker->word()
         ];
     }
 }

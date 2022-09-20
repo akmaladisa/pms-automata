@@ -12,12 +12,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-8 col-sm-12">
-            <table class="table-sm table mt-2 table-striped text-center">
+        <div class="col-lg-12 col-sm-12">
+            <table class="table mt-2 table-striped text-center">
                 <thead>
                     <tr>
                         <th>Certificate Name</th>
                         <th>Certificate Type</th>
+                        <th>Certificate Rank</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,6 +55,13 @@
                                 <input name="type" type="text" required class="form-control" id="master_certificate_type_edit" placeholder="Type...." value="{{ old('type') }}">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="colFormLabel">Certificate Rank</label>
+                            <div>
+                                <input name="rank" type="text" required class="form-control" id="master_certificate_rank_edit" placeholder="Rank...." value="{{ old('rank') }}">
+                            </div>
+                        </div>
                     
                 </div>
                 <div class="modal-footer">
@@ -88,6 +96,13 @@
                             <label for="colFormLabel">Certificate Type</label>
                             <div>
                                 <input name="type" type="text" required class="form-control" id="master_certificate_type" placeholder="Type...." value="{{ old('type') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colFormLabel">Certificate Rank</label>
+                            <div>
+                                <input name="rank" type="text" required class="form-control" id="master_certificate_rank" placeholder="Rank...." value="{{ old('rank') }}">
                             </div>
                         </div>
                     
@@ -128,6 +143,7 @@
                             $("#real_id_master_certificate").val(response.data.id);
                             $("#master_certificate_name_edit").val(response.data.name);
                             $("#master_certificate_type_edit").val(response.data.type);
+                            $("#master_certificate_rank_edit").val(response.data.rank);
                         } else {
                             Swal.fire('Not Found', `${response.message}`, 'error')
                             $("#edit-master-certificate").modal("hide")
@@ -145,7 +161,8 @@
 
                 let new_certificate_master = {
                     name: $('#master_certificate_name_edit').val(),
-                    type: $('#master_certificate_type_edit').val()
+                    type: $('#master_certificate_type_edit').val(),
+                    rank: $('#master_certificate_rank_edit').val(),
                 }
 
                 $.ajax({
@@ -217,7 +234,8 @@
                     url: "crew-certificate-master",
                     data: {
                         name: $("#master_certificate_name").val(),
-                        type: $("#master_certificate_type").val()
+                        type: $("#master_certificate_type").val(),
+                        rank: $("#master_certificate_rank").val()
                     },
                     success: function (response) {
                         if( response.status == 200 ) {
@@ -227,6 +245,7 @@
 
                             $('#master_certificate_name').val('');
                             $('#master_certificate_type').val('');
+                            $('#master_certificate_rank').val('');
                         } else {
                             $("#add-master-certificate").modal("hide")
                             Swal.fire("Error", `${response.message}`, 'error')
@@ -249,6 +268,7 @@
                         <tr>
                             <td>${record.name}</td>
                             <td>${record.type}</td>
+                            <td>${record.rank}</td>
                             <td>            
                                 <button type="button" value="${record.id}" class="btn btn-edit-certificate-master btn-warning">
                                     <i class="bi bi-pencil-square"></i>

@@ -17,6 +17,7 @@ class CreateMasterCrewCertificatesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
+            $table->string('rank');
             $table->timestamps();
         });
     }
