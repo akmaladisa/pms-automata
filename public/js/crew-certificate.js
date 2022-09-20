@@ -28,7 +28,7 @@ $(document).ready(function() {
         $('#file-certificate-scan-certificate').text('');
     });
 
-    $("#edit-crew-education-modal").on('hidden.bs.modal', function() {
+    $("#edit-crew-cerficate-modal").on('hidden.bs.modal', function() {
         $("#certificate_scan_certificate_edit").val("")
         $('#file-certificate-scan-certificate-edit').text('');
     })

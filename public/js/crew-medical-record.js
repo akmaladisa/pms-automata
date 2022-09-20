@@ -479,6 +479,20 @@ function fetch_crew_list() {
                     <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
                 `);
             });
+
+            $('#id_crew_seaman_book').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_seaman_book').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
+
+            $('#id_crew_seaman_book_edit').html('');
+            $.each(response.crews, function (indexInArray, valueOfElement) { 
+                $('#id_crew_seaman_book_edit').append(`
+                    <option value="${valueOfElement.id_crew}">${valueOfElement.full_name}</option>
+                `);
+            });
         }
     });
 }

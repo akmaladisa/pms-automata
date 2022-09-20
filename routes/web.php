@@ -20,6 +20,7 @@ use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\MasterCrewCertificateController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SeamanBookController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\SubGroupController;
@@ -223,6 +224,14 @@ Route::middleware('auth')->group(function () {
     Route::get('change-status-crew-certificate/{id}', [CrewCertificateController::class, 'destroy']);
     // crew certificate routing
 
+    // seaman book routing
+    Route::post('seaman-book', [SeamanBookController::class, 'store']);
+    Route::get('read-seaman-book', [SeamanBookController::class, 'read']);
+    Route::get('seaman-book/{id}', [SeamanBookController::class, 'show']);
+    Route::post('seaman-book/{id}', [SeamanBookController::class, 'update']);
+    Route::get('change-status-seaman-book/{id}', [SeamanBookController::class, 'destroy']);
+    // seaman book routing
+
     // crew insurance routing
     Route::post('crew-insurance', [CrewInsuranceController::class, 'store']);
     Route::get('read-crew-insurance', [CrewInsuranceController::class, 'read']);
@@ -232,7 +241,6 @@ Route::middleware('auth')->group(function () {
     // crew insurance routing
 
     // crew education routing
-    // Route::resource('crew-education', CrewEducationController::class);
     Route::post('crew-education', [CrewEducationController::class, 'store']);
     Route::get('read-crew-education', [CrewEducationController::class, 'read']);
     Route::get('crew-education/{id}', [CrewEducationController::class, 'show']);

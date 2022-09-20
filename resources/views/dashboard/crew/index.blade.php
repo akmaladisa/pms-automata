@@ -46,6 +46,8 @@
 
     @include('dashboard.modals.crew-insurance')
 
+    @include('dashboard.modals.seaman-book')
+
 @endsection
 
 @section('js')
@@ -56,4 +58,5 @@
     <script src="/js/crew-bank.js"></script>
     <script src="/js/crew-insurance.js"></script>
     <script src="/js/crew-certificate.js"></script>
+    <script src="/js/seaman-book.js"></script>
 @endsection
