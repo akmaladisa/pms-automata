@@ -264,16 +264,16 @@ function fetchCrew() {
                     <td>${crew.full_name}</td>
                     <td>${crew.job_title}</td>
                     <td>${crew.employment_status}</td>
-                    <td>
-                        <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info">
+                    <td class="d-flex justify-content-between">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-show-crew btn-info mr-1">
                             <i class="bi bi-eye-fill"></i>
                         </button>
     
-                        <button type="button" value="${crew.id_crew}" class="btn btn-edit-crew btn-warning">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-edit-crew btn-warning ml-1 mr-1">
                             <i class="bi bi-pencil-square"></i>
                         </button>
     
-                        <button type="button" value="${crew.id_crew}" class="btn btn-delete-crew btn-danger">
+                        <button type="button" value="${crew.id_crew}" class="btn btn-delete-crew btn-danger ml-1">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>

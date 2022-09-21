@@ -6,6 +6,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
 use App\Http\Controllers\CrewBankAccountController;
 use App\Http\Controllers\CrewCertificateController;
+use App\Http\Controllers\CrewCOCController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\CrewEducationController;
 use App\Http\Controllers\CrewInsuranceController;
@@ -231,6 +232,14 @@ Route::middleware('auth')->group(function () {
     Route::post('seaman-book/{id}', [SeamanBookController::class, 'update']);
     Route::get('change-status-seaman-book/{id}', [SeamanBookController::class, 'destroy']);
     // seaman book routing
+
+    // crew COC routing
+    Route::post('crew-coc', [CrewCOCController::class, 'store']);
+    Route::get('read-crew-coc', [CrewCOCController::class, 'read']);
+    Route::get('crew-coc/{id}', [CrewCOCController::class, 'show']);
+    Route::post('crew-coc/{id}', [CrewCOCController::class, 'update']);
+    Route::get('change-status-crew-coc/{id}', [CrewCOCController::class, 'destroy']);
+    // crew COC routing
 
     // crew insurance routing
     Route::post('crew-insurance', [CrewInsuranceController::class, 'store']);

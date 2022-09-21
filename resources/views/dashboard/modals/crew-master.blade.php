@@ -162,6 +162,9 @@
                     <li class="nav-item">
                         <a class="nav-link" id="justify-seaman-tab" data-toggle="tab" href="#justify-seaman-book" role="tab" aria-controls="justify-contact" aria-selected="false">Seaman Book</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="justify-coc-tab" data-toggle="tab" href="#justify-crew-coc" role="tab" aria-controls="justify-contact" aria-selected="false">COC</a>
+                    </li>
                 </ul>
                 
                 <div class="tab-content" id="justifyTabContent">
@@ -332,6 +335,31 @@
                                             </tr>
                                         </thead>
                                         <tbody id="seaman-book-tbody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="justify-crew-coc" role="tabpanel" aria-labelledby="justify-contact-tab">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2 style="font-size: 18px"><x-bi-filter-square-fill class="fs-2 mb-1 text-white mr-2"></x-bi-filter-square-fill>Crew Certificate of Competency</h2>
+
+                                <button id="crew_coc_add_btn_modal" class="btn btn-dark mt-3">Add New</button>
+
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered table-hover table-striped mb-4">
+                                        <thead>
+                                            <tr>
+                                                <th>Crew ID</th>
+                                                <th>Certificate Rank</th>
+                                                <th>Certificate</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crew-coc-tbody">
                                             
                                         </tbody>
                                     </table>

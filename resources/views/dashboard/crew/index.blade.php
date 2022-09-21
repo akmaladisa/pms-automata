@@ -11,25 +11,30 @@
 
     @include('sweetalert::alert')
 
-    <h2>Crew List</h2>
+    <div class="row">
+        <div class="col-12">
 
-    <button data-toggle="modal" data-target="#fullScreenModal" class="btn btn-dark mt-3">Add New</button>
+            <h3>Crew List</h3>
 
-    <div class="table-responsive mt-3" id="crewContent">
-        <table class="table table-bordered table-hover table-striped mb-4">
-            <thead>
-                <tr>
-                    <th>Crew ID</th>
-                    <th>Name</th>
-                    <th>Job Title</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="crew-master">
-                
-            </tbody>
-        </table>
+            <button data-toggle="modal" data-target="#fullScreenModal" class="btn btn-dark mt-3">Add New</button>
+        
+            <div class="table-responsive mt-3" id="crewContent">
+                <table class="table table-bordered table-hover table-striped mb-4">
+                    <thead>
+                        <tr>
+                            <th>Crew ID</th>
+                            <th>Name</th>
+                            <th>Job Title</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crew-master">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     @include('dashboard.modals.crew-master')
@@ -48,6 +53,8 @@
 
     @include('dashboard.modals.seaman-book')
 
+    @include('dashboard.modals.crew-coc')
+
 @endsection
 
 @section('js')
@@ -59,4 +66,5 @@
     <script src="/js/crew-insurance.js"></script>
     <script src="/js/crew-certificate.js"></script>
     <script src="/js/seaman-book.js"></script>
+    <script src="/js/crew-coc.js"></script>
 @endsection
