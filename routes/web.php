@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BankMasterController;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\CounterController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Crew_WO_Controller;
 use App\Http\Controllers\CrewBankAccountController;
@@ -63,6 +64,16 @@ Route::middleware('auth')->group(function () {
     Route::post('ship/{id}', [ShipController::class, 'update']);
     Route::get('/change-status-ship/{id}', [ShipController::class, 'destroy']);
     // ship routing end
+
+    // counter routing
+    Route::get('counter', [CounterController::class, 'index']);
+    Route::post('counter', [CounterController::class, 'store']);
+    Route::get('read-counter', [CounterController::class, 'read']);
+    Route::get('counter/{id}', [CounterController::class, 'show']);
+    Route::post('counter/{id}', [CounterController::class, 'update']);
+    Route::get('/change-status-counter/{id}', [CounterController::class, 'destroy']);
+    // counter routing
+
 
     // vendor routing
     Route::get('vendors', [VendorController::class, 'index']);

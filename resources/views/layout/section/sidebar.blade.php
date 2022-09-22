@@ -21,6 +21,9 @@
                     <li class="{{ Request::is('ship*') ? 'active' : '' }}">
                         <a href="/ship"> Ship </a>
                     </li>
+                    <li class="{{ Request::is('counter*') ? 'active' : '' }}">
+                        <a href="/counter"> Counter </a>
+                    </li>
                     <li class="{{ Request::is('vendors*') ? 'active' : '' }}">
                         <a href="/vendors"> Vendor </a>
                     </li>
