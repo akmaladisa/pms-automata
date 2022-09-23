@@ -19,11 +19,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'id_login' => 'USR0001',
-            'id_crew' => 'CR0001',
-            'email' => 'admin@gmail.com',
+            'id_login' => 'USR' . $this->faker->numberBetween(1000, 9999),
+            'id_crew' => 'CR' . $this->faker->numberBetween(1000, 9999),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->email(),
             'password' => Hash::make('admin123'),
-            'level_akses' => $this->faker->numberBetween(0,2),
+            'level_akses' => $this->faker->numberBetween(1,9),
+            'role' => $this->faker->jobTitle(),
             'status' => 'active',
             'created_user' => Str::random(5),
             'updated_user' => Str::random(5),

@@ -13,7 +13,10 @@
             <a class="nav-link active" id="justify-counter-tab" data-toggle="tab" href="#justify-counter" role="tab" aria-controls="justify-counter" aria-selected="true">Counter</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="justify-profile-tab" data-toggle="tab" href="#justify-profile" role="tab" aria-controls="justify-profile" aria-selected="false">Counter List</a>
+            <a class="nav-link" id="justify-counter-list-tab" data-toggle="tab" href="#justify-counter-list" role="tab" aria-controls="justify-counter-list" aria-selected="false">Counter List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="justify-counter-report-tab" data-toggle="tab" href="#justify-counter-report" role="tab" aria-controls="justify-counter-report" aria-selected="false">Counter Report</a>
         </li>
     </ul>
 
@@ -43,8 +46,11 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" id="justify-profile" role="tabpanel" aria-labelledby="justify-profile-tab">
+        <div class="tab-pane fade" id="justify-counter-list" role="tabpanel" aria-labelledby="justify-counter-list-tab">
             <h3>Counter List</h3>
+        </div>
+        <div class="tab-pane fade" id="justify-counter-report" role="tabpanel" aria-labelledby="justify-counter-report-tab">
+            <h3>Counter Report</h3>
         </div>
     </div>
 
@@ -54,4 +60,5 @@
 
 @section('js')
     <script src="/js/counter.js"></script>
+    <script src="/js/list-counter.js"></script>
 @endsection

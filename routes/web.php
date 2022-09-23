@@ -18,6 +18,7 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ItemMasterController;
 use App\Http\Controllers\JenisIdentitasController;
+use App\Http\Controllers\ListCounterController;
 use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\MasterCrewCertificateController;
 use App\Http\Controllers\PartController;
@@ -73,6 +74,14 @@ Route::middleware('auth')->group(function () {
     Route::post('counter/{id}', [CounterController::class, 'update']);
     Route::get('/change-status-counter/{id}', [CounterController::class, 'destroy']);
     // counter routing
+
+    // list counter routing
+    Route::post('list-counter', [ListCounterController::class, 'store']);
+    Route::get('read-list-counter', [ListCounterController::class, 'read']);
+    Route::get('list-counter/{id}', [ListCounterController::class, 'show']);
+    Route::post('list-counter/{id}', [ListCounterController::class, 'update']);
+    Route::get('/change-status-list-counter/{id}', [ListCounterController::class, 'destroy']);
+    // list counter routing
 
 
     // vendor routing
