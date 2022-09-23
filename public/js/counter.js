@@ -91,7 +91,7 @@ $(document).ready( function() {
     });
 
     // update counter
-    $("#editCounterForm").on('submit', function () {
+    $("#editCounterForm").on('submit', function (e) {
         e.preventDefault()
         let id = $("#real_id_counter").val()
         let data_new = {
