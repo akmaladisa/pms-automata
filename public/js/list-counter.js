@@ -87,6 +87,126 @@ $(document).ready( function() {
         });        
     })
 
+    // edit list counter
+    $(document).on('click', '.btn-edit-list-counter', function (e) {
+        e.preventDefault()
+        let id = $(this).val()
+        $("#editListCounterModal").modal("show")
+        $.ajax({
+            type: "get",
+            url: `list-counter/${id}`,
+            success: function (response) {
+                if( response.status == 200 ) {
+                    $("#ship_list_counter_edit").val(response.list_counter.ship_name)
+                    $("#item_description_list_counter_edit").val(response.list_counter.item_description)
+                    $("#part_no_list_counter_edit").val(response.list_counter.part_no)
+                    $("#last_running_hours_list_counter_edit").val(response.list_counter.last_running_hours)
+                    $("#unit_runing_list_counter_edit").val(response.list_counter.unit_running)
+                    $("#start_date_list_counter_edit").val(response.list_counter.start_date)
+                    $("#end_date_list_counter_edit").val(response.list_counter.end_date)
+                    $("#running_hours_today_list_counter_edit").val(response.list_counter.running_hours_today)
+                    $("#status_list_counter_edit").val(response.list_counter.status)
+                    $("#real_id_list_counter").val(response.list_counter.id)
+                } else {
+                    Swal.fire("404", `${response.message}`, 'error')
+                }
+            }
+        });
+    });
+
+    // update list counter
+    $("#editListCounterForm").on('submit', function (e) {
+        e.preventDefault()
+        let id = $("#real_id_list_counter").val()
+        let data = {
+            ship_name: $("#ship_list_counter_edit").val(),
+            item_description: $("#item_description_list_counter_edit").val(),
+            part_no: $("#part_no_list_counter_edit").val(),
+            start_date: $("#start_date_list_counter_edit").val(),
+            end_date: $("#end_date_list_counter_edit").val(),
+            last_running_hours: $("#last_running_hours_list_counter_edit").val(),
+            unit_running: $("#unit_runing_list_counter_edit").val(),
+            running_hours_today: $("#running_hours_today_list_counter_edit").val(),
+            update_running_hours: parseInt( $("#last_running_hours_list_counter_edit").val() )  + parseInt( $("#running_hours_today_list_counter_edit").val() ),
+            status: $("#status_list_counter_edit").val()
+        }
+        $.ajax({
+            type: "post",
+            url: `list-counter/${id}`,
+            data: data,
+            success: function (response) {
+                if( response.status == 200 ) {
+                    Swal.fire("Success!", `${response.message}`, 'success')
+                    $("#editListCounterModal").modal("hide")
+                    fetch_list_counter()
+                }
+                else if( response.status == 400 ) {
+                    $.each(response.errors, function (indexInArray, valueOfElement) { 
+                        $('.alert-group-list-counter-list-edit').append(
+                            `
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>${valueOfElement}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            `
+                        )
+                    });
+                }
+                else if( response.status == 404 ) {
+                    $("#editListCounterModal").modal("hide")
+                    Swal.fire('Not Found', `${response.message}`, 'error')
+                    fetch_list_counter()
+                }
+            }
+        });
+    });
+
+    // delete list counter
+    $(document).on('click', '.btn-delete-list-counter', function (e) {
+        e.preventDefault()
+        let id = $(this).val()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "List Counter Status Will Change To 'DE'",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url:`change-status-list-counter/${id}`,
+                success: function (response) {
+                    if( response.status == 404 ) {
+                        Swal.fire(
+                            'Not Found',
+                            `${response.message}`,
+                            'error'
+                        )
+                        fetch_list_counter()
+                        fetch_ship_for_counter()
+                        fetch_item_description()
+                        
+                    } else if( response.status == 200 ) {
+                        Swal.fire(
+                            'Success!',
+                            `${response.message}`,
+                            'success'
+                        )
+                        fetch_list_counter()
+                        fetch_ship_for_counter()
+                        fetch_item_description()
+                    }
+                }
+            });
+        }
+        })
+    });
+
 } )
 
 function fetch_counter_for_list_counter_input() {
@@ -161,4 +281,16 @@ document.querySelector("#end_date_list_counter").addEventListener("change", func
     }
 
     document.querySelector("#running_hours_today_list_counter").value = totalHours
+})
+
+document.querySelector("#end_date_list_counter_edit").addEventListener("change", function() {
+    let start = Date.parse( document.querySelector("#start_date_list_counter_edit").value )
+    let end = Date.parse( document.querySelector("#end_date_list_counter_edit").value )
+
+    let totalHours = NaN
+    if( start < end ) {
+        totalHours = Math.floor((end - start) / 1000 / 60 / 60)
+    }
+
+    document.querySelector("#running_hours_today_list_counter_edit").value = totalHours
 })

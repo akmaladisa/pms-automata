@@ -12,6 +12,7 @@ use App\Models\Vendor;
 use App\Models\Country;
 use App\Models\SubGroup;
 use App\Models\Component;
+use App\Models\Counter;
 use App\Models\MainGroup;
 use App\Models\Departement;
 use App\Models\JenisIdentitas;
@@ -46,6 +47,7 @@ class DatabaseSeeder extends Seeder
         Bank::factory(10)->create();
         Position::factory(10)->create();
         MasterCrewCertificate::factory(10)->create();
+        Counter::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

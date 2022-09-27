@@ -140,8 +140,10 @@
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
                 <div class="alert-group-list-counter-list-edit mb-2"></div>
-                <form method="POST" id="addListCounterForm">
+                <form method="POST" id="editListCounterForm">
                     @csrf
+                    <input type="hidden" name="id" id="real_id_list_counter">
+
                     <div class="form-group mb-4">
                         <label for="colFormLabel">Ship</label>
                         <select class="form-control" name="ship_name" id="ship_list_counter_edit">
@@ -170,7 +172,7 @@
                                 <input name="last_running_hours" type="number" class="form-control" id="last_running_hours_list_counter_edit" placeholder="...." value="{{ old('last_running_hours') }}">
                             </div>
                             <div class="col-5">
-                                <select class="form-control" name="unit_runing" id="unit_runing_list_counter_edit">
+                                <select class="form-control" name="unit_running" id="unit_runing_list_counter_edit">
                                     <option value="HOURS">HOURS</option>
                                     <option value="DAYS">DAYS</option>
                                     <option value="MONTHS">MONTHS</option>
