@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ListCounter extends Model
 {
     use HasFactory;
+    protected $table = 'list_counters';
+    protected $guarded = ['id'];
 }

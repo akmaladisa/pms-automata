@@ -44,7 +44,7 @@
         
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
-            <div class="container mt-3 ml-3">
+            <div class="container-fluid mt-3 ml-3">
                 @yield('container')
             </div>
         </div>

@@ -19,8 +19,9 @@ class CreateListCountersTable extends Migration
             $table->string('item_description');
             $table->string('part_no');
             $table->dateTime('start_date');
-            $table->string('end_date');
+            $table->dateTime('end_date');
             $table->integer('last_running_hours');
+            $table->string('unit_running');
             $table->integer('running_hours_today');
             $table->integer('update_running_hours');
             $table->string('status');

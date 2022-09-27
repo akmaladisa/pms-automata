@@ -23,9 +23,10 @@ class ListCounterController extends Controller
             'part_no' => 'required',
             'start_date' => 'required|before:end_date',
             'end_date' => 'required',
-            'last_running_hours' => 'required',
-            'running_hours_today' => 'required',
-            'update_running_hours' => 'required',
+            'last_running_hours' => 'required|numeric',
+            'unit_running' => "required",
+            'running_hours_today' => 'required|numeric',
+            'update_running_hours' => 'required|numeric',
             'status' => 'required|max:3'
         ]);
 
@@ -35,6 +36,12 @@ class ListCounterController extends Controller
                 'errors' => $validator->getMessageBag()
             ]);
         }
+
+        ListCounter::create( $request->all() );
+        return response()->json([
+            'status' => 200,
+            'message' => "List Counter Added"
+        ]);
     }
 
     public function show($id)
@@ -60,9 +67,10 @@ class ListCounterController extends Controller
             'part_no' => 'required',
             'start_date' => 'required|before:end_date',
             'end_date' => 'required',
-            'last_running_hours' => 'required',
-            'running_hours_today' => 'required',
-            'update_running_hours' => 'required',
+            'last_running_hours' => 'required|numeric',
+            'unit_running' => "required",
+            'running_hours_today' => 'required|numeric',
+            'update_running_hours' => 'required|numeric',
             'status' => 'required|max:3'
         ]);
 

@@ -47,7 +47,37 @@
             </div>
         </div>
         <div class="tab-pane fade" id="justify-counter-list" role="tabpanel" aria-labelledby="justify-counter-list-tab">
-            <h3>Counter List</h3>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3>Counter List</h3>
+        
+                    <button class="btn btn-dark mt-2" data-toggle="modal" data-target="#selectCounterModal">Add New</button>
+        
+                    <div class="table-responsive mt-3">
+                        <table class="table mt-3 table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>Ship</th>
+                                    <th>Item Description</th>
+                                    <th>Part No</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Last Running Hours</th>
+                                    <th>Running Hours Today</th>
+                                    <th>Update Running Hours</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="list-counter-list">
+        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="tab-pane fade" id="justify-counter-report" role="tabpanel" aria-labelledby="justify-counter-report-tab">
             <h3>Counter Report</h3>
@@ -55,6 +85,8 @@
     </div>
 
     @include('dashboard.modals.counter')
+
+    @include('dashboard.modals.list-counter')
 
 @endsection
 
