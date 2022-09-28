@@ -161,6 +161,9 @@ $(document).ready( function() {
                     Swal.fire('Not Found', `${response.message}`, 'error')
                     fetch_list_counter()
                 }
+            },
+            error: function(e) {
+                console.log(e.responseText);
             }
         });
     });

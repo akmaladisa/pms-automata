@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ListCounter;
 use App\Models\ReportCounter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ListCounterController extends Controller
@@ -96,20 +97,29 @@ class ListCounterController extends Controller
 
         $list_counter = ListCounter::find($id);
 
-        // getting history report
-        $new_history_report_counter = new ReportCounter();
-        $new_history_report_counter->ship_name = $request->ship_name;
-        $new_history_report_counter->item_description = $request->item_description;
-        $new_history_report_counter->part_no = $request->part_no;
-        $new_history_report_counter->start_date = $request->start_date;
-        $new_history_report_counter->end_date = $request->end_date;
-        $new_history_report_counter->last_running_hours = $list_counter->update_running_hours;
-        $new_history_report_counter->update_running_hours = $request->running_hours_today;
-        $new_history_report_counter->total_running_hours = $list_counter->update_running_hours + $request->running_hours_today;
-        $new_history_report_counter->save();
+        // previous report
+        $previous_report = DB::table('report_counters')->where([
+            ['ship_name', '=', $list_counter->ship_name],
+            ["item_description", '=',$list_counter->item_description],
+            ['part_no', '=', $list_counter->part_no]
+        ])->latest()
+            ->first();
+
 
         if( $list_counter ) {
             $list_counter->update( $request->all() );
+
+            // getting history report
+            $new_history_report_counter = new ReportCounter();
+            $new_history_report_counter->ship_name = $request->ship_name;
+            $new_history_report_counter->item_description = $request->item_description;
+            $new_history_report_counter->part_no = $request->part_no;
+            $new_history_report_counter->start_date = $request->start_date;
+            $new_history_report_counter->end_date = $request->end_date;
+            $new_history_report_counter->last_running_hours = $previous_report->total_running_hours;
+            $new_history_report_counter->update_running_hours = $request->running_hours_today;
+            $new_history_report_counter->total_running_hours = $previous_report->total_running_hours  + $request->running_hours_today;
+            $new_history_report_counter->save();
 
 
             return response()->json([
