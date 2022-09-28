@@ -23,6 +23,7 @@ use App\Http\Controllers\MainGroupController;
 use App\Http\Controllers\MasterCrewCertificateController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ReportCounterController;
 use App\Http\Controllers\SeamanBookController;
 use App\Http\Controllers\ShipAccessController;
 use App\Http\Controllers\ShipController;
@@ -83,6 +84,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-status-list-counter/{id}', [ListCounterController::class, 'destroy']);
     // list counter routing
 
+    // report counter routing
+    Route::get('read-report-counter', [ReportCounterController::class, 'read']);
+    Route::get('show-report-counter/{ship}', [ReportCounterController::class, 'show']);
+    // report counter routing
 
     // vendor routing
     Route::get('vendors', [VendorController::class, 'index']);

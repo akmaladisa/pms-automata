@@ -221,3 +221,42 @@
     </div>
 </div>
 {{-- edit list counter modal end --}}
+
+{{-- show counter report modal --}}
+<div class="modal animated fade" id="show-report-counter-modal" tabindex="-1" role="dialog" aria-labelledby="frmMaster" aria-hidden="true">
+    <div class="modal-dialog mw-100 w-100" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Report Counter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="contentShowCrewCertificate">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Ship</th>
+                                <th>Item Description</th>
+                                <th>Part No</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Last Running Hours</th>
+                                <th>Update Running Hours</th>
+                                <th>Total Running Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-report-counter">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeFormModal" data-dismiss="modal" lang="en">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- show counter report modal --}}

@@ -58,6 +58,7 @@ $(document).ready( function() {
                     $("#addListCounterModal").modal("hide")
                     $("#selectCounterModal").modal("hide")
                     fetch_list_counter()
+                    fetch_report_counter()
                     fetch_counter_for_list_counter_input()
 
                     $("#unit_runing_list_counter").val("HOURS")
@@ -139,6 +140,7 @@ $(document).ready( function() {
                     Swal.fire("Success!", `${response.message}`, 'success')
                     $("#editListCounterModal").modal("hide")
                     fetch_list_counter()
+                    fetch_report_counter()
                 }
                 else if( response.status == 400 ) {
                     $.each(response.errors, function (indexInArray, valueOfElement) { 
@@ -252,7 +254,7 @@ function fetch_list_counter() {
                     <td>${record.running_hours_today}</td>
                     <td>${record.update_running_hours}</td>
                     <td class="d-flex justify-content-between">
-                        <button type="button" value="${record.id}" class="btn mr-1 btn-history-list-counter btn-info">
+                        <button type="button" value="${record.ship_name}" class="btn mr-1 btn-history-list-counter btn-info">
                             <i class="bi bi-clock-history"></i>
                         </button>
                     

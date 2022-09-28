@@ -81,6 +81,27 @@
         </div>
         <div class="tab-pane fade" id="justify-counter-report" role="tabpanel" aria-labelledby="justify-counter-report-tab">
             <h3>Counter Report</h3>
+
+            <div class="table-responsive mt-3">
+                <table class="table mt-3 table-bordered table-hover table-striped mb-4">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>Ship</th>
+                            <th>Item Description</th>
+                            <th>Part No</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Last Running Hours</th>
+                            <th>Update Running Hours</th>
+                            <th>Total Running Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-counter-list">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -93,4 +114,5 @@
 @section('js')
     <script src="/js/counter.js"></script>
     <script src="/js/list-counter.js"></script>
+    <script src="/js/report-counter.js"></script>
 @endsection
