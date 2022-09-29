@@ -54,6 +54,9 @@
                     <li class="{{ Request::is('item*') ? 'active' : '' }}">
                         <a href="/item"> Item </a>
                     </li>
+                    <li class="{{ Request::is('inventory*') ? 'active' : '' }}">
+                        <a href="/inventory"> Inventory </a>
+                    </li>
                 </ul>
             </li>
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemMasterController;
 use App\Http\Controllers\JenisIdentitasController;
 use App\Http\Controllers\ListCounterController;
@@ -215,6 +216,15 @@ Route::middleware('auth')->group(function () {
     // PART (END)
 
     // GROUPING from main-group until part (END)
+
+    // inventory routing
+    Route::get('inventory', [InventoryController::class, 'index']);
+    Route::post('inventory', [InventoryController::class, 'store']);
+    Route::get('read-inventory', [InventoryController::class, 'read']);
+    Route::get('inventory/{id}', [InventoryController::class, 'show']);
+    Route::post('inventory/{id}', [InventoryController::class, 'update']);
+    Route::get('/change-status-inventory/{id}', [InventoryController::class, 'destroy']);
+    // inventory routing (END)
 
     // crew medical record routing
     // Route::resource('crew-medical-record', CrewMedicalRecordController::class);

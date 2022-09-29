@@ -225,6 +225,20 @@ function fetch_ship_for_counter() {
                     <option value="${valueOfElement.ship_nm}">${valueOfElement.ship_nm}</option>
                 `);
             });
+
+            $("#ship_inventory").html('')
+            $.each(response.ships, function (indexInArray, valueOfElement) { 
+                $('#ship_inventory').append(`
+                    <option value="${valueOfElement.ship_nm}">${valueOfElement.ship_nm}</option>
+                `);
+            });
+
+            $("#ship_inventory_edit").html('')
+            $.each(response.ships, function (indexInArray, valueOfElement) { 
+                $('#ship_inventory_edit').append(`
+                    <option value="${valueOfElement.ship_nm}">${valueOfElement.ship_nm}</option>
+                `);
+            });
         }
     });
 }
@@ -234,6 +248,8 @@ function fetch_item_description() {
     $("#item_description_counter_edit").html('')
     $("#item_description_list_counter").html('')
     $("#item_description_list_counter_edit").html('')
+    $("#item_description_inventory").html('')
+    $("#item_description_inventory_edit").html('')
     fetch_unit_for_item()
     fetch_component_for_item()
     fetch_part_for_item()
@@ -300,6 +316,18 @@ function fetch_unit_for_item(url = 'read-unit') {
                     <option value="${valueOfElement.code_unit} - ${valueOfElement.unit_name}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
                 `)
             });
+
+            $.each(response.units, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory").append(`
+                    <option value="${valueOfElement.code_unit} - ${valueOfElement.unit_name}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
+                `)
+            });
+
+            $.each(response.units, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory_edit").append(`
+                    <option value="${valueOfElement.code_unit} - ${valueOfElement.unit_name}">${valueOfElement.code_unit} - ${valueOfElement.unit_name}</option>
+                `)
+            });
         }
     });
 }
@@ -332,6 +360,18 @@ function fetch_component_for_item(url = 'read-component') {
                     <option value="${valueOfElement.code_component} - ${valueOfElement.component_name}">${valueOfElement.code_component} - ${valueOfElement.component_name}</option>
                 `)
             });
+
+            $.each(response.components, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory").append(`
+                    <option value="${valueOfElement.code_component} - ${valueOfElement.component_name}">${valueOfElement.code_component} - ${valueOfElement.component_name}</option>
+                `)
+            });
+
+            $.each(response.components, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory_edit").append(`
+                    <option value="${valueOfElement.code_component} - ${valueOfElement.component_name}">${valueOfElement.code_component} - ${valueOfElement.component_name}</option>
+                `)
+            });
         }
     });
 }
@@ -361,6 +401,18 @@ function fetch_part_for_item(url = 'read-part') {
 
             $.each(response.parts, function (indexInArray, valueOfElement) { 
                 $("#item_description_list_counter_edit").append(`
+                    <option value="${valueOfElement.code_part} - ${valueOfElement.part_name}">${valueOfElement.code_part} - ${valueOfElement.part_name}</option>
+                `)
+            });
+
+            $.each(response.parts, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory").append(`
+                    <option value="${valueOfElement.code_part} - ${valueOfElement.part_name}">${valueOfElement.code_part} - ${valueOfElement.part_name}</option>
+                `)
+            });
+
+            $.each(response.parts, function (indexInArray, valueOfElement) { 
+                $("#item_description_inventory_edit").append(`
                     <option value="${valueOfElement.code_part} - ${valueOfElement.part_name}">${valueOfElement.code_part} - ${valueOfElement.part_name}</option>
                 `)
             });
