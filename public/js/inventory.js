@@ -52,6 +52,7 @@ $(document).ready(function() {
                     $("#stock_minimum_inventory").val('')
                     $("#unit_stock_minimum_inventory").val('PCS')
                     $("#date_inventory").val('')
+                    $("#location_inventory").val('')
                     $("#remarks_inventory").val('')
                     $("#status_inventory").val('ACT')
                 } else {
