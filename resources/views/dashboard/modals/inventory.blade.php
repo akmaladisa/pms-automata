@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-counter-list mb-2"></div>
+                <div class="alert-group-list-inventory mb-2"></div>
                 <form method="POST" id="addInventoryForm">
                     @csrf
                     <div class="form-group mb-4">
@@ -129,7 +129,7 @@
             </div>
             <div class="modal-body px-4">
                 {{-- alert if any error exist --}}
-                <div class="alert-group-list-counter-list mb-2"></div>
+                <div class="alert-group-list-inventory-edit mb-2"></div>
                 <form method="POST" id="editInventoryForm">
                     @csrf
 

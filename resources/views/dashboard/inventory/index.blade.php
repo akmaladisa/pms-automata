@@ -13,6 +13,7 @@
         <table class="table mt-3 table-bordered table-hover table-striped">
             <thead>
                 <tr>
+                    <td>NO</td>
                     <th>Ship Name</th>
                     <th>Item Description</th>
                     <th>Part No</th>
